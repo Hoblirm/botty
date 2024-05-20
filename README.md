@@ -23,21 +23,7 @@ Open up D2R and wait till you are at the hero selection screen. Make sure the ch
 
 ### 4) Start Botty
 
-### Richard's Notes!!!
-git clone https://github.com/bottytools/botty.git  #one time
-cd botty
-set PATH=%PATH%;C:\Users\hobli\miniconda3;C:\Users\hobli\miniconda3\Scripts;
-conda env create -f environment.yml  #one time
-conda activate botty
-
-#one time dependency install
-pip install pyparsing
-pip install rapidfuzz==2.15.1
-pip install mss==7.0.1
-python src/main.py
-
-
-You can either run from python. Follow [development.md](development.md) for that. Or you download the a prebuilt release [here](https://github.com/aeon0/botty/releases) (the .rar file!). Start `main.exe` in the botty folder. Focus your D2R window and press the start key (default f11). You can always force stop botty with f12. Note: Botty will use the /nopickup command in the first game to avoid pickup up trash while traversing. This command will only allow item pickup when "show items" is active.
+Refer to [development.md](development.md) for starting botty from the python scripts. This fork is not maintaining prebuilt releases at this time. After running the python main.py script, focus your D2R window and press the start key (default f11). You can always force stop botty with f12. Note: Botty will use the /nopickup command in the first game to avoid pickup up trash while traversing. This command will only allow item pickup when "show items" is active.
 
 ## Development
 

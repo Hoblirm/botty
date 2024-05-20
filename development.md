@@ -1,14 +1,15 @@
 # Dev Docu
 
 ## Dependencies
-- Install latest miniconda (https://docs.conda.io/en/latest/miniconda.html). Note: You will have to check "Add conda to my PATH environment variable" in order to access the conda command in the cmd.
+- Install latest miniconda (https://docs.conda.io/en/latest/miniconda.html). Note: Check "Add conda to my PATH environment variable" in order to access the conda command in the cmd, or you'll need to set manually set PATH each time (below).
 - Install git (https://gitforwindows.org/)
 
 ## Getting started
 ```bash
 git clone https://github.com/bottytools/botty.git
 cd botty
-conda env create environment.yml
+set PATH=%PATH%;C:\<install_path>\miniconda3;C:\<install_path>\miniconda3\Scripts; #If conda was not added to PATH on install, run this
+conda env create -f environment.yml  #One time creation for environment
 conda activate botty
 python src/main.py
 ```
