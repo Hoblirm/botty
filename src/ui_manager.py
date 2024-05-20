@@ -97,12 +97,12 @@ class ScreenObjects:
     OnlineStatus=ScreenObject(
         ref=["CHARACTER_STATE_ONLINE", "CHARACTER_STATE_OFFLINE"],
         roi="character_online_status",
-        best_match=True,
+        best_match=True
     )
     SelectedCharacter=ScreenObject(
         ref=["CHARACTER_ACTIVE"],
         roi="character_select",
-        threshold=0.8,
+        threshold=0.8
     )
     ServerError=ScreenObject(
         ref=["SERVER_ISSUES"]
@@ -111,7 +111,8 @@ class ScreenObjects:
         ref=["SAVE_AND_EXIT_NO_HIGHLIGHT", "SAVE_AND_EXIT_HIGHLIGHT"],
         roi="save_and_exit",
         threshold=0.85,
-        use_grayscale=True
+        use_grayscale=False,
+        best_match=True
     )
     NeedRepair=ScreenObject(
         ref="REPAIR_NEEDED",

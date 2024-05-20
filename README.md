@@ -1,3 +1,5 @@
+
+
 # <img src="assets/docs/header_green.png" width="370">
 
 Pixelbot for Diablo 2 Resurrected. This project is for informational and educational purposes only.
@@ -20,6 +22,20 @@ Check the documentation for **params.ini** further down. Different Sorc builds, 
 Open up D2R and wait till you are at the hero selection screen. Make sure the char you running with is selected and will be in any of Act 3, 4 or 5 in the respective difficulty you set in the **params.ini** once the bot starts the game.
 
 ### 4) Start Botty
+
+### Richard's Notes!!!
+git clone https://github.com/bottytools/botty.git  #one time
+cd botty
+set PATH=%PATH%;C:\Users\hobli\miniconda3;C:\Users\hobli\miniconda3\Scripts;
+conda env create -f environment.yml  #one time
+conda activate botty
+
+#one time dependency install
+pip install pyparsing
+pip install rapidfuzz==2.15.1
+pip install mss==7.0.1
+python src/main.py
+
 
 You can either run from python. Follow [development.md](development.md) for that. Or you download the a prebuilt release [here](https://github.com/aeon0/botty/releases) (the .rar file!). Start `main.exe` in the botty folder. Focus your D2R window and press the start key (default f11). You can always force stop botty with f12. Note: Botty will use the /nopickup command in the first game to avoid pickup up trash while traversing. This command will only allow item pickup when "show items" is active.
 
