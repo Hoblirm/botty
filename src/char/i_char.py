@@ -172,11 +172,14 @@ class IChar:
     def select_tp(self):
         return skills.select_tp(Config().char["teleport"])
 
-    def pre_move(self):
+    def pre_move(self, wait_tp: bool = False):
         # if teleport hotkey is set and if teleport is not already selected
         if self.capabilities.can_teleport_natively:
             self.select_tp()
             self._set_active_skill("right", "teleport")
+            if wait_tp:
+                if skills.wait_until_right_skill_selected("TELE_ACTIVE") == False:
+                    Logger.error("timeout waiting for tele skill to activate")
 
     def move(self, pos_monitor: tuple[float, float], force_tp: bool = False, force_move: bool = False):
         factor = Config().advanced_options["pathing_delay_factor"]

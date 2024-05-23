@@ -65,6 +65,15 @@ def is_right_skill_selected(template_list: list[str]) -> bool:
             return True
     return False
 
+def wait_until_right_skill_selected(template: str, timeout: float = 1) -> bool:
+    """
+    :return: Bool if skill gets selected on the right skill slot within the timeout.
+    """
+    skill_right_ui_roi = Config().ui_roi["skill_right"]
+    if template_finder.search_and_wait(template, roi=skill_right_ui_roi, timeout = timeout, threshold=0.84).valid:
+        return True
+    return False
+
 def get_skill_charges(img: np.ndarray = None):
     if img is None:
         img = grab()

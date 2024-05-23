@@ -293,8 +293,8 @@ def inspect_items(inp_img: np.ndarray = None, close_window: bool = True, game_st
                         box.need_id = False
                         is_unidentified = True
                         # recapture box after ID
-                        mouse.move(x_m, y_m, randomize = 4, delay_factor = delay)
-                        wait(0.05, 0.1)
+                        mouse.move(x_m, y_m, randomize = 4, delay_factor = [0.2, 0.3])
+                        wait(0.2, 0.3)
                         hovered_item = grab(True)
                         item_properties, item_box = d2r_image.get_hovered_item(hovered_item)
 

@@ -118,11 +118,11 @@ def crop_item_tooltip(image: np.ndarray, model: str = "hover-eng_inconsolata_inv
         # check to see if contour overlaps right inventory
         right_inv = Config().ui_roi["right_inventory"]
         overlaps_inventory = not (
-            x+w < right_inv[0] or right_inv[0]+right_inv[2] < x or y+h+60 < right_inv[1] or right_inv[1]+right_inv[3] < y)
+            x+w < right_inv[0] or right_inv[0]+right_inv[2] < x or y+h+70 < right_inv[1] or right_inv[1]+right_inv[3] < y)
         if not overlaps_inventory:
             left_inv = Config().ui_roi["left_inventory"]
             overlaps_inventory |= not (
-                x+w < left_inv[0] or left_inv[0]+left_inv[2] < x or y+h+60 < left_inv[1] or left_inv[1]+left_inv[3] < y)
+                x+w < left_inv[0] or left_inv[0]+left_inv[2] < x or y+h+70 < left_inv[1] or left_inv[1]+left_inv[3] < y)
         if not overlaps_inventory:
             continue
 

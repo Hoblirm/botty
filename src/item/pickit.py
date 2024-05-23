@@ -73,13 +73,16 @@ class PickIt:
     def _ignore_consumable(item: GroundItem):
         # ignore item if it's a consumable AND there's no need for that consumable
         need_exists = True
-        for consumable_type in ITEM_CONSUMABLES_MAP.keys():
-            if not item.Name.lower() == consumable_type:
-                continue
-            need_exists = consumables.get_needs(consumable_type) > 0
-            if need_exists:
-                consumables.increment_need(consumable_type, -1)
+        if item.Name.lower() in ITEM_CONSUMABLES_MAP:
+            need_exists = consumables.get_needs(item.Name.lower()) > 0
         return (not need_exists)
+    
+    @staticmethod
+    def _decrement_need_if_consumable(item: GroundItem):
+        if item.Name.lower() in ITEM_CONSUMABLES_MAP:
+            consumables.increment_need(item.Name.lower(), -1)
+            return True
+        return False
 
     @staticmethod
     def _yoink_item(item: GroundItem, char: IChar, force_tp=False) -> PickedUpResult:
@@ -160,22 +163,24 @@ class PickIt:
             if item.ID in self._cached_pickit_items:
                 if self._cached_pickit_items[item.ID] and not (self._ignore_consumable(item) or self._ignore_gold(item)):
                     pick_up_res = self._pick_up_item(char, item)
+                    Logger.debug(f"Pick up expression: {raw_expression}")
+                    Logger.info(f"Attempt to pick up {item.Name}")
             else:
                 item_dict = item.as_dict()
                 # if the item shouldn't be ignored, check if it should be picked up
                 if not (self._ignore_gold(item) or self._ignore_consumable(item)):
                     pickup, raw_expression = should_pickup(item_dict)
-                self._cached_pickit_items[item.ID] = pickup
+                    self._cached_pickit_items[item.ID] = pickup
                 if pickup:
                     pick_up_res = self._pick_up_item(char, item)
                     Logger.debug(f"Pick up expression: {raw_expression}")
                     Logger.info(f"Attempt to pick up {item.Name}")
             match pick_up_res:
                 case PickedUpResult.InventoryFull:
-                    if pickup:
-                        Logger.warning(f"Inventory is full, could not pick {item.Name}. Stop pickit") #TODO Create logic to handle inventory full
+                    Logger.warning(f"Inventory is full, could not pick {item.Name}. Stop pickit") #TODO Create logic to handle inventory full
                     break
                 case PickedUpResult.PickedUp:
+                    self._decrement_need_if_consumable(item)
                     self._picked_up_items.append(item)
             self._picked_up_item = pick_up_res == PickedUpResult.PickedUp
             item_count+=1
