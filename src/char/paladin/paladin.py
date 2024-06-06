@@ -60,10 +60,10 @@ class Paladin(IChar):
                 y += (random.random() * 2 * spray - spray)
             pos_m = convert_abs_to_monitor((x, y))
             mouse.move(*pos_m, delay_factor=[0.1, 0.2])
-            wait(0.06, 0.08)
         mouse.press(button = mouse_click_type)
         wait(0.06, 0.08)
         mouse.release(button = mouse_click_type)
+        wait(Config().char["casting_frames"]/25.0 - 0.06)
 
     def _cast_skill_with_aura(self, skill_name: str, cast_pos_abs: tuple[float, float] = None, spray: int = 0, min_duration: float = 0, aura: str = ""):
         #self._log_cast(skill_name, cast_pos_abs, spray, min_duration, aura)
@@ -77,7 +77,6 @@ class Paladin(IChar):
 
         # set left hand skill
         self._select_skill(skill_name, mouse_click_type = "left")
-        wait(0.04)
 
         # cast left hand skill
         start = time.time()
@@ -97,5 +96,7 @@ class Paladin(IChar):
         self._select_skill("cleansing", delay=delay)
 
     def _activate_cleanse_redemption(self):
-        self._activate_cleanse_aura()
-        self._activate_redemption_aura()
+        if Config().fohdin["cleansing"]:
+            self._activate_cleanse_aura()
+        if Config().fohdin["redemption"]:
+            self._activate_redemption_aura()
