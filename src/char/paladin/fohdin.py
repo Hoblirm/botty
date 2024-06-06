@@ -110,6 +110,10 @@ class FoHdin(Paladin):
             self.move((x_m, y_m), force_move=True)
 
         self._activate_cleanse_redemption()
+
+        #We always want to end with selecting foh, as holy bolt can cause char move issues with merc targeting.
+        self._select_skill("foh", mouse_click_type = "left")
+
         return True
 
 
