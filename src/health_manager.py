@@ -99,13 +99,28 @@ class HealthManager:
                 lp_hp_potion_delay = 0 if health_percentage >= 0.99 else uniform(9, 10)
                 lp_mp_potion_delay = 0 if mana_percentage >= 0.99 else uniform(9, 10)
 
-                # check rejuv
+                # check rejuv first
                 success_drink_rejuv = False
                 last_drink = time.time() - self._last_rejuv
-                if (health_percentage <= Config().char["take_rejuv_potion_health"] and last_drink > 1) or \
-                   (mana_percentage <= Config().char["take_rejuv_potion_mana"] and last_drink > 2):
+                if (health_percentage <= Config().char["take_rejuv_potion_health"]) or \
+                   (mana_percentage <= Config().char["take_rejuv_potion_mana"]):
                     success_drink_rejuv = belt.drink_potion("rejuv", stats=[health_percentage, mana_percentage])
+                    #failure to drink juv (likely out of juvs). Perform chicken
+                    if not success_drink_rejuv:
+                        Logger.warning(f"Failed to drink rejuv. Trying to chicken, player HP {(health_percentage*100):.1f}%!")
+                    self._do_chicken(img)    
                     self._last_rejuv = time.time()
+
+                #if we drink two juvs within 5 seconds of one another, may be in bad state.  Perform chicken
+                if last_drink < 5:
+                    Logger.warning(f"Two juvs drank within {last_drink} seconds. Trying to chicken, player HP {(health_percentage*100):.1f}%!")
+                    self._do_chicken(img)
+
+                # give the chicken a 6 sec delay (from run start) to give time for a healing pot and avoid endless loop of chicken
+                if health_percentage <= Config().char["chicken"] and (time.time() - start) > 6:
+                    Logger.warning(f"Trying to chicken, player HP {(health_percentage*100):.1f}%!")
+                    self._do_chicken(img)
+
                 # in case no rejuv was used, check for chicken, health pot and mana pot usage
                 if not success_drink_rejuv:
                     # check health
@@ -113,10 +128,6 @@ class HealthManager:
                     if health_percentage <= Config().char["take_health_potion"] and last_drink > lp_hp_potion_delay:
                         belt.drink_potion("health", stats=[health_percentage, mana_percentage])
                         self._last_health = time.time()
-                    # give the chicken a 6 sec delay to give time for a healing pot and avoid endless loop of chicken
-                    elif health_percentage <= Config().char["chicken"] and (time.time() - start) > 6:
-                        Logger.warning(f"Trying to chicken, player HP {(health_percentage*100):.1f}%!")
-                        self._do_chicken(img)
                     # check mana
                     last_drink = time.time() - self._last_mana
                     if mana_percentage <= Config().char["take_mana_potion"] and last_drink > lp_mp_potion_delay:
@@ -146,7 +157,7 @@ class HealthManager:
                         self._do_chicken(img)
                     common.close()
             fn_end = time.perf_counter()
-            wait_time = 3/25 - (fn_start - fn_end)
+            wait_time = 3/25 - (fn_end - fn_start)
             if wait_time > 0:
                 wait(wait_time) # wait 3 frames before rechecking
         Logger.debug("Stop health monitoring")

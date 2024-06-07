@@ -144,7 +144,7 @@ class PickIt:
         _uuid = uuid.uuid4()
         self._log_data(items, img, counter, _uuid)
         item_count = 0
-        while item_count < len(items) and time.time() - pickit_phase_start < self.timeout:
+        while time.time() - pickit_phase_start < self.timeout:
             # If you previously up an item, get dropped item data again and reset the loop
             if self._picked_up_item:
                 wait(0.38, 0.46)
@@ -154,6 +154,9 @@ class PickIt:
                 item_count=0
                 if not items:
                     break
+            elif item_count >= len(items):
+                break
+        
             # Otherwise continue to next item in the list
             item = items[item_count]
 
