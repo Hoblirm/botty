@@ -48,9 +48,9 @@ class Hammerdin(Paladin):
         mouse.click(button="right")
         wait(self._cast_duration, self._cast_duration + 0.06)
 
-    def pre_move(self):
+    def pre_move(self, wait_tp: bool = False):
         # select teleport if available
-        super().pre_move()
+        super().pre_move(wait_tp=wait_tp)
         # in case teleport hotkey is not set or teleport can not be used, use vigor if set
         should_cast_vigor = self._skill_hotkeys["vigor"] and not skills.is_right_skill_selected(["VIGOR"])
         can_teleport = self.capabilities.can_teleport_natively and skills.is_right_skill_active()
