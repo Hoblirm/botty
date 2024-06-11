@@ -15,6 +15,13 @@ class Sorceress(IChar):
     def __init__(self, skill_hotkeys: dict, pather: Pather):
         super().__init__(skill_hotkeys)
         self._pather = pather
+        self._action_frame = 7
+        if Config().char["casting_frames"] == 11 or Config().char["casting_frames"] == 10:
+            self._action_frame = 6
+        elif Config().char["casting_frames"] == 9 or Config().char["casting_frames"] == 8:
+            self._action_frame = 5
+        elif Config().char["casting_frames"] == 7:
+            self._action_frame = 4
 
     def pick_up_item(self, pos: tuple[float, float], item_name: str = None, prev_cast_start: float = 0):
         if self._skill_hotkeys["telekinesis"] and any(x in item_name for x in ['potion', 'misc_gold', 'tp_scroll']):

@@ -29,6 +29,7 @@ class Config:
     shop = {}
     path = {}
     blizz_sorc = {}
+    blizzorb_sorc = {}
     light_sorc = {}
     nova_sorc = {}
     hydra_sorc = {}
@@ -220,6 +221,11 @@ class Config:
         if "blizz_sorc" in self.configs["custom"]["parser"]:
             self.blizz_sorc.update(dict(self.configs["custom"]["parser"]["blizz_sorc"]))
         self.blizz_sorc.update(sorc_base_cfg)
+        # blizzorb sorc
+        self.blizzorb_sorc = dict(self.configs["config"]["parser"]["blizzorb_sorc"])
+        if "blizzorb_sorc" in self.configs["custom"]["parser"]:
+            self.blizzorb_sorc.update(dict(self.configs["custom"]["parser"]["blizzorb_sorc"]))
+        self.blizzorb_sorc.update(sorc_base_cfg)
         # light sorc
         self.light_sorc = dict(self.configs["config"]["parser"]["light_sorc"])
         if "light_sorc" in self.configs["custom"]["parser"]:
