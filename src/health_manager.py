@@ -108,13 +108,13 @@ class HealthManager:
                     #failure to drink juv (likely out of juvs). Perform chicken
                     if not success_drink_rejuv:
                         Logger.warning(f"Failed to drink rejuv. Trying to chicken, player HP {(health_percentage*100):.1f}%!")
-                    self._do_chicken(img)    
+                        self._do_chicken(img)    
                     self._last_rejuv = time.time()
 
-                #if we drink two juvs within 5 seconds of one another, may be in bad state.  Perform chicken
-                if last_drink < 5:
-                    Logger.warning(f"Two juvs drank within {last_drink} seconds. Trying to chicken, player HP {(health_percentage*100):.1f}%!")
-                    self._do_chicken(img)
+                    #if we drink two juvs within 8 seconds of one another, may be in bad state.  Perform chicken
+                    if last_drink < 8:
+                        Logger.warning(f"Two juvs drank within {last_drink} seconds. Trying to chicken, player HP {(health_percentage*100):.1f}%!")
+                        self._do_chicken(img)
 
                 # give the chicken a 6 sec delay (from run start) to give time for a healing pot and avoid endless loop of chicken
                 if health_percentage <= Config().char["chicken"] and (time.time() - start) > 6:
