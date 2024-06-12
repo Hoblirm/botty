@@ -15,18 +15,6 @@ class BlizzorbSorc(Sorceress):
     def __init__(self, *args, **kwargs):
         Logger.info("Setting up Blizzorb Sorc")
         super().__init__(*args, **kwargs)
-        #Nihlathak Bottom Right
-        self._pather.offset_node(505, (50, 200))
-        self._pather.offset_node(506, (40, -10))
-        #Nihlathak Top Right
-        self._pather.offset_node(510, (700, -55))
-        self._pather.offset_node(511, (30, -25))
-        #Nihlathak Top Left
-        self._pather.offset_node(515, (-120, -100))
-        self._pather.offset_node(517, (-18, -58))
-        #Nihlathak Bottom Left
-        self._pather.offset_node(500, (-150, 200))
-        self._pather.offset_node(501, (10, -33))
         self._orb_cycle_duration = 1.0 + (self._action_frame/25.0)
         self._last_orb_cast = 0
         self._blizz_cycle_duration = 1.8 + (self._action_frame/25.0)
@@ -91,14 +79,15 @@ class BlizzorbSorc(Sorceress):
         if self._skill_hotkeys["static_field"]:
             keyboard.send(self._skill_hotkeys["static_field"])
             for _ in range(times):
-                mouse.click(button="right")
-                wait(self._cast_duration)
+                mouse.press(button="right")
+                wait(0.06, 0.08)
+                mouse.release(button="right")
+                wait(self._cast_duration-0.06)
 
     def _cast_blizzorb_spike_combo(self, cast_pos_abs: tuple[float, float], spray: float = 10):
         self._cast_blizzard(cast_pos_abs,spray)
         self._cast_frozen_orb(cast_pos_abs,spray)
-        self._cast_glacial_spike(cast_pos_abs,spray)
-        self._cast_glacial_spike(cast_pos_abs,spray)
+        self._cast_glacial_spike(cast_pos_abs,spray, times=2)
         self._cast_frozen_orb(cast_pos_abs,spray)
         
     def kill_pindle(self) -> bool:
@@ -127,42 +116,28 @@ class BlizzorbSorc(Sorceress):
         return True
 
     def kill_shenk(self) -> bool:
-        # pos_m = convert_abs_to_monitor((100, 170))
-        # self.pre_move()
-        # self.move(pos_m, force_move=True)
-        # #lower left posistion
-        # self._pather.traverse_nodes([151], self, timeout=2.5, force_tp=False)
-        # self._cast_static()
-        # self._blizzard((-250, 100), spray=10)
-        # self._ice_blast((60, 70), spray=60)
-        # self._blizzard((400, 200), spray=10)
-        # self._cast_static()
-        # self._ice_blast((-300, 100), spray=60)
-        # self._blizzard((185, 200), spray=10)
-        # pos_m = convert_abs_to_monitor((-10, 10))
-        # self.pre_move()
-        # self.move(pos_m, force_move=True)
-        # self._cast_static()
-        # self._blizzard((-300, -270), spray=10)
-        # self._ice_blast((-20, 30), spray=60)
-        # wait(1.0)
-        # #teledance 2
-        # pos_m = convert_abs_to_monitor((150, -240))
-        # self.pre_move()
-        # self.move(pos_m, force_move=True)
-        # #teledance attack 2
-        # self._cast_static()
-        # self._blizzard((450, -250), spray=10)
-        # self._ice_blast((150, -100), spray=60)
-        # self._blizzard((0, -250), spray=10)
-        # wait(0.3)
-        # #Shenk Kill
-        # self._cast_static()
-        # self._blizzard((100, -50), spray=10)
-        # # Move to items
-        # self._pather.traverse_nodes((Location.A5_SHENK_SAFE_DIST, Location.A5_SHENK_END), self, timeout=1.4, force_tp=True)
-        return True
+        shenk_pos_abs = convert_screen_to_abs(Config().path["shenk_end"][0])
+        cast_pos_abs = [shenk_pos_abs[0] * 1.5, shenk_pos_abs[1] * 1.5]
 
+        start = time.time()
+
+        #First, cast blizzard and orb to get everything chilled
+        self._cast_blizzard(cast_pos_abs, spray=0)
+        self._cast_frozen_orb(cast_pos_abs, spray=0)
+
+        #Next, tele next to shenk and static
+        pos_m = convert_abs_to_monitor((shenk_pos_abs[0] * 1.2, shenk_pos_abs[1] * 1.2))
+        self.pre_move(wait_tp=True)
+        self.move(pos_m, force_move=True)
+        self._cast_static_field(times=3)
+        
+        #Adjust cast position now that we are next to shenk
+        cast_pos_abs = [shenk_pos_abs[0] * 0.3, (shenk_pos_abs[1] * 0.3)-20]
+
+        while (time.time() - start) < Config().char["atk_len_shenk"]:
+            self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
+            
+        return True
 
     def kill_nihlathak(self, end_nodes: list[int]) -> bool:
         # Find nilhlatak position
@@ -170,22 +145,24 @@ class BlizzorbSorc(Sorceress):
         if nihlathak_pos_abs is not None:
             cast_pos_abs = np.array([nihlathak_pos_abs[0] * 1.0, nihlathak_pos_abs[1] * 1.0])
             start = time.time()
+
+            #First, cast blizzard and orb to get everything chilled
+            self._cast_blizzard(cast_pos_abs, spray=0)
+            self._cast_frozen_orb(cast_pos_abs, spray=0)
+
+            #Next, tele next to nihlathak and static
+            pos_m = convert_abs_to_monitor((nihlathak_pos_abs[0] * 0.7, nihlathak_pos_abs[1] * 0.7))
+            self.pre_move(wait_tp=True)
+            self.move(pos_m, force_move=True)
+            self._cast_static_field(times=3)
+
+            #Adjust cast position now that we are next to nihlathak
+            cast_pos_abs = [nihlathak_pos_abs[0] * 0.3, nihlathak_pos_abs[1] * 0.3]
+
             while (time.time() - start) < Config().char["atk_len_nihlathak"]:
-                self._blizzard(cast_pos_abs, spray=0)
-                self._frozen_orb(cast_pos_abs, spray=0)
-                self._frozen_orb(cast_pos_abs, spray=0)
+                self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
+            self._pather.traverse_nodes(end_nodes, self, timeout=0.8)
+            return True
         else:
             return False
-        self._pather.traverse_nodes(end_nodes, self, timeout=0.8)
-        return True
-
-    def kill_summoner(self) -> bool:
-        # Attack
-        # cast_pos_abs = np.array([0, 0])
-        # pos_m = convert_abs_to_monitor((-20, 20))
-        # mouse.move(*pos_m, randomize=80, delay_factor=[0.5, 0.7])
-        # for _ in range(int(Config().char["atk_len_arc"])):
-        #     self._blizzard(cast_pos_abs, spray=11)
-        #     self._ice_blast(cast_pos_abs, spray=11)
-        # wait(self._cast_duration, self._cast_duration + 0.2)
-        return True
+        
