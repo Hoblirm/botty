@@ -78,6 +78,12 @@ class BlizzorbSorc(Sorceress):
     def _cast_static_field(self, times=1):
         if self._skill_hotkeys["static_field"]:
             keyboard.send(self._skill_hotkeys["static_field"])
+
+            #Static field can fail to cast if we right click on a wall.  We move mouse to 
+            #center to prevent this.
+            cast_pos_monitor = convert_abs_to_monitor((0, 0))
+            mouse.move(*cast_pos_monitor)
+
             for _ in range(times):
                 mouse.press(button="right")
                 wait(0.06, 0.08)
@@ -107,7 +113,7 @@ class BlizzorbSorc(Sorceress):
         start = time.time()
         self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
         
-        #Need to cast blizzard closer now that Eldritch moves up
+        #Need to cast blizzard closer now that Eldritch approaches
         cast_pos_abs = [eldritch_pos_abs[0] * 1.3, eldritch_pos_abs[1] * 1.3]
 
         while (time.time() - start) < Config().char["atk_len_eldritch"]:
@@ -121,19 +127,20 @@ class BlizzorbSorc(Sorceress):
 
         start = time.time()
 
-        #First, cast blizzard and orb to get everything chilled
+        #First, cast blizzard once we are in range
         self._cast_blizzard(cast_pos_abs, spray=0)
-        self._cast_frozen_orb(cast_pos_abs, spray=0)
 
-        #Next, tele next to shenk and static
-        pos_m = convert_abs_to_monitor((shenk_pos_abs[0] * 1.2, shenk_pos_abs[1] * 1.2))
+        #Next, tele next to shenk to put orb and static in range
+        pos_m = convert_abs_to_monitor((shenk_pos_abs[0] * 1.1, shenk_pos_abs[1] * 1.1))
         self.pre_move(wait_tp=True)
         self.move(pos_m, force_move=True)
-        self._cast_static_field(times=3)
         
-        #Adjust cast position now that we are next to shenk
-        cast_pos_abs = [shenk_pos_abs[0] * 0.3, (shenk_pos_abs[1] * 0.3)-20]
+        #Adjust cast position now that we are next to shenk and cast orb/static
+        cast_pos_abs = [shenk_pos_abs[0] * 0.45, (shenk_pos_abs[1] * 0.45)-50]
+        self._cast_frozen_orb(cast_pos_abs, spray=0)
+        self._cast_static_field(times=3)
 
+        #Continue blizzorb combo until attack length expires
         while (time.time() - start) < Config().char["atk_len_shenk"]:
             self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
             
@@ -146,23 +153,32 @@ class BlizzorbSorc(Sorceress):
             cast_pos_abs = np.array([nihlathak_pos_abs[0] * 1.0, nihlathak_pos_abs[1] * 1.0])
             start = time.time()
 
-            #First, cast blizzard and orb to get everything chilled
+            #First, cast blizzard once we are in range
             self._cast_blizzard(cast_pos_abs, spray=0)
-            self._cast_frozen_orb(cast_pos_abs, spray=0)
 
-            #Next, tele next to nihlathak and static
-            pos_m = convert_abs_to_monitor((nihlathak_pos_abs[0] * 0.7, nihlathak_pos_abs[1] * 0.7))
+            #Next, tele next to nihlathak to put orb and static in range
+            pos_m = convert_abs_to_monitor((nihlathak_pos_abs[0] * 0.6, nihlathak_pos_abs[1] * 0.6))
             self.pre_move(wait_tp=True)
             self.move(pos_m, force_move=True)
+
+            #Adjust cast position now that we are next to nihlathak and cast orb/static
+            cast_pos_abs = [nihlathak_pos_abs[0] * 0.4, nihlathak_pos_abs[1] * 0.4]
+            self._cast_frozen_orb(cast_pos_abs, spray=0)
             self._cast_static_field(times=3)
 
-            #Adjust cast position now that we are next to nihlathak
-            cast_pos_abs = [nihlathak_pos_abs[0] * 0.3, nihlathak_pos_abs[1] * 0.3]
-
+            #Continue blizzorb combo until attack length expires
             while (time.time() - start) < Config().char["atk_len_nihlathak"]:
                 self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
             self._pather.traverse_nodes(end_nodes, self, timeout=0.8)
             return True
         else:
             return False
+        
+    def kill_summoner(self) -> bool:
+        #Set cast position right below alter
+        cast_pos_abs = [0, 20]
+        start = time.time()
+        while (time.time() - start) < Config().char["atk_len_arc"]:
+            self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
+        return True
         
