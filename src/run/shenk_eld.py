@@ -57,8 +57,10 @@ class ShenkEld:
             Logger.info("Run Shenk")
             game_stats.update_location("Shk")
             self._curr_loc = Location.A5_SHENK_START
+            #Do a pre_move() to try and select tele.  Force a wait for tele to be selected so we don't walk to shenk!
+            self._char.pre_move(wait_tp=True)
             # No force move, otherwise we might get stuck at stairs!
-            if not self._pather.traverse_nodes((Location.A5_SHENK_START, Location.A5_SHENK_SAFE_DIST), self._char):
+            if not self._pather.traverse_nodes((Location.A5_SHENK_START, Location.A5_SHENK_SAFE_DIST), self._char, do_pre_move=False):
                 return False
             self._char.kill_shenk()
             loc = Location.A5_SHENK_END
