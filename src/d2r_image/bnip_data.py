@@ -49,7 +49,7 @@ BNIP_ALIAS_STAT_PATTERNS = {
     "Damage Reduced by {:d}": [
         "34"
     ],
-    "Damage Reduced by {:d}%": [
+    "Physical Damage Received Reduced by {:d}%": [
         "36"
     ],
     "{:d}% Enhanced Defense": [

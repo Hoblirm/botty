@@ -34636,7 +34636,7 @@ REF_PATTERNS = {
         "normal_damage_reduction",
         "normaldamagereduction"
     ],
-    "Damage Reduced by {:d}%": [
+    "Physical Damage Received Reduced by {:d}%": [
         "red-dmg%",
         "damageresist",
         "damagereduction"
