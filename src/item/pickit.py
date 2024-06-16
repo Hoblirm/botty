@@ -37,7 +37,7 @@ class PickIt:
         self._fail_pickup_count = 0
         self._picked_up_items = []
         self._picked_up_item = False
-        self.timeout = 10
+        self.timeout = 20
 
     @staticmethod
     def _log_data(items: GroundItemList, img: ndarray, counter: int, _uuid: str):

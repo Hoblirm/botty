@@ -36,7 +36,7 @@ from ui_manager import wait_until_hidden, wait_until_visible, ScreenObjects, is_
 from ui import meters, skills, view, character_select, main_menu
 from inventory import personal, vendor, belt, common
 
-from run import Pindle, ShenkEld, Trav, Nihlathak, Arcane, Diablo
+from run import Pindle, ShenkEld, Trav, Nihlathak, Arcane, Diablo, Vizier
 from town import TownManager, A1, A2, A3, A4, A5, town_manager
 
 from messages import Messenger
@@ -99,6 +99,7 @@ class Bot:
             "run_nihlathak": Config().routes.get("run_nihlathak"),
             "run_arcane": Config().routes.get("run_arcane"),
             "run_diablo": Config().routes.get("run_diablo"),
+            "run_vizier": Config().routes.get("run_vizier"),
         }
         # Adapt order to the config
         self._do_runs = OrderedDict((k, self._do_runs[k]) for k in Config().routes_order if k in self._do_runs and self._do_runs[k])
@@ -114,6 +115,7 @@ class Bot:
         self._nihlathak = Nihlathak(self._pather, self._town_manager, self._char, self._pickit, runs)
         self._arcane = Arcane(self._pather, self._town_manager, self._char, self._pickit, runs)
         self._diablo = Diablo(self._pather, self._town_manager, self._char, self._pickit, runs)
+        self._vizier = Vizier(self._pather, self._town_manager, self._char, self._pickit, runs)
 
         # Create member variables
         self._picked_up_items = False
@@ -129,7 +131,7 @@ class Bot:
         self._timer = time.time()
 
         # Create State Machine
-        self._states=['initialization','hero_selection', 'town', 'pindle', 'shenk', 'trav', 'nihlathak', 'arcane', 'diablo']
+        self._states=['initialization','hero_selection', 'town', 'pindle', 'shenk', 'trav', 'nihlathak', 'arcane', 'diablo', 'vizier']
         self._transitions = [
             { 'trigger': 'init', 'source': 'initialization', 'dest': '=','before': "on_init"},
             { 'trigger': 'select_character', 'source': 'initialization', 'dest': 'hero_selection', 'before': "on_select_character"},
@@ -143,10 +145,11 @@ class Bot:
             { 'trigger': 'run_trav', 'source': 'town', 'dest': 'trav', 'before': "on_run_trav"},
             { 'trigger': 'run_nihlathak', 'source': 'town', 'dest': 'nihlathak', 'before': "on_run_nihlathak"},
             { 'trigger': 'run_arcane', 'source': 'town', 'dest': 'arcane', 'before': "on_run_arcane"},
-            { 'trigger': 'run_diablo', 'source': 'town', 'dest': 'nihlathak', 'before': "on_run_diablo"},
+            { 'trigger': 'run_diablo', 'source': 'town', 'dest': 'diablo', 'before': "on_run_diablo"},
+            { 'trigger': 'run_vizier', 'source': 'town', 'dest': 'vizier', 'before': "on_run_vizier"},
             # End run / game
-            { 'trigger': 'end_run', 'source': ['shenk', 'pindle', 'nihlathak', 'trav', 'arcane', 'diablo'], 'dest': 'town', 'before': "on_end_run"},
-            { 'trigger': 'end_game', 'source': ['town', 'shenk', 'pindle', 'nihlathak', 'trav', 'arcane', 'diablo','end_run'], 'dest': 'initialization', 'before': "on_end_game"},
+            { 'trigger': 'end_run', 'source': ['shenk', 'pindle', 'nihlathak', 'trav', 'arcane', 'diablo','vizier'], 'dest': 'town', 'before': "on_end_run"},
+            { 'trigger': 'end_game', 'source': ['town', 'shenk', 'pindle', 'nihlathak', 'trav', 'arcane', 'diablo','vizier','end_run'], 'dest': 'initialization', 'before': "on_end_game"},
         ]
         self.machine = Machine(model=self, states=self._states, initial="initialization", transitions=self._transitions, queued=True)
         self._transmute = Transmute(self._game_stats)
@@ -522,7 +525,7 @@ class Bot:
         self._curr_loc = self._nihlathak.approach(self._curr_loc)
         if self._curr_loc:
             set_pause_state(False)
-            res = self._nihlathak.battle(not self._pre_buffed)
+            res = self._nihlathak.battle(True)
         self._ending_run_helper(res)
 
     def on_run_arcane(self):
@@ -543,4 +546,14 @@ class Bot:
         if self._curr_loc:
             set_pause_state(False)
             res = self._diablo.battle(not self._pre_buffed)
+        self._ending_run_helper(res)
+
+    def on_run_vizier(self):
+        res = False
+        self._do_runs["run_vizier"] = False
+        self._game_stats.update_location("Dia")
+        self._curr_loc = self._vizier.approach(self._curr_loc)
+        if self._curr_loc:
+            set_pause_state(False)
+            res = self._vizier.battle(not self._pre_buffed)
         self._ending_run_helper(res)
