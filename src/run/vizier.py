@@ -271,13 +271,14 @@ class Vizier:
         #if Config().general["info_screenshots"]: cv2.imwrite(f"./log/screenshots/info/info_" + seal_layout + "_" + time.strftime("%Y%m%d_%H%M%S") + ".png", grab())
         Logger.info(seal_layout +": Starting to clear Seal")
         ### CLEAR TRASH ###
-        Logger.debug(seal_layout + "_01: Kill trash")
-        self._char.kill_cs_trash(seal_layout + "_01")
+        ##Logger.debug(seal_layout + "_01: Kill trash")
+        ##self._char.kill_cs_trash(seal_layout + "_01")
         ### APPROACH SEAL ###
         if not node_seal1 == None:
             Logger.debug(seal_layout + "_seal1: Kill trash")
-            # self._char.kill_cs_trash(seal_layout + "_seal1")
-            if not self._pather.traverse_nodes(node_seal1, self._char): return False
+            if not self._pather.traverse_nodes(node_seal1, self._char, timeout = 2): 
+                self._char.kill_cs_trash(seal_layout + "_seal1")
+                if not self._pather.traverse_nodes(node_seal1, self._char): return False
             if not self._sealdance(seal1_opentemplates, seal1_closedtemplates, seal_layout + ": Seal1", node_seal1): return False
         else:
             Logger.debug(seal_layout + ": No Fake Seal for this layout, skipping")
