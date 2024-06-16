@@ -208,7 +208,6 @@ class Vizier:
         return True
     
     def _trash_seals(self) -> bool:
-        #self._pather.traverse_nodes([602], self._char)
         #Assume we are already at the pentagram
         self._pather.traverse_nodes_fixed("dia_trash_a", self._char)
         Logger.debug("CS TRASH: A Pent to LC")
@@ -254,9 +253,6 @@ class Vizier:
         #check1 using primary templates
         if not template_finder.search_and_wait(templates_primary, threshold =threshold_primary, timeout=0.1).valid:
             Logger.debug(f"{seal_layout1}: Layout_check step 1/2 - templates NOT found for "f"{seal_layout2}")
-            # #cross-check for confirmation
-            # if not confirmation_node == None:
-            #     if not self._pather.traverse_nodes(confirmation_node, self._char, threshold=calibration_threshold,): return False
             if not template_finder.search_and_wait(templates_confirmation, threshold=threshold_confirmation, timeout=0.1).valid:
                 Logger.warning(f"{seal_layout2}: Layout_check failure - could not determine the seal Layout at" f"{sealname} ("f"{boss}) - "+'\033[91m'+"aborting run"+'\033[0m')
                 if Config().general["info_screenshots"]: cv2.imwrite(f"./log/screenshots/info/info_" + seal_layout1 + "_LC_fail" + time.strftime("%Y%m%d_%H%M%S") + ".png", grab())
@@ -267,17 +263,6 @@ class Vizier:
         else:
             Logger.debug(f"{seal_layout2}: Layout_check step 1/2 - templates found for {seal_layout1}")
             if not self._seal(*params_seal2): return False
-
-            #cross-check for confirmation
-            # if not confirmation_node2 == None:
-            #     if not self._pather.traverse_nodes(confirmation_node2, self._char, threshold=calibration_threshold,): return False
-            # if not template_finder.search_and_wait(templates_confirmation, threshold=threshold_confirmation2, timeout=0.1).valid:
-            #     Logger.info(f"{seal_layout2}: Layout_check step 2/2 - templates NOT found for "f"{seal_layout1} - "+'\033[96m'+"all fine, proceeding with "f"{seal_layout2}"+'\033[0m')
-            #     if not self._seal(*params_seal2): return False
-            # else:
-            #     Logger.warning(f"{seal_layout2}: Layout_check failure - could not determine the seal Layout at" f"{sealname} ("f"{boss}) - "+'\033[91m'+"aborting run"+'\033[0m')
-            #     if Config().general["info_screenshots"]: cv2.imwrite(f"./log/screenshots/info/info_" + seal_layout2 + "_LC_fail_" + time.strftime("%Y%m%d_%H%M%S") + ".png", grab())
-            #     return False
         return True
 
 
@@ -288,10 +273,6 @@ class Vizier:
         ### CLEAR TRASH ###
         Logger.debug(seal_layout + "_01: Kill trash")
         self._char.kill_cs_trash(seal_layout + "_01")
-        # Logger.debug(seal_layout + "_02: Kill trash")
-        # self._char.kill_cs_trash(seal_layout + "_02")
-        # Logger.debug(seal_layout + "_03: Kill trash")
-        # self._char.kill_cs_trash(seal_layout + "_03")
         ### APPROACH SEAL ###
         if not node_seal1 == None:
             Logger.debug(seal_layout + "_seal1: Kill trash")
@@ -320,21 +301,16 @@ class Vizier:
         self.used_tps = 0
         if do_pre_buff: self._char.pre_buff()
 
-        #Clear Trash in CS
-
-        # if Config().char["kill_cs_trash"]:
-        #     if not self._river_of_flames_trash(): return False
-        # else:
+        #Skip to pentagram ignoring trash at enterance until clearing enterance can be made more reliable
         if not self._river_of_flames(): return False
 
-        #Traverse to Pentagram for FIRST time
+        #Should be near pentagram, calibrate with pentagram node
         if not self._cs_pentagram(): return False
 
-        #OLD APPROACH HAS 80% SUCCESS RATE
+        #Clear trash around pentagram
         if Config().char["kill_cs_trash"]: self._trash_seals()
 
-
-        # Maintenance at Pentagram after clearing 3 layoutchecks around pentagram
+        # After clearing trash around pentagram, attack and recalibrate at pentagram node and finally rebuff.
         if Config().char["kill_cs_trash"]: self._char.kill_cs_trash("pent_before_a")
         if not self._pather.traverse_nodes([602], self._char): return False
         if Config().char["kill_cs_trash"] and do_pre_buff: self._char.pre_buff()
@@ -354,9 +330,3 @@ if __name__ == "__main__":
     from bot import Bot
     game_stats = GameStats()
     bot = Bot(game_stats)
-
-    # Efficiency overview.
-    # Clear Seals: 98% efficiency. Root Cause: templates covered by corpses or getting lost when tele back to pentagram. Fix: Optimize templates used at nodes.
-    # LC A failing -> add template of seal to the calibration node. in case she overshoots to the seal, it will rubber-band her back to LC node.
-    # Kill Dia with Trash: >70%
-    # Kill Dia without Trash: >85%
