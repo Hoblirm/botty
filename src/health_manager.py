@@ -102,19 +102,22 @@ class HealthManager:
                 # check rejuv first
                 success_drink_rejuv = False
                 last_drink = time.time() - self._last_rejuv
-                if (health_percentage <= Config().char["take_rejuv_potion_health"]) or \
-                   (mana_percentage <= Config().char["take_rejuv_potion_mana"]):
-                    success_drink_rejuv = belt.drink_potion("rejuv", stats=[health_percentage, mana_percentage])
-                    #failure to drink juv (likely out of juvs). Perform chicken
-                    if not success_drink_rejuv:
-                        Logger.warning(f"Failed to drink rejuv. Trying to chicken, player HP {(health_percentage*100):.1f}%!")
-                        self._do_chicken(img)    
-                    self._last_rejuv = time.time()
+                #Seems to be an issue where rejuv will drink back-to-back. Must be a delay in screen capture getting updated.
+                #Placing a 0.2 delay which should have it wait at least one additional cycle (3 frames)
+                if last_drink > 0.20:
+                    if (health_percentage <= Config().char["take_rejuv_potion_health"]) or \
+                        (mana_percentage <= Config().char["take_rejuv_potion_mana"]):
+                        success_drink_rejuv = belt.drink_potion("rejuv", stats=[health_percentage, mana_percentage])
+                        #failure to drink juv (likely out of juvs). Perform chicken
+                        if not success_drink_rejuv:
+                            Logger.warning(f"Failed to drink rejuv. Trying to chicken, player HP {(health_percentage*100):.1f}%!")
+                            self._do_chicken(img)    
+                        self._last_rejuv = time.time()
 
-                    #if we drink two juvs within 8 seconds of one another, may be in bad state.  Perform chicken
-                    if last_drink < 8:
-                        Logger.warning(f"Two juvs drank within {last_drink} seconds. Trying to chicken, player HP {(health_percentage*100):.1f}%!")
-                        self._do_chicken(img)
+                        #if we drink two juvs within 8 seconds of one another, may be in bad state.  Perform chicken
+                        if last_drink < 8:
+                            Logger.warning(f"Two juvs drank within {last_drink} seconds. Trying to chicken, player HP {(health_percentage*100):.1f}%!")
+                            self._do_chicken(img)
 
                 # give the chicken a 6 sec delay (from run start) to give time for a healing pot and avoid endless loop of chicken
                 if health_percentage <= Config().char["chicken"] and (time.time() - start) > 6:
