@@ -95,7 +95,17 @@ class BlizzorbSorc(Sorceress):
         self._cast_frozen_orb(cast_pos_abs,spray)
         self._cast_glacial_spike(cast_pos_abs,spray, times=2)
         self._cast_frozen_orb(cast_pos_abs,spray)
-        
+    
+    def _cast_blizzorb_whirlwind_combo(self, spray: float = 10):
+        self._cast_blizzard([0, 0],spray)
+        self._cast_frozen_orb([40, -40],spray)
+        self._cast_static_field(times=2)
+        self._cast_frozen_orb([-40,40],spray)
+        self._cast_blizzard([0, 0],spray)
+        self._cast_frozen_orb([-40,-40],spray)
+        self._cast_static_field(times=2)
+        self._cast_frozen_orb([40,40],spray)
+
     def kill_pindle(self) -> bool:
         pindle_pos_abs = convert_screen_to_abs(Config().path["pindle_end"][0])
         cast_pos_abs = [pindle_pos_abs[0] * 0.9, pindle_pos_abs[1] * 0.9]
@@ -179,6 +189,20 @@ class BlizzorbSorc(Sorceress):
         cast_pos_abs = [0, 20]
         start = time.time()
         while (time.time() - start) < Config().char["atk_len_arc"]:
-            self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
+            self._cast_blizzorb_whirlwind_combo(cast_pos_abs, spray=0)
+        return True
+    
+    def kill_cs_trash(self, location:str) -> bool:
+        #Set cast position right below alter
+        start = time.time()
+        while (time.time() - start) < Config().char["atk_len_cs_trashmobs"]:
+            self._cast_blizzorb_whirlwind_combo(spray=0)
+        return True
+    
+    def kill_vizier(self, seal_layout:str) -> bool:
+        #Set cast position right below alter
+        start = time.time()
+        while (time.time() - start) < Config().char["atk_len_diablo_vizier"]:
+            self._cast_blizzorb_whirlwind_combo(spray=0)
         return True
         
