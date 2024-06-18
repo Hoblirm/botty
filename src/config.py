@@ -35,6 +35,7 @@ class Config:
     hydra_sorc = {}
     hammerdin = {}
     fohdin = {}
+    javazon = {}
     trapsin = {}
     barbarian = {}
     poison_necro = {}
@@ -256,6 +257,16 @@ class Config:
         if "fohdin" in self.configs["custom"]["parser"]:
             self.fohdin.update(self.configs["custom"]["parser"]["fohdin"])
         self.fohdin.update(paladin_base_cfg)
+
+        # Amazon base config
+        amazon_base_cfg = dict(self.configs["config"]["parser"]["amazon"])
+        if "amazon" in self.configs["custom"]["parser"]:
+            amazon_base_cfg.update(dict(self.configs["custom"]["parser"]["amazon"]))
+        # javazon
+        self.javazon = dict(self.configs["config"]["parser"]["javazon"])
+        if "javazon" in self.configs["custom"]["parser"]:
+            self.javazon.update(dict(self.configs["custom"]["parser"]["javazon"]))
+        self.javazon.update(amazon_base_cfg)
 
         # Assassin config
         self.trapsin = self.configs["config"]["parser"]["trapsin"]

@@ -26,6 +26,7 @@ from char.sorceress import LightSorc, BlizzSorc, BlizzorbSorc, NovaSorc,HydraSor
 from char.trapsin import Trapsin
 from char.paladin.hammerdin import Hammerdin
 from char.paladin import FoHdin
+from char.amazon.javazon import Javazon
 from char.barbarian import Barbarian
 from char.necro import Necro
 from char.poison_necro import Poison_Necro
@@ -65,6 +66,8 @@ class Bot:
                 self._char: IChar = Hammerdin(Config().hammerdin, self._pather, self._pickit) #pickit added for diablo
             case "fohdin":
                 self._char: IChar = FoHdin(Config().fohdin, self._pather, self._pickit) #pickit added for diablo
+            case "amazon" | "javazon":
+                self._char: IChar = Javazon(Config().javazon, self._pather)
             case "trapsin":
                 self._char: IChar = Trapsin(Config().trapsin, self._pather)
             case "barbarian":
