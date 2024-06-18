@@ -19,10 +19,19 @@ class FoHdin(Paladin):
         Logger.info("Setting up FoHdin")
         super().__init__(*args, **kwargs)
         self._pather.adapt_path((Location.A3_TRAV_START, Location.A3_TRAV_CENTER_STAIRS), [220, 221, 222, 903, 904, 905, 906])
-
+        self._foh_cycle_duration = 0.4 + (self._action_frame/25.0)
+        self._last_foh_cast = 0
 
     def _cast_foh(self, cast_pos_abs: tuple[float, float], spray: int = 10, min_duration: float = 0, aura: str = "conviction"):
-        return self._cast_skill_with_aura(skill_name = "foh", cast_pos_abs = cast_pos_abs, spray = spray, min_duration = min_duration, aura = aura)
+        #wait one frame until the foh cooldown has expired
+        now = time.time()
+        while (now - self._last_foh_cast) < self._foh_cycle_duration:
+            wait(0.04)
+            now = time.time()
+        self._last_foh_cast = now 
+        rt = self._cast_skill_with_aura(skill_name = "foh", cast_pos_abs = cast_pos_abs, spray = spray, min_duration = min_duration, aura = aura)
+        self._last_foh_cast = self._last_click_cast 
+        return rt
 
     def _cast_holy_bolt(self, cast_pos_abs: tuple[float, float], spray: int = 10, min_duration: float = 0, aura: str = "concentration"):
         #if skill is bound : concentration, use concentration, otherwise move on with conviction. alternatively use redemption whilst holybolting. conviction does not help holy bolt (its magic damage)
@@ -37,12 +46,31 @@ class FoHdin(Paladin):
         self.move(pos_m, force_move=True)
         self._cast_hammers(atk_len, aura=aura)
 
+    def _foh_clear_screen(self, duration: float = 1.0, spray: int = 10, aura: str = "conviction"):
+        
+        start = time.time()
+
+        while (time.time() - start) < duration:
+            #Cast 3 fohs each 120 degrees apart
+            self._cast_foh([0,-200], spray=spray, aura=aura) #Top 90 degrees
+            self._cast_foh([-173,100], spray=spray, aura=aura) #Bot-left 210 degrees
+            self._cast_foh([173,100], spray=spray, aura=aura) #Bot-right 330 degrees
+
+            #Stop mid sequence if time expired
+            if (time.time() - start) > duration:
+                break
+
+            #Cast 3 more fohs 120 degrees apart with 60 degree offset from above
+            self._cast_foh([-173,-100], spray=spray, aura=aura) #Top-left 150 degrees
+            self._cast_foh([173,-100], spray=spray, aura=aura) #Top-right 30 degrees
+            self._cast_foh([0,200], spray=spray, aura=aura) #Bot 270 degrees
+
     def _generic_foh_attack_sequence(
         self,
         default_target_abs: tuple[int, int] = (0, 0),
         min_duration: float = 0,
         max_duration: float = 15,
-        foh_to_holy_bolt_ratio: int = 1,
+        foh_to_holy_bolt_ratio: int = 3,
         target_detect: bool = True,
         default_spray: int = 50,
         aura: str = ""
@@ -73,11 +101,15 @@ class FoHdin(Paladin):
                     self._cast_foh(cast_pos_abs, spray=spray, aura=foh_aura)
 
             target_check_count += 1
+        
+        #We always want to end with selecting foh, as holy bolt can cause char move issues with merc targeting.
+        self._select_skill("foh", mouse_click_type = "left")
+
         return True
 
     #FOHdin Attack Sequence Optimized for trash
     def _cs_attack_sequence(self, min_duration: float = Config().char["atk_len_cs_trashmobs"], max_duration: float = Config().char["atk_len_cs_trashmobs"] * 3):
-        self._generic_foh_attack_sequence(default_target_abs=(20,20), min_duration = min_duration, max_duration = max_duration, default_spray=100, foh_to_holy_bolt_ratio=6)
+        self._foh_clear_screen(duration = max_duration)
         self._activate_redemption_aura()
 
     def _cs_trash_mobs_attack_sequence(self, min_duration: float = 1.2, max_duration: float = Config().char["atk_len_cs_trashmobs"]):
@@ -97,7 +129,7 @@ class FoHdin(Paladin):
         pindle_pos_abs = convert_screen_to_abs(Config().path["pindle_end"][0])
 
         cast_pos_abs = [pindle_pos_abs[0] * 0.80, pindle_pos_abs[1] * 0.80]
-        self._generic_foh_attack_sequence(default_target_abs=cast_pos_abs, min_duration=atk_len_dur, max_duration=atk_len_dur, default_spray=10, target_detect=False)
+        self._generic_foh_attack_sequence(default_target_abs=cast_pos_abs, min_duration=atk_len_dur, max_duration=atk_len_dur, default_spray=10, target_detect=False, foh_to_holy_bolt_ratio=1)
 
         if self.capabilities.can_teleport_natively:
             self._pather.traverse_nodes_fixed("pindle_end", self)
@@ -111,8 +143,7 @@ class FoHdin(Paladin):
 
         self._activate_cleanse_redemption()
 
-        #We always want to end with selecting foh, as holy bolt can cause char move issues with merc targeting.
-        self._select_skill("foh", mouse_click_type = "left")
+        
 
         return True
 

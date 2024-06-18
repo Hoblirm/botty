@@ -20,6 +20,14 @@ class Paladin(IChar):
         self._pather = pather
         self._pickit = pickit #for Diablo
         self._picked_up_items = False #for Diablo
+        self._last_click_cast = 0
+        self._action_frame = 9
+        if Config().char["casting_frames"] == 13 or Config().char["casting_frames"] == 12:
+            self._action_frame = 8
+        elif Config().char["casting_frames"] == 11 or Config().char["casting_frames"] == 10:
+            self._action_frame = 7
+        elif Config().char["casting_frames"] == 9:
+            self._action_frame = 6
 
     def pre_buff(self):
         if Config().char["cta_available"]:
@@ -61,6 +69,7 @@ class Paladin(IChar):
             pos_m = convert_abs_to_monitor((x, y))
             mouse.move(*pos_m, delay_factor=[0.1, 0.2])
         mouse.press(button = mouse_click_type)
+        self._last_click_cast = time.time()
         wait(0.06, 0.08)
         mouse.release(button = mouse_click_type)
         wait(Config().char["casting_frames"]/25.0 - 0.06)
@@ -79,8 +88,8 @@ class Paladin(IChar):
         self._select_skill(skill_name, mouse_click_type = "left")
 
         # cast left hand skill
-        start = time.time()
         if min_duration:
+            start = time.time()
             while (time.time() - start) <= min_duration:
                 self._click_cast(cast_pos_abs, spray)
         else:
