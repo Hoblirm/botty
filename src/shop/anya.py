@@ -82,62 +82,66 @@ class AnyaShopper:
         self.reset_shop()
         self.shop_loop()
 
-    def shop_loop(self):
-
+    def look_for_ias_gloves(self, glove_img_name, shop_img):
         asset_folder = "assets/shop/gloves/"
 
-        while True:
-            open_npc_menu(Npc.ANYA)
-            press_npc_btn(Npc.ANYA, "trade")
-            time.sleep(0.1)
-            img = grab()
-
-            # 20 IAS gloves have a unique color so we can skip all others
-            ias_glove = template_finder.search(
-                ref=load_template(asset_folder + "ias_gloves.png"),
-                inp_img=img,
+        ias_glove = template_finder.search(
+                ref=load_template(asset_folder + glove_img_name),
+                inp_img=shop_img,
                 threshold=0.96,
                 roi=Config().ui_roi["left_inventory"]
             )
-            if ias_glove.valid:
-                self.ias_gloves_seen += 1
-                mouse.move(*ias_glove.center_monitor)
-                time.sleep(0.1)
-                img = grab()
-
-                if self.look_for_plus_3_gloves is True:
-                    gg_gloves = template_finder.search(
+        if ias_glove.valid:
+            self.ias_gloves_seen += 1
+            mouse.move(*ias_glove.center_monitor)
+            time.sleep(0.5)
+            glove_dialog_img = grab()
+            
+            if self.look_for_plus_3_gloves is True:
+                Logger.info(f"Found 20 IAS gloves ({glove_img_name}), checking for jav skills")
+                gg_gloves = template_finder.search(
+                    ref=load_template(
+                        asset_folder + "gg_gloves.jpg" # assets for javazon gloves are mixed up, this one need +3 as in the 1080p version
+                    ),
+                    inp_img=glove_dialog_img,
+                    threshold=0.80
+                )
+                if gg_gloves.valid:
+                    mouse.click(button="right")
+                    if self._messenger.enabled:
+                        self._messenger.send_message("Bought awesome IAS/+3 gloves!")
+                    Logger.info("IAS/jav gloves bought!")
+                    self.gloves_bought += 1
+                    time.sleep(1)
+            else:
+                if self.look_for_plus_2_gloves is True:
+                    g_gloves = template_finder.search(
                         ref=load_template(
-                            asset_folder + "gg_gloves.png" # assets for javazon gloves are mixed up, this one need +3 as in the 1080p version
+                            asset_folder + "g_gloves.png"
                         ),
-                        inp_img=img,
+                        inp_img=glove_dialog_img,
                         threshold=0.80
                     )
-                    if gg_gloves.valid:
+                    if g_gloves.valid:
                         mouse.click(button="right")
                         if self._messenger.enabled:
-                            self._messenger.send_message("Bought awesome IAS/+3 gloves!")
-
-                        Logger.info("IAS/+3 gloves bought!")
+                            self._messenger.send_message("Bought some decent IAS/+2 gloves")
+                        Logger.info("IAS/+2 gloves bought!")
                         self.gloves_bought += 1
                         time.sleep(1)
 
-                else:
-                    if self.look_for_plus_2_gloves is True:
-                        g_gloves = template_finder.search(
-                            ref=load_template(
-                                asset_folder + "g_gloves.png"
-                            ),
-                            inp_img=img,
-                            threshold=0.80
-                        )
-                        if g_gloves.valid:
-                            mouse.click(button="right")
-                            if self._messenger.enabled:
-                                self._messenger.send_message("Bought some decent IAS/+2 gloves")
-                            Logger.info("IAS/+2 gloves bought!")
-                            self.gloves_bought += 1
-                            time.sleep(1)
+    def shop_loop(self):
+        while True:
+            open_npc_menu(Npc.ANYA)
+            press_npc_btn(Npc.ANYA, "trade")
+            time.sleep(0.5)
+            img = grab()
+
+            #For some reason the glove image varies slightly depending on where it is located in the shop.
+            #Additional ias_glove pictures were added after screenshot verification showed they weren't detected.
+            self.look_for_ias_gloves("ias_gloves.jpg", img)
+            self.look_for_ias_gloves("ias_gloves2.jpg", img)
+            self.look_for_ias_gloves("ias_gloves3.jpg", img)
 
             # Select Weapons section
             if self.look_for_trap_claws is True or self.look_for_melee_claws is True:
