@@ -25,6 +25,7 @@ class IChar:
         self._last_tp = time.time()
         # Add a bit to be on the save side
         self._cast_duration = Config().char["casting_frames"] * 0.04 + 0.01
+        self._attack_duration = Config().char["attack_frames"] * 0.04 + 0.01
         self.damage_scaling = float(Config().char.get("damage_scaling", 1.0))
         self.capabilities = None
         self._active_skill = {
