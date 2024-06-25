@@ -98,21 +98,33 @@ class AnyaShopper:
             glove_dialog_img = grab()
             
             if self.look_for_plus_3_gloves is True:
-                Logger.info(f"Found 20 IAS gloves ({glove_img_name}), checking for jav skills")
+                Logger.info(f"Found 20 IAS gloves ({glove_img_name}), checking for jav/ma skills")
                 gg_gloves = template_finder.search(
-                    ref=load_template(
-                        asset_folder + "gg_gloves.jpg" # assets for javazon gloves are mixed up, this one need +3 as in the 1080p version
-                    ),
+                    ref=load_template(asset_folder + "plus3_jav_skills.jpg"),
                     inp_img=glove_dialog_img,
                     threshold=0.80
                 )
                 if gg_gloves.valid:
                     mouse.click(button="right")
                     if self._messenger.enabled:
-                        self._messenger.send_message("Bought awesome IAS/+3 gloves!")
+                        self._messenger.send_message("Bought awesome IAS/+3 jav gloves!")
                     Logger.info("IAS/jav gloves bought!")
                     self.gloves_bought += 1
                     time.sleep(1)
+                else:
+                    gg_gloves = template_finder.search(
+                    ref=load_template(asset_folder + "plus3_ma_skills.jpg"),
+                    inp_img=glove_dialog_img,
+                    threshold=0.80
+                    )
+                    if gg_gloves.valid:
+                        mouse.click(button="right")
+                        if self._messenger.enabled:
+                            self._messenger.send_message("Bought awesome IAS/+3 ma gloves!")
+                        Logger.info("IAS/ma gloves bought!")
+                        self.gloves_bought += 1
+                        time.sleep(1)
+
             else:
                 if self.look_for_plus_2_gloves is True:
                     g_gloves = template_finder.search(
