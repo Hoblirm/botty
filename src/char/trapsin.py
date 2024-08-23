@@ -101,23 +101,23 @@ class Trapsin(IChar):
     def _cast_fire_blast(self, cast_pos_abs: tuple[float, float], spray: float = 10, duration: float = 0.3):
         keyboard.send(Config().char["stand_still"], do_release=False)
         
-        #Get mouse in initial target logcation
+        #Get mouse in initial target location
         x = cast_pos_abs[0] + (random.random() * 2 * spray - spray)
         y = cast_pos_abs[1] + (random.random() * 2 * spray - spray)
         cast_pos_monitor = convert_abs_to_monitor((x, y))
         mouse.move(*cast_pos_monitor)
         
-        #We just hold down left mouse button to ensure we get full attack speed.
-        mouse.press(button="left")
         now = start = time.time()
         while (now - start) < duration:
             x = cast_pos_abs[0] + (random.random() * 2 * spray - spray)
             y = cast_pos_abs[1] + (random.random() * 2 * spray - spray)
             cast_pos_monitor = convert_abs_to_monitor((x, y))
             mouse.move(*cast_pos_monitor)
+            mouse.press(button="left")
             wait(0.06, 0.08)
+            mouse.release(button="left")
+            wait(0.02, 0.04)
             now = time.time()
-        mouse.release(button="left")
 
         keyboard.send(Config().char["stand_still"], do_press=False)
         wait(self._attack_duration-0.06)
@@ -178,15 +178,18 @@ class Trapsin(IChar):
 
     def kill_eldritch(self) -> bool:
         eldritch_pos_abs = convert_screen_to_abs(Config().path["eldritch_end"][0])
-        cast_pos_abs = [eldritch_pos_abs[0] * 1.5, eldritch_pos_abs[1] * 1.5]
-        trap_cast_pos_abs = [eldritch_pos_abs[0] * 0.70, eldritch_pos_abs[1] * 0.70]
+        cast_pos_abs = [eldritch_pos_abs[0] * 1.7, eldritch_pos_abs[1] * 1.7]
+        trap_cast_pos_abs = [eldritch_pos_abs[0] * (-0.5), eldritch_pos_abs[1] * (-0.25)]
 
         start = time.time()
+        self._cast_mind_blast(cast_pos_abs=cast_pos_abs)
+        cast_pos_abs = [eldritch_pos_abs[0] * 1.5, eldritch_pos_abs[1] * 1.5]
         self._cast_shadow_warrior(cast_pos_abs=cast_pos_abs)
         for _ in range(4):
             self._cast_lightning_sentry(cast_pos_abs=trap_cast_pos_abs)
         self._cast_death_sentry(cast_pos_abs=trap_cast_pos_abs)
 
+        cast_pos_abs = [eldritch_pos_abs[0] * 1.3, eldritch_pos_abs[1] * 1.3]
         time_remaining = Config().char["atk_len_eldritch"] - (time.time() - start)
         self._cast_fire_blast(cast_pos_abs=cast_pos_abs, duration=time_remaining)
         
