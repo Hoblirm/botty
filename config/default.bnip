@@ -60,11 +60,11 @@
 //[Name] == Ethrune
 //[Name] == Ithrune
 [Name] == Talrune
-[Name] == Ralrune
+//[Name] == Ralrune
 [Name] == Ortrune
 [Name] == Thulrune
-[Name] == Amnrune
-[Name] == Solrune
+//[Name] == Amnrune
+//[Name] == Solrune
 //[Name] == Shaelrune
 //[Name] == Dolrune
 [Name] == Helrune
@@ -112,11 +112,11 @@
 //[Name] == Skull
 //[Name] == Sapphire
 //[Name] == Topaz
-[Name] == Flawlessamethyst
-[Name] == Flawlessdiamond
+//[Name] == Flawlessamethyst
+//[Name] == Flawlessdiamond
 //[Name] == Flawlessemerald
 //[Name] == Flawlessruby
-//[Name] == Flawlesssapphire
+[Name] == Flawlesssapphire
 //[Name] == Flawlessskull
 [Name] == Flawlesstopaz
 //[Name] == Perfectamethyst
@@ -866,7 +866,15 @@
 //[Name] == Mancatcher && [Quality] == Superior && [Flag] != Ethereal # [Sockets] >= 4 && [Enhanceddamage] >= 10          // Socketed Sup
 
 // <<<<<<<<< [ Ethereal 2h Socketed/Non-Socketed Weapons ] >>>>>>>>>
-[Name] == Warpike && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 6
+//[Name] == Warpike && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 6
+//[Name] == Scythe && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 4
+//[Name] == Warscythe && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 4
+//[Name] == Bill && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 4         //Insight bases
+//[Name] == BattleScythe && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 4
+//[Name] == Partizan && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 4
+//[Name] == Becdecorbin && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 4
+//[Name] == Partizan && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 4
+[Name] == Grimscythe && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 4
 [Name] == Colossusvoulge && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4)          // Socketed Eth
 [Name] == Thresher && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4)          // Socketed Eth
 [Name] == Giantthresher && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4)          // Socketed Eth
