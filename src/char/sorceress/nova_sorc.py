@@ -37,7 +37,6 @@ class NovaSorc(Sorceress):
 
     def kill_pindle(self) -> bool:
         self._pather.traverse_nodes_fixed("pindle_end", self)
-        self._cast_static(0.6)
         self._nova(Config().char["atk_len_pindle"])
         return True
 
@@ -59,22 +58,26 @@ class NovaSorc(Sorceress):
         # change node to be further to the right
         offset_229 = np.array([200, 100])
         self._pather.offset_node(229, offset_229)
-        def clear_inside():
+        def clear_inside(use_static: bool):
             self._pather.traverse_nodes_fixed([(1110, 120)], self)
             self._pather.traverse_nodes([229], self, timeout=0.8, force_tp=True)
+            if use_static:
+                self._cast_static(0.6)
             self._nova(atk_len)
             self._move_and_attack((-40, -20), atk_len)
             self._move_and_attack((40, 20), atk_len)
             self._move_and_attack((40, 20), atk_len)
-        def clear_outside():
+        def clear_outside(use_static: bool):
             self._pather.traverse_nodes([226], self, timeout=0.8, force_tp=True)
+            if use_static:
+                self._cast_static(0.6)
             self._nova(atk_len)
             self._move_and_attack((45, -20), atk_len)
             self._move_and_attack((-45, 20), atk_len)
-        clear_inside()
-        clear_outside()
-        clear_inside()
-        clear_outside()
+        clear_inside(True)
+        clear_outside(True)
+        clear_inside(False)
+        clear_outside(False)
         # change back node as it is used in trav.py
         self._pather.offset_node(229, -offset_229)
         return True
