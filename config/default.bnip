@@ -1323,7 +1323,7 @@
 //[Name] == Chaingloves && [Quality] == Unique && [Flag] != Ethereal # [Itemmagicbonus] >= 40 && [Enhanceddefense] >= 30      // Chance Guards Perfect
 [Name] == Lightgauntlets && [Quality] == Unique && [Flag] != Ethereal # [Enhanceddefense] >= 20     // Magefist
 //[Name] == Lightgauntlets && [Quality] == Unique && [Flag] != Ethereal # [Enhanceddefense] >= 30     // Magefist Perfect
-//[Name] == Gauntlets && [Quality] == Unique && [Flag] != Ethereal # [Enhanceddefense] >= 10     	// Frostburn
+[Name] == Gauntlets && [Quality] == Unique && [Flag] != Ethereal # [Enhanceddefense] >= 10     	// Frostburn
 //[Name] == Gauntlets && [Quality] == Unique && [Flag] != Ethereal # [Enhanceddefense] >= 20     	// Frostburn Perfect
 [Name] == Vampirebonegloves && [Quality] == Unique && [Flag] != Ethereal # [Strength] == 10      // Dracul's Grasp
 //[Name] == Vampirebonegloves && [Quality] == Unique && [Flag] != Ethereal # [Strength] == 15 && [Lifeleech] >= 10 && [Enhanceddefense] >= 120      // Dracul's Grasp Perfect
