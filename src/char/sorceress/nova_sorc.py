@@ -6,9 +6,9 @@ from utils.custom_mouse import mouse
 from logger import Logger
 from utils.misc import wait
 from pather import Location
-from screen import convert_abs_to_monitor
+from screen import convert_abs_to_monitor, grab
 from config import Config
-
+import cv2
 
 class NovaSorc(Sorceress):
     def __init__(self, *args, **kwargs):
@@ -24,10 +24,10 @@ class NovaSorc(Sorceress):
         wait(0.05, 0.1)
         start = time.time()
         while (time.time() - start) < time_in_s:
-            wait(0.03, 0.04)
             mouse.press(button="right")
-            wait(0.12, 0.2)
+            wait(0.06, 0.08)
             mouse.release(button="right")
+            wait(self._cast_duration-0.06)
 
     def _move_and_attack(self, abs_move: tuple[int, int], atk_len: float):
         pos_m = convert_abs_to_monitor(abs_move)
@@ -54,32 +54,25 @@ class NovaSorc(Sorceress):
 
     def kill_council(self) -> bool:
         # Check out the node screenshot in assets/templates/trav/nodes to see where each node is at
-        atk_len = Config().char["atk_len_trav"] * 0.21
-        # change node to be further to the right
-        offset_229 = np.array([200, 100])
-        self._pather.offset_node(229, offset_229)
+        atk_len = Config().char["atk_len_trav"] 
+        
         def clear_inside(use_static: bool):
-            self._pather.traverse_nodes_fixed([(1110, 120)], self)
-            self._pather.traverse_nodes([229], self, timeout=0.8, force_tp=True)
+            self._pather.traverse_nodes_fixed([(875, 20)], self)
             if use_static:
                 self._cast_static(0.6)
             self._nova(atk_len)
-            self._move_and_attack((-40, -20), atk_len)
-            self._move_and_attack((40, 20), atk_len)
-            self._move_and_attack((40, 20), atk_len)
+
         def clear_outside(use_static: bool):
-            self._pather.traverse_nodes([226], self, timeout=0.8, force_tp=True)
+            self._pather.traverse_nodes_fixed([(430, 645)], self)
             if use_static:
                 self._cast_static(0.6)
             self._nova(atk_len)
-            self._move_and_attack((45, -20), atk_len)
-            self._move_and_attack((-45, 20), atk_len)
+
         clear_inside(True)
         clear_outside(True)
         clear_inside(False)
         clear_outside(False)
-        # change back node as it is used in trav.py
-        self._pather.offset_node(229, -offset_229)
+
         return True
 
     def kill_nihlathak(self, end_nodes: list[int]) -> bool:

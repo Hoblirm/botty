@@ -10,6 +10,7 @@ import time
 from pather import Pather
 from config import Config
 from ui_manager import ScreenObjects, is_visible
+from screen import convert_abs_to_monitor
 
 class Sorceress(IChar):
     def __init__(self, skill_hotkeys: dict, pather: Pather):
@@ -94,7 +95,12 @@ class Sorceress(IChar):
     def _cast_static(self, duration: float = 1.4):
         if self._skill_hotkeys["static_field"]:
             keyboard.send(self._skill_hotkeys["static_field"])
-            wait(0.1, 0.13)
+
+            #Static field can fail to cast if we right click on a wall.  We move mouse to 
+            #center to prevent this.
+            cast_pos_monitor = convert_abs_to_monitor((0, 0))
+            mouse.move(*cast_pos_monitor)
+
             start = time.time()
             while time.time() - start < duration:
                 mouse.click(button="right")
