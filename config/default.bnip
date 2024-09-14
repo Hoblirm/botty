@@ -252,6 +252,7 @@
 //-----------------------------------------------
 
 [Name] == Smallcharm && [Quality] == Magic # [Coldresist]+[Fireresist]+[Lightresist]+[Poisonresist] >= 12    // +3 All Res
+[Name] == Largecharm && [Quality] == Magic # [Coldresist]+[Fireresist]+[Lightresist]+[Poisonresist] >= 24    // +6 All Res
 [Name] == Smallcharm && [Quality] == Magic # [Maxhp] >= 15          // Plain +Hp
 [Name] == Smallcharm && [Quality] == Magic # [Maxmana] >= 15          // Plain +Mana
 [Name] == Smallcharm && [Quality] == Magic # [Itemmagicbonus] >= 5     // Plain +Magic Find
