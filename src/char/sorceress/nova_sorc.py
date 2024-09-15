@@ -53,7 +53,6 @@ class NovaSorc(Sorceress):
         return True
 
     def kill_council(self) -> bool:
-        # Check out the node screenshot in assets/templates/trav/nodes to see where each node is at
         atk_len = Config().char["atk_len_trav"] 
         self._cast_static(0.6)
         def clear_inside(use_static: bool):

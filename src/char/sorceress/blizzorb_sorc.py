@@ -183,7 +183,31 @@ class BlizzorbSorc(Sorceress):
             return True
         else:
             return False
-        
+    
+    def kill_council(self) -> bool:
+        def clear_inside(use_static: bool):
+            self._pather.traverse_nodes([228,229], self, timeout=2.2, do_pre_move=False, force_tp=True, use_tp_charge=True)
+            if use_static:
+                self._cast_static_field(2)
+            self._cast_blizzorb_spike_combo([-80,-60])
+
+        def clear_outside(use_static: bool):
+            self._pather.traverse_nodes_fixed([(430, 642)], self)
+            if use_static:
+                self._cast_static_field(2)
+            self._cast_blizzorb_spike_combo([-80,-60])
+
+        start = time.time()
+
+        clear_inside(True)
+        clear_outside(True)
+
+        while (time.time() - start) < Config().char["atk_len_trav"]:
+            clear_inside(False)
+            clear_outside(False)
+
+        return True
+    
     def kill_summoner(self) -> bool:
         #Set cast position right below alter
         cast_pos_abs = [0, 20]
