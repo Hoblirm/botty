@@ -58,16 +58,17 @@ def inventory_has_items(img: np.ndarray = None, close_window = False) -> bool:
     :return: Bool if inventory still has items or not
     """
     img = open(img)
-    items=False
-    for column, row in itertools.product(range(0, Config().char["num_loot_columns"]), range(4)):
-        _, slot_img = common.get_slot_pos_and_img(img, column, row)
-        if common.slot_has_item(slot_img):
-            items=True
-            break
-    if close_window:
-        common.close()
-    if items:
-        return True
+    if img is not None:
+        items=False
+        for column, row in itertools.product(range(0, Config().char["num_loot_columns"]), range(4)):
+            _, slot_img = common.get_slot_pos_and_img(img, column, row)
+            if common.slot_has_item(slot_img):
+                items=True
+                break
+        if close_window:
+            common.close()
+        if items:
+            return True
     return False
 
 
@@ -201,6 +202,9 @@ def inspect_items(inp_img: np.ndarray = None, close_window: bool = True, game_st
     """
     center_mouse()
     img = open(inp_img)
+    if img is None:
+        Logger.error("personal.inspect_items(): unable to get inventory image")
+        return []
     vendor_open = is_visible(ScreenObjects.GoldBtnVendor, inp_img)
     slots = []
     # check which slots have items
@@ -424,6 +428,9 @@ def transfer_items(items: list, action: str = "drop", img: np.ndarray = None) ->
 
 def update_tome_key_needs(img: np.ndarray = None, item_type: str = "tp") -> bool:
     img = open(img)
+    if img is None:
+        Logger.debug(f"update_tome_key_needs: failed to get inventory image")
+        return False
     if item_type.lower() in ["tp", "id"]:
         match = template_finder.search(
             [f"{item_type.upper()}_TOME", f"{item_type.upper()}_TOME_RED"],
