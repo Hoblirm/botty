@@ -14,7 +14,7 @@ dependencies:
     - opencv-python==4.5.5.64
     - transitions
     - mss==7.0.1
-    - numpy
+    - numpy==1.26.4
     - mouse
     - keyboard
     - beautifultable
