@@ -86,6 +86,10 @@ class HealthManager:
         self._did_chicken = False
         start = time.time()
 
+        lp_hp_potion_delay = 10.24 
+        lp_mp_potion_delay = 5.12
+        merc_hp_potion_delay = 10.24
+
         while self._do_monitor:
             if self._did_chicken or get_pause_state():
                 wait(1)
@@ -96,15 +100,12 @@ class HealthManager:
                 health_percentage = meters.get_health(img)
                 mana_percentage = meters.get_mana(img)
 
-                lp_hp_potion_delay = 0 if health_percentage >= 0.99 else uniform(9, 10)
-                lp_mp_potion_delay = 0 if mana_percentage >= 0.99 else uniform(9, 10)
-
                 # check rejuv first
                 success_drink_rejuv = False
                 last_drink = time.time() - self._last_rejuv
                 #Seems to be an issue where rejuv will drink back-to-back. Must be a delay in screen capture getting updated.
-                #Placing a 0.2 delay which should have it wait at least one additional cycle (3 frames)
-                if last_drink > 0.20:
+                #Loops are on 3 frame increments, so a 0.30 delay should wait 9 frames or 0.36 seconds.
+                if last_drink > 0.30:
                     if (health_percentage <= Config().char["take_rejuv_potion_health"]) or \
                         (mana_percentage <= Config().char["take_rejuv_potion_mana"]):
                         success_drink_rejuv = belt.drink_potion("rejuv", stats=[health_percentage, mana_percentage])
@@ -140,7 +141,6 @@ class HealthManager:
                 if any([Config().char[x] for x in ["heal_rejuv_merc", "merc_chicken", "heal_merc"]]):
                     if is_visible(ScreenObjects.MercIcon, img):
                         merc_health_percentage = meters.get_merc_health(img)
-                        merc_hp_potion_delay = 0 if merc_health_percentage == 1 else uniform(9, 10)
                         last_drink = time.time() - self._last_merc_heal
                         if Config().char["merc_chicken"] and (merc_health_percentage <= Config().char["merc_chicken"]):
                             Logger.warning(f"Trying to chicken, merc HP {(merc_health_percentage*100):.1f}%!")

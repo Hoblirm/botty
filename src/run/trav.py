@@ -44,6 +44,7 @@ class Trav:
             self._char.pre_buff()
         if self._char.capabilities.can_teleport_natively:
             self._pather.traverse_nodes_fixed("trav_safe_dist", self._char)
+            self._pather.traverse_nodes([226], self._char, timeout=2.2, do_pre_move=False, force_tp=True, use_tp_charge=True)
         else:
             if not self._pather.traverse_nodes((Location.A3_TRAV_START, Location.A3_TRAV_CENTER_STAIRS), self._char, force_move=True):
                 return False

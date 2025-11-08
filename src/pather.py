@@ -514,8 +514,8 @@ class Pather:
         #stuck_count = 0
         while i < len(path):
             x_m, y_m = convert_screen_to_monitor(path[i])
-            x_m += int(random.random() * 6 - 3)
-            y_m += int(random.random() * 6 - 3)
+            #x_m += int(random.random() * 6 - 3)
+            #y_m += int(random.random() * 6 - 3)
             #t0 = grab(force_new=True)
             char.move((x_m, y_m))
             #t1 = grab(force_new=True)
