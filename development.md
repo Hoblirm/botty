@@ -6,7 +6,7 @@
 
 ## Getting started
 ```bash
-git clone https://github.com/bottytools/botty.git
+git clone https://github.com/Hoblirm/botty.git
 cd botty
 set PATH=%PATH%;C:\<install_path>\miniconda3;C:\<install_path>\miniconda3\Scripts; #If conda was not added to PATH on install, run this
 conda env create -f environment.yml  #One time creation for environment
@@ -29,7 +29,7 @@ pytest -s -v
 # To run a specific test:
 pytest test/smoke_test.py
 ```
-To test single files / routines, most files also can be executed seperatly. E.g. running `python src/pickit.py` -> going to d2r window -> throw stuff on the groudn -> press f11, will test the pickit.
+To test single files / routines, most files also can be executed separately. E.g. running `python src/pickit.py` -> going to d2r window -> throw stuff on the groudn -> press f11, will test the pickit.
 
 ## Adding Items
 To add items you can check the **assets/items** folder. Screenshot whatever you want to pick up in the same way (all settings must be as if you ran the bot). Then add the filename to the param.ini [items] section (e.g. if boots_rare.png add boots_rare=1)
