@@ -8,6 +8,9 @@ from utils.misc import wait
 from ui_manager import wait_until_hidden, wait_until_visible, detect_screen_object, select_screen_object_match, ScreenObjects, list_visible_objects, is_visible
 from inventory import common
 from screen import convert_screen_to_monitor
+from threading import Thread, Lock
+
+exit_mutex = Lock()
 
 def enable_no_pickup() -> bool:
     # """
@@ -36,6 +39,7 @@ def fast_save_and_exit() -> bool:
     Performes save and exit action from within game as fast as possible
     :return: Bool if action was successful
     """
+    exit_mutex.acquire() #We don't want two threads trying to exit game at the same time
     keyboard.send("esc") #Open save and exit menu
     keyboard.send("down") #Move down twice in case point selects wrong menu option
     keyboard.send("down") #Should move to bottom button
@@ -49,7 +53,7 @@ def fast_save_and_exit() -> bool:
     keyboard.send("down")
     keyboard.send("up")
     keyboard.send("enter")
-
+    exit_mutex.release()
     success = wait_until_hidden(ScreenObjects.InGame, 3)
     if not success:
         Logger.debug("Failed to perform fast save/exit")
@@ -63,11 +67,12 @@ def save_and_exit() -> bool:
     # if exit button isn't detected already, press escape
     attempts = 1
     success = False
+    exit_mutex.acquire() #We don't want two threads trying to exit game at the same time
     while attempts <= 2 and not success:
         if not (exit_button := detect_screen_object(ScreenObjects.SaveAndExit)).valid:
             keyboard.send("esc")
             # wait for exit button to appear
-            exit_button = wait_until_visible(ScreenObjects.SaveAndExit, 3)
+            exit_button = wait_until_visible(ScreenObjects.SaveAndExit, 1)
         # if exit button is found, double click it to be sure
         if exit_button.valid:
             select_screen_object_match(exit_button, delay_factor=(0.02, 0.05))
@@ -76,6 +81,7 @@ def save_and_exit() -> bool:
             # if center icon on player bar disappears then save/exit was successful
             success = wait_until_hidden(ScreenObjects.InGame, 3)
         attempts += 1
+    exit_mutex.release()
     if not success:
         Logger.debug("Failed to find or click save/exit button")
     return success

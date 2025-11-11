@@ -32,13 +32,10 @@ class GameRecovery:
             if self._death_manager.handle_death_screen():
                 time.sleep(1)
                 continue
-            # check for save/exit button
-            if is_visible(ScreenObjects.SaveAndExit):
+            # if we are in game, save and exit
+            if is_visible(ScreenObjects.InGame):
                 view.save_and_exit()
                 continue
-            # maybe we are in-game in stash/inventory, press escape
-            elif is_visible(ScreenObjects.InGame):
-                keyboard.send("esc")
             time.sleep(1)
         return False
 
