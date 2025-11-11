@@ -31,6 +31,30 @@ def enable_no_pickup() -> bool:
     wait(0.1, 0.25)
     return True
 
+def fast_save_and_exit() -> bool:
+    """
+    Performes save and exit action from within game as fast as possible
+    :return: Bool if action was successful
+    """
+    keyboard.send("esc") #Open save and exit menu
+    keyboard.send("down") #Move down twice in case point selects wrong menu option
+    keyboard.send("down") #Should move to bottom button
+    keyboard.send("up") #Move up to 'save and exit' button
+    keyboard.send("enter") #Press 'save and exit' button
+
+    #Try one more time incase the inventory screen was open in first attempt
+    wait(0.04, 0.04)
+    keyboard.send("esc")
+    keyboard.send("down")
+    keyboard.send("down")
+    keyboard.send("up")
+    keyboard.send("enter")
+
+    success = wait_until_hidden(ScreenObjects.InGame, 3)
+    if not success:
+        Logger.debug("Failed to perform fast save/exit")
+    return success 
+
 def save_and_exit() -> bool:
     """
     Performes save and exit action from within game

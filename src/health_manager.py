@@ -73,7 +73,7 @@ class HealthManager:
         keyboard.release(Config().char["show_items"])
         mouse.release(button="left")
         mouse.release(button="right")
-        view.save_and_exit()
+        view.fast_save_and_exit()
         if Config().general["info_screenshots"]:
             self._last_chicken_screenshot = "./log/screenshots/info/info_debug_chicken_" + time.strftime("%Y%m%d_%H%M%S") + ".png"
             cv2.imwrite(self._last_chicken_screenshot, img)
