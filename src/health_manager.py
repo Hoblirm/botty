@@ -103,9 +103,10 @@ class HealthManager:
                 # check rejuv first
                 success_drink_rejuv = False
                 last_drink = time.time() - self._last_rejuv
-                #Seems to be an issue where rejuv will drink back-to-back. Must be a delay in screen capture getting updated.
-                #Loops are on 3 frame increments, so a 0.30 delay should wait 9 frames or 0.36 seconds.
-                if last_drink > 0.30:
+                #It seems that hit recovery can delay the use of juvs and 16 frames is max recovery time. 
+                #To delay two juvs being used back to back, we'll need to wait the recovery time between uses.
+                #Loops are on 3 frame increments, so a 0.60 delay should wait 16 frames or 0.64 seconds.
+                if last_drink > 0.60:
                     if (health_percentage <= Config().char["take_rejuv_potion_health"]) or \
                         (mana_percentage <= Config().char["take_rejuv_potion_mana"]):
                         success_drink_rejuv = belt.drink_potion("rejuv", stats=[health_percentage, mana_percentage])
