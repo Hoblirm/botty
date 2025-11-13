@@ -8,7 +8,9 @@ from utils.misc import wait
 from ui_manager import wait_until_hidden, wait_until_visible, detect_screen_object, select_screen_object_match, ScreenObjects, list_visible_objects, is_visible
 from inventory import common
 from screen import convert_screen_to_monitor
-from threading import Thread
+from threading import Thread, Lock
+
+exit_mutex = Lock()
 
 def enable_no_pickup() -> bool:
     # """
@@ -37,23 +39,34 @@ def fast_save_and_exit() -> bool:
     Performes save and exit action from within game as fast as possible
     :return: Bool if action was successful
     """
-    keyboard.send("esc") #Open save and exit menu
-    keyboard.send("down") #Move down twice in case point selects wrong menu option
-    keyboard.send("down") #Should move to bottom button
-    keyboard.send("up") #Move up to 'save and exit' button
-    keyboard.send("enter") #Press 'save and exit' button
+    success = False
+    attempts = 0
 
-    #Try one more time incase the inventory screen was open in first attempt
-    wait(0.04, 0.04)
-    keyboard.send("esc")
-    keyboard.send("down")
-    keyboard.send("down")
-    keyboard.send("up")
-    keyboard.send("enter")
+    exit_mutex.acquire() #Prevent game_controller and health_manager threads from conflict
+    while attempts < 6 and not success:
+        keyboard.send("esc") #Open save and exit menu
+        keyboard.send("down") #Move down twice in case mouse pointer selects wrong menu option
+        keyboard.send("down") #Should move to bottom button
+        keyboard.send("up") #Move up to 'save and exit' button
+        keyboard.send("enter") #Press 'save and exit' button
+
+        #Try one more time incase the inventory screen was open in first attempt
+        wait(0.04, 0.04)
+        keyboard.send("esc")
+        keyboard.send("down")
+        keyboard.send("down")
+        keyboard.send("up")
+        keyboard.send("enter")
     
-    success = wait_until_hidden(ScreenObjects.InGame, 3)
-    if not success:
-        Logger.debug("Failed to perform fast save/exit")
+        attempts += 1
+        success = wait_until_hidden(ScreenObjects.InGame, 0.5)
+        if not success:
+            Logger.debug(f"Failed to perform fast save/exit on attempt #{attempts}")
+    exit_mutex.release()
+    if success:
+        Logger.info(f"Successfully performed fast save/exit in {attempts} attempt(s)")
+    else:
+        Logger.error("Failed to perform fast save/exit")
     return success 
 
 def save_and_exit() -> bool:

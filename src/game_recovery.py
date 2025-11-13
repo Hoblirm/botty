@@ -34,7 +34,7 @@ class GameRecovery:
                 continue
             # if we are in game, save and exit
             if is_visible(ScreenObjects.InGame):
-                view.save_and_exit()
+                view.fast_save_and_exit()
                 continue
             time.sleep(1)
         return False
