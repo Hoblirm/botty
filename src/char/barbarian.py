@@ -5,7 +5,7 @@ from char import IChar, CharacterCapabilities
 import template_finder
 from pather import Pather
 from logger import Logger
-from screen import convert_abs_to_monitor
+from screen import convert_abs_to_monitor, convert_screen_to_monitor
 from config import Config
 from utils.misc import wait
 import time
@@ -49,7 +49,7 @@ class Barbarian(IChar):
             wait(0.5, 0.15)
         pos_m = convert_abs_to_monitor((0, -20))
         mouse.move(*pos_m)
-        wait(0.5, 0.15)
+        wait(0.05, 0.15)
         mouse.press(button="right")
         wait(hork_time)
         mouse.release(button="right")
@@ -69,9 +69,9 @@ class Barbarian(IChar):
         mouse.click(button="right")
         wait(self._cast_duration + 0.08, self._cast_duration + 0.1)
 
-    def pre_move(self):
+    def pre_move(self, wait_tp: bool = False):
         # select teleport if available
-        super().pre_move()
+        super().pre_move(wait_tp)
         # in case teleport hotkey is not set or teleport can not be used, use leap if set
         should_cast_leap = self._skill_hotkeys["leap"] and not skills.is_left_skill_selected(["LEAP"])
         can_teleport = self.capabilities.can_teleport_natively and skills.is_right_skill_active()
@@ -102,12 +102,16 @@ class Barbarian(IChar):
 
     def kill_eldritch(self) -> bool:
         if self.capabilities.can_teleport_natively:
-            self._pather.traverse_nodes_fixed("eldritch_end", self)
+            self._pather.traverse_nodes_fixed([(675, 30)], self)
+        elif self._skill_hotkeys["leap"]:
+            cast_pos_monitor = convert_screen_to_monitor((675,30))
+            mouse.move(*cast_pos_monitor)
+            mouse.click(button="right")
+            wait(1.5, 1.5)
         else:
             self._pather.traverse_nodes((Location.A5_ELDRITCH_SAFE_DIST, Location.A5_ELDRITCH_END), self, timeout=1.0, do_pre_move=self._do_pre_move)
-        wait(0.05, 0.1)
         self._cast_war_cry(Config().char["atk_len_eldritch"])
-        wait(0.1, 0.15)
+        wait(0.05, 0.1)
         self._do_hork(4)
         return True
 
