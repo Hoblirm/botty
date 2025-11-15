@@ -44,19 +44,13 @@ def fast_save_and_exit() -> bool:
 
     exit_mutex.acquire() #Prevent game_controller and health_manager threads from conflict
     while attempts < 6 and not success:
+        keyboard.send("esc") #Ensure we close anything opened (chat box, inv, options etc)
+        keyboard.send("space") #To ensure we are in proper state, press space to close menu if openned
         keyboard.send("esc") #Open save and exit menu
         keyboard.send("down") #Move down twice in case mouse pointer selects wrong menu option
         keyboard.send("down") #Should move to bottom button
         keyboard.send("up") #Move up to 'save and exit' button
         keyboard.send("enter") #Press 'save and exit' button
-
-        #Try one more time incase the inventory screen was open in first attempt
-        wait(0.04, 0.04)
-        keyboard.send("esc")
-        keyboard.send("down")
-        keyboard.send("down")
-        keyboard.send("up")
-        keyboard.send("enter")
     
         attempts += 1
         success = wait_until_hidden(ScreenObjects.InGame, 0.5)
