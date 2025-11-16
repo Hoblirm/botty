@@ -23,51 +23,78 @@ class Barbarian(IChar):
     def _cast_war_cry(self, time_in_s: float):
         #  keyboard.send(self._skill_hotkeys["concentration"])
         #  wait(0.05, 0.1)
-        cry_frequency = min(0.2, self._skill_hotkeys["cry_frequency"])
-        keyboard.send(Config().char["stand_still"], do_release=False)
-        wait(0.05, 0.1)
-        if self._skill_hotkeys["war_cry"]:
+        if not self._skill_hotkeys["war_cry"]:
+            Logger.info('You did not set a hotkey for war_cry in params.ini!')
+        else:
             keyboard.send(self._skill_hotkeys["war_cry"])
-        wait(0.05, 0.1)
-        start = time.time()
-        while (time.time() - start) < time_in_s:
-            wait(0.06, 0.08)
-            mouse.click(button="right")
-            wait(cry_frequency, cry_frequency + 0.2)
-            mouse.click(button="right")
-        wait(0.01, 0.05)
-        keyboard.send(Config().char["stand_still"], do_press=False)
+            wait(0.05, 0.05)
+            start = time.time()
+            while (time.time() - start) < time_in_s/2:
+                mouse.click(button="right")
+                wait(self._cast_duration + 0.02,self._cast_duration + 0.02)
+            if self._skill_hotkeys["howl"]:
+                keyboard.send(self._skill_hotkeys["howl"])
+                wait(0.05, 0.05)
+                mouse.click(button="right")
+                wait(self._cast_duration + 0.02,self._cast_duration + 0.02)
+                keyboard.send(self._skill_hotkeys["war_cry"])
+                wait(0.05, 0.05)
+            start = time.time()
+            while (time.time() - start) < time_in_s/2:
+                mouse.click(button="right")
+                wait(self._cast_duration + 0.02,self._cast_duration + 0.02)
+            
 
     def on_capabilities_discovered(self, capabilities: CharacterCapabilities):
         if capabilities.can_teleport_natively:
             self._pather.offset_node(149, [120, 70])
 
     def _do_hork(self, hork_time: int):
-        wait(0.5)
         if self._skill_hotkeys["find_item"]:
-            keyboard.send(self._skill_hotkeys["find_item"])
-            wait(0.5, 0.15)
-        pos_m = convert_abs_to_monitor((0, -20))
-        mouse.move(*pos_m)
-        wait(0.05, 0.15)
-        mouse.press(button="right")
-        wait(hork_time)
-        mouse.release(button="right")
-        wait(1)
+            if self._skill_hotkeys["howl"]:
+                keyboard.send(self._skill_hotkeys["howl"])
+                wait(0.05, 0.05)
+                mouse.click(button="right")
+                wait(self._cast_duration + 0.02,self._cast_duration + 0.02)
+            keyboard.send(self._skill_hotkeys["find_item"])        
+            pos_m = convert_abs_to_monitor((0, -20))
+            mouse.move(*pos_m)
+            wait(0.05, 0.1)
+            start = time.time()
+            while ((time.time()-start) < hork_time):
+                mouse.click(button="right")
+                wait(self._cast_duration + 0.02,self._cast_duration + 0.02)
+                keyboard.send(Config().char["stand_still"], do_release=False)
+                mouse.click(button="right")
+                wait(self._cast_duration + 0.02,self._cast_duration + 0.02)
+                keyboard.send(Config().char["stand_still"], do_press=False)
+            if self._skill_hotkeys["howl"]:
+                keyboard.send(self._skill_hotkeys["howl"])
+                wait(0.05, 0.05)
+                mouse.click(button="right")
+                wait(self._cast_duration + 0.02,self._cast_duration + 0.02)
 
     def pre_buff(self):
-        keyboard.send(Config().char["battle_command"])
-        wait(0.08, 0.19)
-        mouse.click(button="right")
-        wait(self._cast_duration + 0.08, self._cast_duration + 0.1)
-        keyboard.send(Config().char["battle_orders"])
-        wait(0.08, 0.19)
-        mouse.click(button="right")
-        wait(self._cast_duration + 0.08, self._cast_duration + 0.1)
-        keyboard.send(self._skill_hotkeys["shout"])
-        wait(0.08, 0.19)
-        mouse.click(button="right")
-        wait(self._cast_duration + 0.08, self._cast_duration + 0.1)
+        if self._skill_hotkeys["howl"]:
+            keyboard.send(self._skill_hotkeys["howl"])
+            wait(0.05,0.05)
+            mouse.click(button="right")
+            wait(self._cast_duration + 0.02, self._cast_duration + 0.02)
+        if Config().char["battle_command"]:
+            keyboard.send(Config().char["battle_command"])
+            wait(0.05,0.05)
+            mouse.click(button="right")
+            wait(self._cast_duration + 0.02, self._cast_duration + 0.02)
+        if Config().char["battle_orders"]:
+            keyboard.send(Config().char["battle_orders"])
+            wait(0.05,0.05)
+            mouse.click(button="right")
+            wait(self._cast_duration + 0.02, self._cast_duration + 0.02)
+        if self._skill_hotkeys["shout"]:
+            keyboard.send(self._skill_hotkeys["shout"])
+            wait(0.05,0.05)
+            mouse.click(button="right")
+            wait(self._cast_duration + 0.02, self._cast_duration + 0.02)
 
     def pre_move(self, wait_tp: bool = False):
         # select teleport if available
@@ -89,12 +116,14 @@ class Barbarian(IChar):
         wait(0.1, 0.15)
         if self.capabilities.can_teleport_natively:
             self._pather.traverse_nodes_fixed("pindle_end", self)
+        elif self._skill_hotkeys["leap"]:
+            leap_pos_monitor = convert_screen_to_monitor(Config().path["pindle_end"][0])
+            mouse.move(*leap_pos_monitor)
+            mouse.click(button="right")
+            wait(1.5, 1.5)
         else:
             if not self._do_pre_move:
-            #  keyboard.send(self._skill_hotkeys["concentration"])
-            #  wait(0.05, 0.15)
                 self._pather.traverse_nodes((Location.A5_PINDLE_SAFE_DIST, Location.A5_PINDLE_END), self, timeout=1.0, do_pre_move=self._do_pre_move)
-        self._pather.traverse_nodes((Location.A5_PINDLE_SAFE_DIST, Location.A5_PINDLE_END), self, timeout=0.1)
         self._cast_war_cry(Config().char["atk_len_pindle"])
         wait(0.1, 0.15)
         self._do_hork(4)
@@ -104,15 +133,15 @@ class Barbarian(IChar):
         if self.capabilities.can_teleport_natively:
             self._pather.traverse_nodes_fixed([(675, 30)], self)
         elif self._skill_hotkeys["leap"]:
-            cast_pos_monitor = convert_screen_to_monitor((675,30))
-            mouse.move(*cast_pos_monitor)
+            leap_pos_monitor = convert_screen_to_monitor((675,30))
+            mouse.move(*leap_pos_monitor)
             mouse.click(button="right")
             wait(1.5, 1.5)
         else:
             self._pather.traverse_nodes((Location.A5_ELDRITCH_SAFE_DIST, Location.A5_ELDRITCH_END), self, timeout=1.0, do_pre_move=self._do_pre_move)
         self._cast_war_cry(Config().char["atk_len_eldritch"])
         wait(0.05, 0.1)
-        self._do_hork(4)
+        self._do_hork(6)
         return True
 
     def kill_shenk(self):
