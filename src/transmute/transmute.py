@@ -155,7 +155,7 @@ class Transmute:
 
     def inspect_stash(self, gemsToTransmute) -> Stash:
         stash = Stash()
-        for i in range(4):
+        for i in range(6):
             common.select_stash_page(i)
             wait(0.4, 0.5)
             tab = self.inspect_area(
@@ -168,7 +168,7 @@ class Transmute:
         pick = []
         for gem in flawless_gems.all_items():
             while flawless_gems.count_by(gem) > 0:
-                pick.append((randint(0, 3), *flawless_gems.pop(gem)))
+                pick.append((randint(0, 5), *flawless_gems.pop(gem)))
         for tab, x, y in sorted(pick, key=lambda x: x[0]):
             common.select_stash_page(tab)
             self.pick_from_inventory_at(x, y)

@@ -53,12 +53,12 @@
 //----------------------------------------
 
 [Name] >= Lemrune && [Name] <= Zodrune
-//[Name] == Elrune
-//[Name] == Eldrune
+[Name] == Elrune
+[Name] == Eldrune
 [Name] == Tirrune
-//[Name] == Nefrune
-//[Name] == Ethrune
-//[Name] == Ithrune
+[Name] == Nefrune
+[Name] == Ethrune
+[Name] == Ithrune
 [Name] == Talrune
 [Name] == Ralrune
 [Name] == Ortrune
@@ -66,7 +66,7 @@
 [Name] == Amnrune
 [Name] == Solrune
 [Name] == Shaelrune
-//[Name] == Dolrune
+[Name] == Dolrune
 [Name] == Helrune
 [Name] == Iorune
 [Name] == Lumrune
@@ -91,33 +91,33 @@
 //================= Gems ================
 //---------------------------------------
 
-//[Name] == Chippedamethyst
-//[Name] == Chippeddiamond
-//[Name] == Chippedemerald
-//[Name] == Chippedruby
-//[Name] == Chippedsapphire
-//[Name] == Chippedskull
-//[Name] == Chippedtopaz
-//[Name] == Flawedamethyst
-//[Name] == Flaweddiamond
-//[Name] == Flawedemerald
-//[Name] == Flawedruby
-//[Name] == Flawedsapphire
-//[Name] == Flawedskull
-//[Name] == Flawedtopaz
-//[Name] == Amethyst
-//[Name] == Diamond
-//[Name] == Emerald
-//[Name] == Ruby
-//[Name] == Skull
-//[Name] == Sapphire
-//[Name] == Topaz
+[Name] == Chippedamethyst
+[Name] == Chippeddiamond
+[Name] == Chippedemerald
+[Name] == Chippedruby
+[Name] == Chippedsapphire
+[Name] == Chippedskull
+[Name] == Chippedtopaz
+[Name] == Flawedamethyst
+[Name] == Flaweddiamond
+[Name] == Flawedemerald
+[Name] == Flawedruby
+[Name] == Flawedsapphire
+[Name] == Flawedskull
+[Name] == Flawedtopaz
+[Name] == Amethyst
+[Name] == Diamond
+[Name] == Emerald
+[Name] == Ruby
+[Name] == Skull
+[Name] == Sapphire
+[Name] == Topaz
 [Name] == Flawlessamethyst
 [Name] == Flawlessdiamond
-//[Name] == Flawlessemerald
+[Name] == Flawlessemerald
 [Name] == Flawlessruby
 [Name] == Flawlesssapphire
-//[Name] == Flawlessskull
+[Name] == Flawlessskull
 [Name] == Flawlesstopaz
 //[Name] == Perfectamethyst
 //[Name] == Perfectdiamond
@@ -1271,6 +1271,8 @@
 //[Type] == Ring && [Quality] == Unique # [Hpregen] >= 5 && [Manaleech] >= 4      // Manald Heal
 //[Type] == Ring && [Quality] == Unique # [Hpregen] == 8 && [Manaleech] == 7      // Manald Heal Perfect
 [Type] == Ring && [Quality] == Unique # [Itemmaxmanapercent] >= 25       // Stone Of Jordan
+[Type] == Ring && [Quality] == Unique # [Fcr] >= 10 && [Itemmagicbonus] >= 10  // Sling Ring
+[Type] == Ring && [Quality] == Unique # [Fcr] >= 10 && [Allres] >= 6  // Opalvein Ring
 [Type] == Ring && [Quality] == Unique # [Maxhp] >= 35 && [Magicdamagereduction] >= 12     	// Dwarf Star
 //[Type] == Ring && [Quality] == Unique # [Maxhp] >= 35 && [Magicdamagereduction] == 15     	// Dwarf Star Perfect
 [Type] == Ring && [Quality] == Unique # [Dexterity] >= 15 && [Tohit] >= 150      // Raven Frost
@@ -1289,14 +1291,15 @@
 //-------------------------------------------------
 
 //[Type] == Amulet && [Quality] == Unique # [Fireresist] >= 50        // Nokozan Relic
-//[Type] == Amulet && [Quality] == Unique # [Lifeleech] >= 3 && [Armorclassvsmissile] >= 10        // The Eye Of Etlitch
+[Type] == Amulet && [Quality] == Unique # [Lifeleech] >= 3 && [Armorclassvsmissile] >= 10        // The Eye Of Etlitch
 //[Type] == Amulet && [Quality] == Unique # [Lifeleech] >= 7 && [Armorclassvsmissile] >= 40        // The Eye Of Etlitch Perfect
 //[Type] == Amulet && [Quality] == Unique # [Allres] >= 10 && [Enhanceddefense] >= 10       // The Mahim-Oak Curio
 //[Type] == Amulet && [Quality] == Unique # [Allres] >= 15 && [Strength] >= 12        // Saracen's Chance
 //[Type] == Amulet && [Quality] == Unique # [Allres] == 25 && [Strength] >= 12        // Saracen's Chance Perfect
 //[Type] == Amulet && [Quality] == Unique # [Dexterity] >= 25 && [Ias] >= 20     // The Cat's Eye
-//[Type] == Amulet && [Quality] == Unique # [Lifeleech] >= 3 && [Manaleech] >= 11     // Crescent Moon
+[Type] == Amulet && [Quality] == Unique # [Lifeleech] >= 3 && [Manaleech] >= 11     // Crescent Moon
 //[Type] == Amulet && [Quality] == Unique # [Lifeleech] == 6 && [Manaleech] == 15     // Crescent Moon Perfect
+[Type] == Amulet && [Quality] == Unique # [Fcr] >= 5       // Entropy Locket
 [Type] == Amulet && [Quality] == Unique # [Lightresist] >= 35       // Highlord's Wrath
 //[Type] == Amulet && [Quality] == Unique # [Poisonresist] >= 75      // Atma's Scarab
 [Type] == Amulet && [Quality] == Unique # [Hpregen] >= 10 && [Fireskilltab] >= 2       // The Rising Sun
@@ -1353,7 +1356,7 @@
 //[Name] == Vampirefangbelt && [Quality] == Unique && [Flag] != Ethereal # [Lifeleech] >= 7 && [Defense] >= 60         // Nosferatu's Coil Perfect
 [Name] == Mithrilcoil && [Quality] == Unique && [Flag] != Ethereal # [Damageresist] >= 13 && [Enhanceddefense] >= 90 && [Hpregen] >= 10    // Verdungo's Hearty Cord
 //[Name] == Mithrilcoil && [Quality] == Unique && [Flag] != Ethereal # [Damageresist] >= 15 && [Enhanceddefense] >= 140 && [Hpregen] >= 13    // Verdungo's Hearty Cord Perfect
-
+[Name] == Trollbelt && [Quality] == Unique && [Flag] != Ethereal //Gheed's Wager
 //-----------------------------------------------
 //================= Unique Boots ================
 //-----------------------------------------------

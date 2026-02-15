@@ -118,17 +118,23 @@ class BlizzorbSorc(Sorceress):
 
     def kill_eldritch(self) -> bool:
         eldritch_pos_abs = convert_screen_to_abs(Config().path["eldritch_end"][0])
-        cast_pos_abs = [eldritch_pos_abs[0] * 1.5, eldritch_pos_abs[1] * 1.5]
+        cast_pos_abs = [eldritch_pos_abs[0] * 1.00, eldritch_pos_abs[1] * 1.00]
+        self._pather.traverse_nodes_fixed([(675, 30)], self)
 
         start = time.time()
-        self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
+        while (time.time() - start) < Config().char["atk_len_eldritch"]:
+            self._cast_blizzard([40,-100],spray=0)
+            self._cast_frozen_orb([80,-200],spray=0)
+            self._cast_static_field(times=3)
+            self._cast_frozen_orb([80,-200],spray=0)
+        #self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
         
         #Need to cast blizzard closer now that Eldritch approaches
-        cast_pos_abs = [eldritch_pos_abs[0] * 1.3, eldritch_pos_abs[1] * 1.3]
+        #cast_pos_abs = [eldritch_pos_abs[0] * 1.3, eldritch_pos_abs[1] * 1.3]
 
-        while (time.time() - start) < Config().char["atk_len_eldritch"]:
-            self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
-        self._pather.traverse_nodes_fixed("eldritch_end", self)
+        #while (time.time() - start) < Config().char["atk_len_eldritch"]:
+        #    self._cast_blizzorb_spike_combo(cast_pos_abs, spray=0)
+        #self._pather.traverse_nodes_fixed("eldritch_end", self)
         return True
 
     def kill_shenk(self) -> bool:

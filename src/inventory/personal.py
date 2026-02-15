@@ -126,7 +126,7 @@ def stash_all_items(items: list = None):
         return []
     # check if stash tab is completely full (no empty slots)
     common.select_stash_page(stash.get_curr_stash()["items"])
-    while stash.get_curr_stash()["items"] <= 5:
+    while ( (stash.get_curr_stash()["items"] <= 5) and (stash.get_curr_stash()["items"] >= 0) ):
         img = grab()
         if is_visible(ScreenObjects.EmptyStashSlot, img):
             break
@@ -138,7 +138,7 @@ def stash_all_items(items: list = None):
                 stash.set_curr_stash(items = (stash.get_curr_stash()["items"] - 1))
             else:
                 stash.set_curr_stash(items = (stash.get_curr_stash()["items"] + 1))
-            if (Config().char["fill_shared_stash_first"] and stash.get_curr_stash()["items"] < 0) or stash.get_curr_stash()["items"] > 3:
+            if (Config().char["fill_shared_stash_first"] and stash.get_curr_stash()["items"] < 0) or stash.get_curr_stash()["items"] > 5:
                 stash.stash_full()
             common.select_stash_page(stash.get_curr_stash()["items"])
     # stash stuff
