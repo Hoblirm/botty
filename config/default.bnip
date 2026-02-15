@@ -790,7 +790,7 @@
 [Name] == Flail && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4          // Hoto base
 [Name] == Militarypick && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3  // Crescent Moon base
 [Name] == Militarypick && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 5  // Doom base   
-([Name] == Kris || [Name] == Cinquedeas || [Name] == Fangedknife) # [Skillabyss] >= 1 && ([Sockets] == 0 || [Sockets] = 3) //Void base       
+([Name] == Kris || [Name] == Cinquedeas || [Name] == Fangedknife) # [Skillabyss] >= 1 && ([Sockets] == 0 || [Sockets] == 3) //Void base       
 //[Name] == Phaseblade && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 5          // Socketed Greif base
 //[Name] == Phaseblade && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3          // Socketed Lawbringer base
 //[Name] == Warscepter && [Quality] == Normal && [Flag] != Ethereal # ([Skillblessedhammer] >= 3 || [Skillconviction] >= 3 || [Skillfistoftheheavens] >= 3 || [Skillfanaticism] >= 3 || [Skillholyshield] >= 3) && [Sockets] == 5          // Socketed
