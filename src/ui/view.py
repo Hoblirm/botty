@@ -42,15 +42,17 @@ def fast_save_and_exit() -> bool:
     success = False
     attempts = 0
 
+    x_center = Config().ui_roi["save_and_exit"][0] + Config().ui_roi["save_and_exit"][2]/2
+    y_center = Config().ui_roi["save_and_exit"][1] + Config().ui_roi["save_and_exit"][3]/2              
+    save_and_exit_pos = convert_screen_to_monitor( (x_center,y_center) )
+    
     exit_mutex.acquire() #Prevent game_controller and health_manager threads from conflict
     while attempts < 6 and not success:
         keyboard.send("esc") #Ensure we close anything opened (chat box, inv, options etc)
         keyboard.send("space") #To ensure we are in proper state, press space to close menu if openned
         keyboard.send("esc") #Open save and exit menu
-        keyboard.send("down") #Move down twice in case mouse pointer selects wrong menu option
-        keyboard.send("down") #Should move to bottom button
-        keyboard.send("up") #Move up to 'save and exit' button
-        keyboard.send("enter") #Press 'save and exit' button
+        mouse.move(*save_and_exit_pos) #Move the mouse to the save & exit button
+        mouse.click("left")
     
         attempts += 1
         success = wait_until_hidden(ScreenObjects.InGame, 0.5)
