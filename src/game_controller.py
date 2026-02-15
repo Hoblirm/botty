@@ -42,9 +42,10 @@ class GameController:
         messenger = Messenger()
         force_stopped = False
         while 1:
+            did_chicken = self.health_manager.did_chicken()
             max_game_length_reached = self.game_stats.get_current_game_length() > Config().general["max_game_length_s"]
             max_consecutive_fails_reached = False if not Config().general["max_consecutive_fails"] else self.game_stats.get_consecutive_runs_failed() >= Config().general["max_consecutive_fails"]
-            if max_game_length_reached or max_consecutive_fails_reached or self.death_manager.died() or self.health_manager.did_chicken() or (force_stopped := self.bot._stopping):
+            if max_game_length_reached or max_consecutive_fails_reached or self.death_manager.died() or did_chicken or (force_stopped := self.bot._stopping):
                 # Some debug and logging
                 if max_game_length_reached:
                     Logger.info(f"Max game length reached. Attempting to restart {Config().general['name']}!")
@@ -52,7 +53,7 @@ class GameController:
                         cv2.imwrite("./log/screenshots/info/info_max_game_length_reached_" + time.strftime("%Y%m%d_%H%M%S") + ".png", grab())
                 elif self.death_manager.died():
                     self.game_stats.log_death(self.death_manager._last_death_screenshot)
-                elif self.health_manager.did_chicken():
+                elif did_chicken:
                     self.game_stats.log_chicken(self.health_manager._last_chicken_screenshot)
                 self.bot.stop()
                 kill_thread(self.bot_thread)
@@ -72,7 +73,7 @@ class GameController:
             # Reset flags before running a new bot
             self.death_manager.reset_death_flag()
             self.health_manager.reset_chicken_flag()
-            self.game_stats.log_end_game(failed = (max_game_length_reached or force_stopped))
+            self.game_stats.log_end_game(failed = (max_game_length_reached or did_chicken or force_stopped))
             return self.run_bot()
         else:
             if Config().general["info_screenshots"]:
