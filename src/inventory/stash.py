@@ -5,7 +5,7 @@ from logger import Logger
 from messages import Messenger
 
 curr_stash = {
-    "items": 3 if Config().char["fill_shared_stash_first"] else 0,
+    "items": 5 if Config().char["fill_shared_stash_first"] else 0,
     "gold": 0
 }
 

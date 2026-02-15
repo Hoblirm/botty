@@ -89,11 +89,13 @@ def stash_all_items(items: list = None):
     if Config().char["stash_gold"]:
         if not is_visible(ScreenObjects.GoldNone):
             Logger.debug("Stashing gold")
-            common.select_tab(min(3, stash.get_curr_stash()["gold"]))
+            common.select_tab(min(1, stash.get_curr_stash()["gold"]))
             wait(0.7, 1)
             stash_full_of_gold = False
             # Try to read gold count with OCR
-            try: stash_full_of_gold = common.read_gold(grab(), "stash") == 2500000
+            try: 
+                gold_amount = common.read_gold(grab(), "stash")
+                stash_full_of_gold = ((gold_amount == 2500000) or (gold_amount==12500000)) 
             except: pass
             if not stash_full_of_gold:
                 # If gold read by OCR fails, fallback to old method
@@ -123,8 +125,8 @@ def stash_all_items(items: list = None):
     if not items:
         return []
     # check if stash tab is completely full (no empty slots)
-    common.select_tab(stash.get_curr_stash()["items"])
-    while stash.get_curr_stash()["items"] <= 3:
+    common.select_stash_page(stash.get_curr_stash()["items"])
+    while stash.get_curr_stash()["items"] <= 5:
         img = grab()
         if is_visible(ScreenObjects.EmptyStashSlot, img):
             break
@@ -138,7 +140,7 @@ def stash_all_items(items: list = None):
                 stash.set_curr_stash(items = (stash.get_curr_stash()["items"] + 1))
             if (Config().char["fill_shared_stash_first"] and stash.get_curr_stash()["items"] < 0) or stash.get_curr_stash()["items"] > 3:
                 stash.stash_full()
-            common.select_tab(stash.get_curr_stash()["items"])
+            common.select_stash_page(stash.get_curr_stash()["items"])
     # stash stuff
     while True:
         items = transfer_items(items, "stash")
@@ -153,7 +155,7 @@ def stash_all_items(items: list = None):
                 stash.set_curr_stash(items = (stash.get_curr_stash()["items"] + 1))
             if (Config().char["fill_shared_stash_first"] and stash.get_curr_stash()["items"] < 0) or stash.get_curr_stash()["items"] > 3:
                 stash.stash_full()
-            common.select_tab(stash.get_curr_stash()["items"])
+            common.select_stash_page(stash.get_curr_stash()["items"])
         else:
             break
     Logger.debug("Done stashing")

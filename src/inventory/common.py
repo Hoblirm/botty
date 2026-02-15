@@ -183,7 +183,7 @@ def left_inventory_ready(img = np.ndarray):
     return False
 
 def tab_properties(idx: int = 0) -> dict[int, int, tuple]:
-    tab_width = round(int(Config().ui_roi["tab_indicator"][2]) / 4)
+    tab_width = round(int(Config().ui_roi["tab_indicator"][2]) / 5)
     x_start = int(Config().ui_roi["tab_indicator"][0])
     left = idx * tab_width + x_start
     right = (idx + 1) * tab_width + x_start
@@ -224,6 +224,53 @@ def select_tab(idx: int):
         wait(0.2, 0.3)
         mouse.click("left")
         wait(0.2, 0.3)
+
+def select_stash_page(idx: int):
+    if idx == 0:
+        return select_tab(0)
+    else:
+        select_tab(1)
+        img = grab()
+        img = cut_roi(img, Config().ui_roi["stash_page_digits"])
+        img = np.pad(img, pad_width=[(8, 8),(8, 8),(0, 0)], mode='constant')
+        ocr_result = ocr.image_to_text(
+            images = img,
+            model = "hover-eng_inconsolata_inv_th_fast",
+            psm = 13,
+            scale = 1.2,
+            crop_pad = False,
+            erode = False,
+            invert = False,
+            threshold = 76,
+            digits_only = True,
+            fix_regexps = False,
+            check_known_errors = False,
+            correct_words = False,
+        )[0]
+        current_page=int(ocr_result.text.strip())
+        Logger.debug(f"Detected stash page {current_page}.")
+        if ((current_page) < 1 or (current_page > 5)):
+            Logger.error(f"Invalid stash page {current_page} detected. Skipping page select.")
+        else:
+            if idx > current_page:
+                x_center = Config().ui_roi["stash_page_select_right"][0] + Config().ui_roi["stash_page_select_right"][2]/2
+                y_center = Config().ui_roi["stash_page_select_right"][1] + Config().ui_roi["stash_page_select_right"][3]/2              
+                pos = convert_screen_to_monitor( (x_center,y_center) )
+                mouse.move(*pos)
+                wait(0.2, 0.3)
+                for i in range(idx-current_page):
+                    mouse.click("left")
+                    wait(0.2, 0.3)
+            elif idx < current_page:
+                x_center = Config().ui_roi["stash_page_select_left"][0] + Config().ui_roi["stash_page_select_left"][2]/2
+                y_center = Config().ui_roi["stash_page_select_left"][1] + Config().ui_roi["stash_page_select_left"][3]/2
+                pos = convert_screen_to_monitor( (x_center,y_center) )
+                mouse.move(*pos)
+                wait(0.2, 0.3)
+                for i in range(current_page-idx):
+                    mouse.click("left")
+                    wait(0.2, 0.3)  
+
 
 if __name__ == "__main__":
     import os
