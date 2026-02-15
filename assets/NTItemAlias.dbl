@@ -1160,6 +1160,8 @@ NTIPAliasStat["skillbladeshield"] = [107,277];
 NTIPAliasStat["skillvenom"] = [107,278];
 NTIPAliasStat["skillshadowmaster"] = [107,279];
 NTIPAliasStat["skillphoenixstrike"] = [107,280];
+// Warlock skills
+NTIPAliasStat["skillabyss"] = [107,281];
 
 NTIPAliasStat["itemrestinpeace"] = 108;
 NTIPAliasStat["curseresistance"] = 109;
