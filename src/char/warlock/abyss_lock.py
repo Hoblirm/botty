@@ -88,7 +88,7 @@ class AbyssLock(Warlock):
 
     def kill_pindle(self) -> bool:
         pindle_pos_abs = convert_screen_to_abs(Config().path["pindle_end"][0])
-        cast_pos_abs = [pindle_pos_abs[0] * 0.9, pindle_pos_abs[1] * 0.9]
+        cast_pos_abs = [pindle_pos_abs[0] * 1.0, pindle_pos_abs[1] * 1.0]
         start = time.time()
 
         self._cast_deathmark(cast_pos_abs)
