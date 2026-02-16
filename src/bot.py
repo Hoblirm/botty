@@ -434,7 +434,15 @@ class Bot:
             cv2.imwrite("./log/screenshots/info/info_failed_game_" + time.strftime("%Y%m%d_%H%M%S") + ".png", grab())
         self._curr_loc = False
         self._pre_buffed = False
-        view.save_and_exit()
+        if view.save_and_exit() == False:
+            Logger.error("Normal save_and_exit failed! Attempting fast_save_and_exit and resetting bot.")
+            img = grab()
+            view.fast_save_and_exit()
+            self.stop()
+            if Config().general["info_screenshots"]:
+                self._last_chicken_screenshot = "./log/screenshots/info/info_failed_exit_" + time.strftime("%Y%m%d_%H%M%S") + ".png"
+                cv2.imwrite(self._last_chicken_screenshot, img)
+            
         set_pause_state(True)
         self._game_stats.log_end_game(failed=failed)
 
