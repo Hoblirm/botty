@@ -35,6 +35,9 @@ class Config:
     hydra_sorc = {}
     hammerdin = {}
     fohdin = {}
+    fire_lock = {}
+    echo_lock = {}
+    abyss_lock = {}
     javazon = {}
     trapsin = {}
     barbarian = {}
@@ -244,6 +247,25 @@ class Config:
             self.hydra_sorc.update(dict(self.configs["custom"]["parser"]["hydra_sorc"]))
         self.hydra_sorc.update(sorc_base_cfg)
 
+        # Warlock base config
+        warlock_base_cfg = dict(self.configs["config"]["parser"]["warlock"])
+        if "warlock" in self.configs["custom"]["parser"]:
+            warlock_base_cfg.update(dict(self.configs["custom"]["parser"]["warlock"]))
+        # fire warlock
+        self.fire_lock = dict(self.configs["config"]["parser"]["fire_lock"])
+        if "fire_lock" in self.configs["custom"]["parser"]:
+            self.fire_lock.update(dict(self.configs["custom"]["parser"]["fire_lock"]))
+        self.fire_lock.update(warlock_base_cfg)
+        # echo warlock
+        self.echo_lock = dict(self.configs["config"]["parser"]["echo_lock"])
+        if "echo_lock" in self.configs["custom"]["parser"]:
+            self.echo_lock.update(dict(self.configs["custom"]["parser"]["echo_lock"]))
+        self.echo_lock.update(warlock_base_cfg)
+        # abyss warlock
+        self.abyss_lock = dict(self.configs["config"]["parser"]["abyss_lock"])
+        if "abyss_lock" in self.configs["custom"]["parser"]:
+            self.abyss_lock.update(dict(self.configs["custom"]["parser"]["abyss_lock"]))
+        self.abyss_lock.update(warlock_base_cfg)
         # Paladin base config
         paladin_base_cfg = dict(self.configs["config"]["parser"]["paladin"])
         if "paladin" in self.configs["custom"]["parser"]:
