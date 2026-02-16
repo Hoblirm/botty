@@ -880,7 +880,8 @@
 //[Name] == Mancatcher && [Quality] == Superior && [Flag] != Ethereal # [Sockets] >= 4 && [Enhanceddamage] >= 10          // Socketed Sup
 
 // <<<<<<<<< [ Ethereal 2h Socketed/Non-Socketed Weapons ] >>>>>>>>>
-//[Name] == Warpike && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 6
+[Name] == Warpike && ([Quality] == Normal || [Quality] == Superior) && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4 )  //Echo Strike base
+[Name] == Thundermaul && ([Quality] == Normal || [Quality] == Superior) && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] == 4 || [Sockets] == 6 ) //Echo Strike base
 //[Name] == Scythe && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 4
 [Name] == Colossusvoulge && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4)          // Socketed Eth
 [Name] == Thresher && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4)          // Socketed Eth
