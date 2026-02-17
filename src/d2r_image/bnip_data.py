@@ -995,6 +995,9 @@ BNIP_ALIAS_STAT_PATTERNS = {
     "{:d} to Phoenix Strike (Assassin only)": [
         "107,280"
     ],
+    "{:d} to Abyss (Warlock only)": [
+        "107,281"
+    ],
     "{:d} to Bow and Crossbow Skills (Amazon Only)": [
         "188,0"
     ],
@@ -7014,6 +7017,9 @@ BNIP_ALIAS_STAT_PATTERNS = {
     ],
     "{:d} to Phoenix Strike": [
         "97,280"
+    ],
+    "{:d} to Abyss": [
+        "97,281"
     ],
     "{:d} to not Consume Quantity": [
         "205"
