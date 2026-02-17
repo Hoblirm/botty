@@ -1058,6 +1058,15 @@ BNIP_ALIAS_STAT_PATTERNS = {
     "{:d} to Martial Arts (Assassin Only)": [
         "188,20"
     ],
+    "{:d} to Chaos Skills (Warlock Only)": [
+        "188,21"
+    ],
+    "{:d} to Eldritch Skills (Warlock Only)": [
+        "188,22"
+    ],
+    "{:d} to Demon Skills (Warlock Only)": [
+        "188,23"
+    ],
     "Level {:d} Magic Arrow Aura When Equipped": [
         "151,6"
     ],

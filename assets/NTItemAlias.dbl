@@ -1281,6 +1281,9 @@ NTIPAliasStat["itemaddelementalskilltab"] = [188,42];		NTIPAliasStat["elementals
 NTIPAliasStat["itemaddtrapsskilltab"] = [188,48];		NTIPAliasStat["trapsskilltab"] = [188,48];
 NTIPAliasStat["itemaddshadowdisciplinesskilltab"] = [188,49];	NTIPAliasStat["shadowdisciplinesskilltab"] = [188,49];
 NTIPAliasStat["itemaddmartialartsskilltab"] = [188,50];	NTIPAliasStat["martialartsskilltab"] = [188,50];
+NTIPAliasStat["itemaddchaosskilltab"] = [188,51];	NTIPAliasStat["chaosskilltab"] = [188,51];
+NTIPAliasStat["itemaddeldritchskilltab"] = [188,52];	NTIPAliasStat["eldritchskilltab"] = [188,52];
+NTIPAliasStat["itemadddemonskilltab"] = [188,53];	NTIPAliasStat["demonskilltab"] = [188,53];
 
 NTIPAliasStat["unused189"] = 189;
 NTIPAliasStat["unused190"] = 190;
