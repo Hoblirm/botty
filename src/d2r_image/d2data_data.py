@@ -559,6 +559,48 @@ ITEM_ARMOR = {
         "uniques": ["SPIKETHORN"],
         "NTIPAliasClass": 2
     },
+    "blasphemouscompendium":
+    {
+        "DisplayName": "Blasphemous Compendium",
+        "NTIPAliasClassID": 672,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 2
+    },
+    "blasphemousgrimoire":
+    {
+        "DisplayName": "Blasphemous Grimoire",
+        "NTIPAliasClassID": 673,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 2
+    },
     "bloodspirit":
     {
         "DisplayName": "Blood Spirit",
@@ -867,6 +909,27 @@ ITEM_ARMOR = {
         "uniques": ["PELTALUNATA"],
         "NTIPAliasClass": 0
     },
+    "burnttext":
+    {
+        "DisplayName": "Burnt Text",
+        "NTIPAliasClassID": 664,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 1
+    },
     "cantortrophy":
     {
         "DisplayName": "Cantor Trophy",
@@ -1122,6 +1185,27 @@ ITEM_ARMOR = {
         "sets": ["NAJSCIRCLET"],
         "NTIPAliasClass": 0
     },
+    "codex":
+    {
+        "DisplayName": "Codex",
+        "NTIPAliasClassID": 661,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 0
+    },
     "colossusgirdle":
     {
         "DisplayName": "Colossus Girdle",
@@ -1144,6 +1228,27 @@ ITEM_ARMOR = {
         },
         "dimensions": [2, 1],
         "NTIPAliasClass": 2
+    },
+    "compendium":
+    {
+        "DisplayName": "Compendium",
+        "NTIPAliasClassID": 662,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 0
     },
     "conquerorcrown":
     {
@@ -1341,6 +1446,48 @@ ITEM_ARMOR = {
         "dimensions": [2, 3],
         "sets": ["HAEMOSUSADAMANT"],
         "uniques": ["DURIELSSHELL"],
+        "NTIPAliasClass": 1
+    },
+    "darkcodex":
+    {
+        "DisplayName": "Dark Codex",
+        "NTIPAliasClassID": 666,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 1
+    },
+    "darktome":
+    {
+        "DisplayName": "Dark Tome",
+        "NTIPAliasClassID": 665,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
         "NTIPAliasClass": 1
     },
     "deathmask":
@@ -1878,6 +2025,27 @@ ITEM_ARMOR = {
         "uniques": ["ROCKFLEECE"],
         "NTIPAliasClass": 0
     },
+    "forgottenvolume":
+    {
+        "DisplayName": "Forgotten Volume",
+        "NTIPAliasClassID": 669,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 2
+    },
     "fullhelm":
     {
         "DisplayName": "Full Helm",
@@ -2336,6 +2504,27 @@ ITEM_ARMOR = {
         "sets": ["NATALYASTOTEM"],
         "uniques": ["VAMPIREGAZE"],
         "NTIPAliasClass": 1
+    },
+    "grimoire":
+    {
+        "DisplayName": "Grimoire",
+        "NTIPAliasClassID": 663,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 0
     },
     "grimshield":
     {
@@ -3609,6 +3798,48 @@ ITEM_ARMOR = {
         "uniques": ["SHADOWDANCER"],
         "NTIPAliasClass": 2
     },
+    "occultcodex":
+    {
+        "DisplayName": "Occult Codex",
+        "NTIPAliasClassID": 671,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 2
+    },
+    "occulttome":
+    {
+        "DisplayName": "Occult Tome",
+        "NTIPAliasClassID": 670,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 2
+    },
     "ogregauntlets":
     {
         "DisplayName": "Ogre Gauntlets",
@@ -3632,6 +3863,27 @@ ITEM_ARMOR = {
         "dimensions": [2, 2],
         "uniques": ["STEELREND"],
         "NTIPAliasClass": 2
+    },
+    "oldbook":
+    {
+        "DisplayName": "Old Book",
+        "NTIPAliasClassID": 659,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 0
     },
     "ornateplate":
     {
@@ -3773,6 +4025,48 @@ ITEM_ARMOR = {
         "sets": ["SIGONSWRAP"],
         "uniques": ["BLADEBUCKLE"],
         "NTIPAliasClass": 0
+    },
+    "possessedcompendium":
+    {
+        "DisplayName": "Possessed Compendium",
+        "NTIPAliasClassID": 667,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 1
+    },
+    "possessedgrimoire":
+    {
+        "DisplayName": "Possessed Grimoire",
+        "NTIPAliasClassID": 668,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 1
     },
     "preservedhead":
     {
@@ -5020,6 +5314,27 @@ ITEM_ARMOR = {
         "sets": ["HWANINSREFUGE"],
         "uniques": ["CROWCAW"],
         "NTIPAliasClass": 1
+    },
+    "tome":
+    {
+        "DisplayName": "Tome",
+        "NTIPAliasClassID": 660,
+        "NTIPAliasType": 106,
+        "NTIPAliasStatProps":
+        {
+            "194":
+            {
+                "min": 0,
+                "max": 2
+            },
+            "0x400000":
+            {
+                "min": 0,
+                "max": 1
+            }
+        },
+        "dimensions": [2, 2],
+        "NTIPAliasClass": 0
     },
     "totemicmask":
     {
@@ -10511,6 +10826,26 @@ ITEM_TYPES = {
         "display_name": "Gold",
         "items": [
             "gold"
+        ]
+    },
+    "grimoires": {
+        "display_name": "Grimoires",
+        "items": [
+            "oldbook",
+            "tome",
+            "codex",
+            "compendium",
+            "grimoire",
+            "burnt_text",
+            "dark_tome",
+            "dark_codex",
+            "possessed_compendium",
+            "possessed_grimoire",
+            "forgotten_volume",
+            "occult_tome",
+            "occult_codex",
+            "blasphemous_compendium",
+            "blasphemous_grimoire"
         ]
     },
     "hammer": {

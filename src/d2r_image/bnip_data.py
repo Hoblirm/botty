@@ -998,6 +998,9 @@ BNIP_ALIAS_STAT_PATTERNS = {
     "{:d} to Abyss (Warlock only)": [
         "107,281"
     ],
+    "{:d} to Enhanced Entropy (Warlock only)": [
+        "107,282"
+    ],
     "{:d} to Bow and Crossbow Skills (Amazon Only)": [
         "188,0"
     ],
@@ -7021,6 +7024,9 @@ BNIP_ALIAS_STAT_PATTERNS = {
     "{:d} to Abyss": [
         "97,281"
     ],
+    "{:d} to Enhanced Entropy": [
+        "97,282"
+    ],
     "{:d} to not Consume Quantity": [
         "205"
     ],
@@ -7527,6 +7533,66 @@ BNIP_ITEM_TYPE_DATA = {
         "auricshields",
         "anyshield",
         "paladinitem"
+    ],
+    "Old Book": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Tome": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Codex": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Compendium": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Grimoire": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Burnt Text": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Dark Tome": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Dark Codex": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Possessed Compendium": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Possessed Grimoire": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Forgotten Volume": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Occult Tome": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Occult Codex": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Blasphemous Compendium": [
+        "grimoires",
+        "anyshield"
+    ],
+    "Blasphemous Grimoire": [
+        "grimoires",
+        "anyshield"
     ],
     "Preserved Head": [
         "voodooheads",
