@@ -1708,3 +1708,8 @@
 [Name] == Gildedshield && [Quality] == Unique && [Flag] == Ethereal # [Enhanceddefense] >= 150     	// Eth Herald Of Zakarum
 //[Name] == Gildedshield && [Quality] == Unique && [Flag] == Ethereal # [Enhanceddefense] == 200     	// Eth Herald Of Zakarum Perfect
 //[Name] == Zakarumshield && [Quality] == Unique # [Enhanceddefense] >= 150 && [Itemabsorbfirepercent] >= 15 && [Strength] >= 20   	// Dragonscale
+
+//--------------------------------------------------------------
+//================= Unique Warlock Grimoires ================
+//--------------------------------------------------------------
+[Type] == Grimoires && [Quality] == Unique //All unique Warlock grimoires
