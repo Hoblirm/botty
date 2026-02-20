@@ -707,6 +707,7 @@
 //-----------------------------------------------
 //================= Helmet Bases ================
 //-----------------------------------------------
+[Name] == Mask && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3 //3os mask
 //([Name] == Corona || [Name] == Demonhead || [Name] == Bonevisage || [Name] == Diadem) && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 0
 //([Name] == Corona || [Name] == Demonhead || [Name] == Bonevisage || [Name] == Diadem) && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3       // 3os Socketed
 ([Name] == Corona || [Name] == Demonhead || [Name] == Bonevisage || [Name] == Diadem) && [Quality] == Superior && [Flag] != Ethereal # [Enhanceddefense] >= 10 && [Sockets] == 0         // Delirium Or Dream Perfect
@@ -1050,7 +1051,7 @@
 
 //[Name] == Buckler && [Quality] == Set     // Hsarus' Iron Fist
 //[Name] == Belt && [Quality] == Set # [Coldresist] == 20 && [Maxhp] == 20   // Hsarus' Iron Stay
-//[Name] == Chainboots && [Quality] == Set     // Hsarus' Iron Heel
+[Name] == Chainboots && [Quality] == Set     // Hsarus' Iron Heel
 
 //-------------------------------------------------
 //================= Infernal Tools ================
@@ -1237,7 +1238,7 @@
 //[Name] == Cap && [Quality] == Set # [Itemmagicbonus] == 35   	// Sander's Paragon
 //[Name] == Bonewand && [Quality] == Set     //Sander's Superstition
 //[Name] == Heavygloves && [Quality] == Set # [Maxhp] == 40    // Sander's Taboo
-//[Name] == Heavyboots && [Quality] == Set # [Dexterity] == 10 && [Strength] == 5   // Sander's Riprap
+[Name] == Heavyboots && [Quality] == Set # [Dexterity] == 10 && [Strength] == 5   // Sander's Riprap
 
 //---------------------------------------------------------
 //================= Sazabi's Grand Tribute ================
@@ -1375,6 +1376,7 @@
 
 //[Name] == Boots && [Quality] == Unique && [Flag] != Ethereal # [Enhanceddefense] >= 10      // Hotspurs
 //[Name] == Boots && [Quality] == Unique && [Flag] != Ethereal # [Enhanceddefense] == 20      // Hotspurs Perfect
+[Name] == Chainboots && [Quality] == Unique     // Treads of Cthon
 [Name] == Lightplatedboots && [Quality] == Unique && [Flag] != Ethereal # [Enhanceddefense] >= 50		// Goblin Toes
 //[Name] == Lightplatedboots && [Quality] == Unique && [Flag] != Ethereal # [Enhanceddefense] == 60		// Goblin Toes Perfect
 //[Name] == Demonhideboots && [Quality] == Unique && [Flag] != Ethereal # [Enhanceddefense] >= 120 && [Itemgoldbonus] >= 40       // Infernostride
