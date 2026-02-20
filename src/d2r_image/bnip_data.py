@@ -9883,5 +9883,20 @@ BNIP_ITEM_TYPE_DATA = {
     ],
     "Standard of Heroes": [
         "quest"
+    ],
+    "Northern Worldstone Shard": [
+        "quest"
+    ],
+    "Eastern Worldstone Shard": [
+        "quest"
+    ],
+    "Southern Worldstone Shard": [
+        "quest"
+    ],
+    "Western Worldstone Shard": [
+        "quest"
+    ],
+    "Deep Worldstone Shard": [
+        "quest"
     ]
 }

@@ -6081,6 +6081,13 @@ ITEM_MISC = {
         "NTIPAliasType": 101,
         "dimensions": [1, 1]
     },
+    "deepworldstoneshard":
+    {
+        "DisplayName": "Deep Worldstone Shard",
+        "NTIPAliasClassID": 678,
+        "NTIPAliasType": 39,
+        "dimensions": [1, 1]
+    },
     "diabloshorn":
     {
         "DisplayName": "Diablo's Horn",
@@ -6107,6 +6114,13 @@ ITEM_MISC = {
         "DisplayName": "Ear",
         "NTIPAliasClassID": 556,
         "NTIPAliasType": 7,
+        "dimensions": [1, 1]
+    },
+    "easternworldstoneshard":
+    {
+        "DisplayName": "Eastern Worldstone Shard",
+        "NTIPAliasClassID": 675,
+        "NTIPAliasType": 39,
         "dimensions": [1, 1]
     },
     "elrune":
@@ -6581,6 +6595,13 @@ ITEM_MISC = {
         "NTIPAliasType": 74,
         "dimensions": [1, 1]
     },
+    "northernworldstoneshard":
+    {
+        "DisplayName": "Northern Worldstone Shard",
+        "NTIPAliasClassID": 674,
+        "NTIPAliasType": 39,
+        "dimensions": [1, 1]
+    },
     "ohmrune":
     {
         "DisplayName": "Ohm Rune",
@@ -6796,6 +6817,13 @@ ITEM_MISC = {
         "NTIPAliasType": 40,
         "dimensions": [1, 1]
     },
+    "southernworldstoneshard":
+    {
+        "DisplayName": "Southern Worldstone Shard",
+        "NTIPAliasClassID": 676,
+        "NTIPAliasType": 39,
+        "dimensions": [1, 1]
+    },
     "spleen":
     {
         "DisplayName": "Spleen",
@@ -6942,6 +6970,13 @@ ITEM_MISC = {
         "DisplayName": "Vex Rune",
         "NTIPAliasClassID": 635,
         "NTIPAliasType": 74,
+        "dimensions": [1, 1]
+    },
+    "westernworldstoneshard":
+    {
+        "DisplayName": "Western Worldstone Shard",
+        "NTIPAliasClassID": 677,
+        "NTIPAliasType": 39,
         "dimensions": [1, 1]
     },
     "zodrune":

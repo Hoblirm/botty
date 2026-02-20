@@ -48,6 +48,16 @@
 [Name] == Burningessenceofterror
 [Name] == Festeringessenceofdestruction
 
+//-----------------------------------------
+//================= Shards ================
+//-----------------------------------------
+
+[Name] == Northernworldstoneshard
+[Name] == Easternworldstoneshard
+[Name] == Southernworldstoneshard
+[Name] == Westernworldstoneshard
+[Name] == Deepworldstoneshard
+
 //----------------------------------------
 //================= Runes ================
 //----------------------------------------

@@ -72,7 +72,12 @@ def load_lookup():
         'twistedessenceofsuffering',
         'burningessenceofterror',
         'chargedessenceofhatred',
-        'festeringessenceofdestruction'
+        'festeringessenceofdestruction',
+        'northernworldstoneshard',
+        'easternworldstoneshard',
+        'southernworldstoneshard',
+        'westernworldstoneshard',
+        'deepworldstoneshard'
         ]:
         bases_by_name[extra_base.upper()] = item_lookup_by_display_name['misc'][extra_base]
     for consumable in [

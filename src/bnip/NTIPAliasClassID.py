@@ -1334,3 +1334,13 @@ NTIPAliasClassID["wae"]="672"
 NTIPAliasClassID["blasphemouscompendium"]="672"
 NTIPAliasClassID["waf"]="673"
 NTIPAliasClassID["blasphemousgrimoire"]="673"
+
+NTIPAliasClassID["northernworldstoneshard"]="674"
+
+NTIPAliasClassID["easternworldstoneshard"]="675"
+
+NTIPAliasClassID["southernworldstoneshard"]="676"
+
+NTIPAliasClassID["westernworldstoneshard"]="677"
+
+NTIPAliasClassID["deepworldstoneshard"]="678"
