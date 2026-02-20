@@ -3,6 +3,8 @@ import threading
 import cv2
 import numpy as np
 
+from item.pickit import PickIt
+from bnip.actions import should_keep, should_pickup
 from utils import mttkinter
 from utils.misc import color_filter, kill_thread
 from screen import grab
@@ -287,6 +289,26 @@ class GraphicDebuggerController:
         search_templates = ["A5_TOWN_0", "A5_TOWN_1", "A5_TOWN_2", "A5_TOWN_3"]
         while 1:
             img = grab()
+            combined_img = np.zeros(img.shape, dtype="uint8")
+            
+            # Show item detections
+            for key in Config().colors:
+                _, filterd_img = color_filter(img, Config().colors[key])
+                combined_img = cv2.bitwise_or(filterd_img, combined_img)
+            items, img = PickIt._locate_items()
+            if len(items) > 0:
+                print(items)
+            for item in items:
+                item_dict = item.as_dict()
+                pickup, raw_expression = should_pickup(item_dict)
+                cv2.putText(combined_img, item.Name, (item.Center["x"],item.Center["y"]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+                if pickup:
+                    #Use green circle for items that will be picked up
+                    cv2.circle(combined_img, (item.Center["x"],item.Center["y"]), 7, (0, 255, 0), 4)
+                else:
+                    #Use red circle for items that won't be picked up
+                    cv2.circle(combined_img, (item.Center["x"],item.Center["y"]), 7, (0, 0, 255), 4)
+
             # Show Town A5 template matches
             scores = {}
             for template_name in search_templates:
