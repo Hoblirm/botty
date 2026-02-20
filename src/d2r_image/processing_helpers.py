@@ -143,6 +143,8 @@ def crop_item_tooltip(image: np.ndarray, model: str = "hover-eng_inconsolata_inv
                 quality = ItemQuality.Magic.value
             elif _contains_color(first_row, "orange"):
                 quality = ItemQuality.Crafted.value
+            elif _contains_color(first_row, "red"):
+                quality = ItemQuality.Crafted.value
             elif _contains_color(first_row, "white"):
                 quality = ItemQuality.Normal.value
             elif _contains_color(first_row, "gray"):
@@ -195,6 +197,8 @@ def get_items_by_quality(crop_result: list[ItemText]):
             quality = ItemQuality.Runeword if is_runeword else item.quality
         elif item.quality.value == ItemQuality.Gray.value:
             quality = ItemQuality.Gray
+        elif item.quality.value == ItemQuality.Red.value:
+            quality = ItemQuality.Crafted
         else:
             quality = item.quality
         items_by_quality[quality.value].append({

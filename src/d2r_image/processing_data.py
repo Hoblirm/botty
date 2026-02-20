@@ -2,7 +2,7 @@ from enum import Enum
 from d2r_image.data_models import ItemQuality
 import cv2
 
-ITEM_COLORS = ['white', 'gray', 'blue', 'green', 'yellow', 'gold', 'orange']
+ITEM_COLORS = ['white', 'gray', 'blue', 'green', 'yellow', 'gold', 'orange', 'red']
 GAUS_FILTER = (21, 1)
 EXPECTED_HEIGHT_RANGE = [round(num) for num in [x / 1.5 for x in [14, 40]]]
 EXPECTED_WIDTH_RANGE = [round(num) for num in [x / 1.5 for x in [60, 1280]]]
@@ -16,7 +16,8 @@ QUALITY_COLOR_MAP = {
     'green': ItemQuality.Set,
     'yellow': ItemQuality.Rare,
     'gold': ItemQuality.Unique,
-    'orange': ItemQuality.Orange
+    'orange': ItemQuality.Orange,
+    'red': ItemQuality.Red
 }
 
 class Runeword(Enum):

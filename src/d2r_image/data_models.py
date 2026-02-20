@@ -34,6 +34,7 @@ class ItemQuality(Enum):
     Rune = 'rune'
     Runeword = 'runeword'
     Orange = 'orange'
+    Red = 'red'
     Superior = 'superior'
     LowQuality = 'lowquality'
     Cracked = 'lowquality'
