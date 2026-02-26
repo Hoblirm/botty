@@ -123,8 +123,8 @@ class HealthManager:
                             self._do_chicken(img)
                             continue
 
-                # give the chicken a 6 sec delay (from run start) to give time for a healing pot and avoid endless loop of chicken
-                if health_percentage <= Config().char["chicken"] and (time.time() - start) > 6:
+                # Default chicken if health is below threshold.
+                if health_percentage <= Config().char["chicken"]:
                     Logger.warning(f"Trying to chicken, player HP {(health_percentage*100):.1f}%!")
                     self._do_chicken(img)
                     continue

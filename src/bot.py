@@ -272,7 +272,10 @@ class Bot:
 
     def on_start_from_town(self):
         self._curr_loc = self._town_manager.wait_for_town_spawn()
-
+        if not self._curr_loc:
+            Logger.error("Could not detect game creation and ending game.")
+            return self.trigger_or_stop("end_game", failed=True)
+        
         # Handle picking up corpse in case of death
         if (corpse_present := is_visible(ScreenObjects.Corpse)):
             self._previous_run_failed = True
@@ -362,7 +365,7 @@ class Bot:
                 items = result_items
                 sell_items = any([item.sell for item in items]) if items else None
                 Logger.debug(f"Needs: {consumables.get_needs()}")
-        elif meters.get_health(img) < 0.6 or meters.get_mana(img) < 0.2:
+        elif meters.get_health(img) <= Config().char["take_rejuv_potion_health"] or meters.get_mana(img) <= Config().char["take_rejuv_potion_mana"]:
             Logger.info("Healing at next possible Vendor")
             self._curr_loc = self._town_manager.heal(self._curr_loc)
         if not self._curr_loc:
