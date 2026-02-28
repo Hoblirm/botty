@@ -365,6 +365,9 @@ BNIP_ALIAS_STAT_PATTERNS = {
     "{:d} to Assassin Skill Levels": [
         "83,6"
     ],
+    "{:d} to Warlock Skill Levels": [
+        "83,7"
+    ],
     "{:d} to Magic Arrow (Amazon only)": [
         "107,6"
     ],

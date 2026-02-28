@@ -563,7 +563,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Blasphemous Compendium",
         "NTIPAliasClassID": 672,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -578,13 +578,14 @@ ITEM_ARMOR = {
             }
         },
         "dimensions": [2, 2],
+        "uniques": ["ARSTORBAALOS"],
         "NTIPAliasClass": 2
     },
     "blasphemousgrimoire":
     {
         "DisplayName": "Blasphemous Grimoire",
         "NTIPAliasClassID": 673,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -599,6 +600,7 @@ ITEM_ARMOR = {
             }
         },
         "dimensions": [2, 2],
+        "uniques": ["ARSALDIABOLOS"],
         "NTIPAliasClass": 2
     },
     "bloodspirit":
@@ -913,7 +915,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Burnt Text",
         "NTIPAliasClassID": 664,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -928,6 +930,7 @@ ITEM_ARMOR = {
             }
         },
         "dimensions": [2, 2],
+        "uniques": ["MEASUREDWRATH"],
         "NTIPAliasClass": 1
     },
     "cantortrophy":
@@ -1189,7 +1192,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Codex",
         "NTIPAliasClassID": 661,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -1233,7 +1236,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Compendium",
         "NTIPAliasClassID": 662,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -1452,7 +1455,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Dark Codex",
         "NTIPAliasClassID": 666,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -1473,7 +1476,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Dark Tome",
         "NTIPAliasClassID": 665,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -2029,7 +2032,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Forgotten Volume",
         "NTIPAliasClassID": 669,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -2509,7 +2512,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Grimoire",
         "NTIPAliasClassID": 663,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -3802,7 +3805,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Occult Codex",
         "NTIPAliasClassID": 671,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -3823,7 +3826,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Occult Tome",
         "NTIPAliasClassID": 670,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -3838,6 +3841,7 @@ ITEM_ARMOR = {
             }
         },
         "dimensions": [2, 2],
+        "uniques": ["ARSDULMEPHISTOS"],
         "NTIPAliasClass": 2
     },
     "ogregauntlets":
@@ -3868,7 +3872,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Old Book",
         "NTIPAliasClassID": 659,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -4030,7 +4034,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Possessed Compendium",
         "NTIPAliasClassID": 667,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -4051,7 +4055,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Possessed Grimoire",
         "NTIPAliasClassID": 668,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -5319,7 +5323,7 @@ ITEM_ARMOR = {
     {
         "DisplayName": "Tome",
         "NTIPAliasClassID": 660,
-        "NTIPAliasType": 106,
+        "NTIPAliasType": 105,
         "NTIPAliasStatProps":
         {
             "194":
@@ -6728,7 +6732,7 @@ ITEM_MISC = {
         "NTIPAliasType": 10,
         "dimensions": [1, 1],
         "sets": ["ANGELICHALO", "CATHANSSEAL"],
-        "uniques": ["NAGELRING", "MANALDHEAL", "THESTONEOFJORDAN", "CONSTRICTINGRING", "BULKATHOSWEDDINGBAND", "DWARFSTAR", "RAVENFROST", "NATURESPEACE", "WISPPROJECTOR", "CARRIONWIND"]
+        "uniques": ["NAGELRING", "MANALDHEAL", "THESTONEOFJORDAN", "CONSTRICTINGRING", "BULKATHOSWEDDINGBAND", "DWARFSTAR", "RAVENFROST", "NATURESPEACE", "WISPPROJECTOR", "CARRIONWIND", "OPALVEIN", "SLING"]
     },
     "ruby":
     {
@@ -12007,6 +12011,80 @@ ITEM_UNIQUE_ITEMS = {
             "43": 30,
             "41": 30,
             "45": 30
+        }
+    },
+    "arsaldiabolos":
+    {
+        "DisplayName": "Ars Al'Diabolos",
+        "NTIPAliasClassID": 673,
+        "NTIPAliasType": 105,
+        "NTIPAliasStatProps":
+        {
+            "105": 25,
+            "16,0":
+            {
+                "min": 170,
+                "max": 200
+            },
+            "329":
+            {
+                "min": 15,
+                "max": 25
+            },
+            "39":
+            {
+                "min": 20,
+                "max": 30
+            },
+            "138":
+            {
+                "min": 5,
+                "max": 10
+            }
+        }
+    },
+    "arsdulmephistos":
+    {
+        "DisplayName": "Ars Dul'Mephistos",
+        "NTIPAliasClassID": 670,
+        "NTIPAliasType": 105,
+        "NTIPAliasStatProps":
+        {
+            "83,7": 2,
+            "16,0":
+            {
+                "min": 140,
+                "max": 170
+            },
+            "105":
+            {
+                "min": 20,
+                "max": 30
+            },
+            "80":
+            {
+                "min": 10,
+                "max": 25
+            }
+        }
+    },
+    "arstorbaalos":
+    {
+        "DisplayName": "Ars Tor'Baalos",
+        "NTIPAliasClassID": 672,
+        "NTIPAliasType": 105,
+        "NTIPAliasStatProps":
+        {
+            "16,0":
+            {
+                "min": 120,
+                "max": 150
+            },
+            "36":
+            {
+                "min": 5,
+                "max": 10
+            }
         }
     },
     "astreonsironward":
@@ -19737,6 +19815,42 @@ ITEM_UNIQUE_ITEMS = {
             }
         }
     },
+    "measuredwrath":
+    {
+        "DisplayName": "Measured Wrath",
+        "NTIPAliasClassID": 664,
+        "NTIPAliasType": 105,
+        "NTIPAliasStatProps":
+        {
+            "83,7": 1,
+            "105": 25,
+            "16,0":
+            {
+                "min": 130,
+                "max": 180
+            },
+            "39":
+            {
+                "min": 20,
+                "max": 30
+            },
+            "41":
+            {
+                "min": 20,
+                "max": 30
+            },
+            "43":
+            {
+                "min": 20,
+                "max": 30
+            },
+            "45":
+            {
+                "min": 20,
+                "max": 30
+            }
+        }
+    },
     "medusasgaze":
     {
         "DisplayName": "Medusa's Gaze",
@@ -25521,6 +25635,61 @@ ITEM_UNIQUE_ITEMS = {
             {
                 "min": 12,
                 "max": 12
+            }
+        }
+    },
+    "opalvein":
+    {
+        "DisplayName": "Opalvein",
+        "NTIPAliasClassID": 522,
+        "NTIPAliasType": 10,
+        "NTIPAliasStatProps":
+        {
+            "105": 10,
+            "138":
+            {
+                "min": 1,
+                "max": 3
+            },
+            "39":
+            {
+                "min": 6,
+                "max": 8
+            },
+            "41":
+            {
+                "min": 6,
+                "max": 8
+            },
+            "43":
+            {
+                "min": 6,
+                "max": 8
+            },
+            "45":
+            {
+                "min": 6,
+                "max": 8
+            }
+        }
+    },
+    "sling":
+    {
+        "DisplayName": "Sling",
+        "NTIPAliasClassID": 522,
+        "NTIPAliasType": 10,
+        "NTIPAliasStatProps":
+        {
+            "105": 10,
+            "1":
+            {
+                "min": 10,
+                "max": 15
+            },
+            "80":
+            {
+                "min": 10,
+                "max": 20
             }
         }
     },
@@ -35479,6 +35648,13 @@ REF_PATTERNS = {
         "itemaddclassskills",
         "itemaddassassinskills",
         "assassinskills"
+    ],
+    "{:d} to Warlock Skill Levels": [
+        "war",
+        "item_addclassskills",
+        "itemaddclassskills",
+        "itemaddwarlockskills",
+        "warlockskills"
     ],
     "{:d} to Attack Rating": [
         "att",

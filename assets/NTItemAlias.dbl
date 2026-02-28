@@ -100,6 +100,9 @@ NTIPAliasType["ruby"] = 99;
 NTIPAliasType["sapphire"] = 100;
 NTIPAliasType["topaz"] = 101;
 NTIPAliasType["skull"] = 102;
+NTIPAliasType["swordsandknives"] = 103;
+NTIPAliasType["spearsandpolearms"] = 104;
+NTIPAliasType["grimoires"] = 105;
 
 var NTIPAliasClassID = {};
 NTIPAliasClassID["hax"] = 0;    NTIPAliasClassID["handaxe"] = 0;
@@ -920,6 +923,7 @@ NTIPAliasStat["itemaddpaladinskills"] = [83,3];	NTIPAliasStat["paladinskills"] =
 NTIPAliasStat["itemaddbarbarianskills"] = [83,4];	NTIPAliasStat["barbarianskills"] = [83,4];
 NTIPAliasStat["itemadddruidskills"] = [83,5];	NTIPAliasStat["druidskills"] = [83,5];
 NTIPAliasStat["itemaddassassinskills"] = [83,6];	NTIPAliasStat["assassinskills"] = [83,6];
+NTIPAliasStat["itemaddwarlockskills"] = [83,7];	NTIPAliasStat["warlockskills"] = [83,7];
 
 NTIPAliasStat["unsentparam1"] = 84;
 NTIPAliasStat["itemaddexperience"] = 85;

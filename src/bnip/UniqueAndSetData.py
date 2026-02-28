@@ -126,6 +126,20 @@ UniqueAndSetData = {
                 "SPIKETHORN"
             ]
         ]
+    }, 
+    "blasphemouscompendium": {
+        "uniques": [
+            [
+                "ARSTORBAALOS"
+            ]
+        ]
+    },
+    "blasphemousgrimoire": {
+        "uniques": [
+            [
+                "ARSALDIABOLOS"
+            ]
+        ]
     },
     "bloodspirit": {
         "uniques": [
@@ -219,6 +233,13 @@ UniqueAndSetData = {
         "sets": [
             [
                 "HSARUSIRONFIST"
+            ]
+        ]
+    },
+    "burnttext": {
+        "uniques": [
+            [
+                "MEASUREDWRATH"
             ]
         ]
     },
@@ -905,6 +926,13 @@ UniqueAndSetData = {
             ]
         ]
     },
+    "occulttome": {
+        "uniques": [
+            [
+                "ARSDULMEPHISTOS"
+            ]
+        ]
+    },
     "ogregauntlets": {
         "uniques": [
             [
@@ -1457,7 +1485,9 @@ UniqueAndSetData = {
                 "RAVENFROST",
                 "NATURESPEACE",
                 "WISPPROJECTOR",
-                "CARRIONWIND"
+                "CARRIONWIND",
+                "OPALVEIN",
+                "SLING"
             ]
         ],
         "sets": [

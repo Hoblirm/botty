@@ -51,7 +51,8 @@ def fast_save_and_exit() -> bool:
         keyboard.send("esc") #Ensure we close anything opened (chat box, inv, options etc)
         keyboard.send("space") #To ensure we are in proper state, press space to close menu if openned
         keyboard.send("esc") #Open save and exit menu
-        mouse.move(*save_and_exit_pos) #Move the mouse to the save & exit button
+        mouse.move(*save_and_exit_pos, delay_factor=(0.02, 0.05)) #Move the mouse to the save & exit 
+        wait(0.02, 0.05)
         mouse.click("left")
     
         attempts += 1
