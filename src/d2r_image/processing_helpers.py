@@ -545,23 +545,37 @@ def set_set_and_unique_base_items(items_by_quality):
             if quality == ItemQuality.Unique.value and 'uniques' in item['base']:
                 if len(item['base']['uniques']) == 1:
                     unique_name = item['base']['uniques'][0].replace('_', ' ').upper()
-                    item['item'] = d2data_lookup.find_unique_item_by_name(unique_name, True)
-                    item['name'] = item['item']['DisplayName']
+                    item['item'] = d2data_lookup.find_unique_item_by_name(unique_name)
+                    if item['item']:
+                        item['name'] = item['item']['DisplayName']
+                    else:
+                        Logger.error(f"Failed to find unique {unique_name} for base {item['base']} in d2r data.")
                 else:
                     item['uniqueItems'] = []
                     for unique_item in item['base']['uniques']:
                         unique_name = unique_item.replace('_', ' ').upper()
-                        item['uniqueItems'].append(d2data_lookup.find_unique_item_by_name(unique_name, True))
+                        rs = d2data_lookup.find_unique_item_by_name(unique_name)
+                        if rs:
+                            item['uniqueItems'].append(rs)
+                        else:
+                            Logger.error(f"Failed to find unique {unique_name} for base {item['base']} in d2r data.")
             elif quality == ItemQuality.Set.value and 'sets' in item['base']:
                 if len(item['base']['sets']) == 1:
                     set_name = item['base']['sets'][0]
-                    item['item'] = d2data_lookup.find_set_item_by_name(set_name, ItemQuality.Set)
-                    item['name'] = item['item']['DisplayName']
+                    item['item'] = d2data_lookup.find_set_item_by_name(set_name)
+                    if item['item']:
+                        item['name'] = item['item']['DisplayName']
+                    else:
+                        Logger.error(f"Failed to find set {set_name} for base {item['base']} in d2r data.")
                 else:
                     item['setItems'] = []
-                    for unique_item in item['base']['sets']:
-                        unique_name = unique_item.replace('_', ' ').upper()
-                        item['setItems'].append(d2data_lookup.find_set_item_by_name(unique_name, True))
+                    for set_item in item['base']['sets']:
+                        set_name = set_item.replace('_', ' ').upper()
+                        rs = d2data_lookup.find_set_item_by_name(set_name)
+                        if rs:
+                            item['setItems'].append(rs)
+                        else:
+                            Logger.error(f"Failed to find set {set_name} for base {item['base']} in d2r data.")
 
 
 def build_d2_items(items_by_quality: dict) -> GroundItemList | None:

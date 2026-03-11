@@ -900,6 +900,13 @@ UniqueAndSetData = {
             ]
         ]
     },
+    "mirroredboots": {
+        "sets": [
+            [
+                "HORAZONSLEGACY"
+            ]
+        ]
+    },
     "mithrilcoil": {
         "uniques": [
             [
@@ -1294,6 +1301,11 @@ UniqueAndSetData = {
         ]
     },
     "trollbelt": {
+        "uniques": [
+            [
+                "GHEEDSWAGER"
+            ]
+        ],
         "sets": [
             [
                 "TRANGOULSGIRTH"
@@ -1455,7 +1467,13 @@ UniqueAndSetData = {
     "grandcharm": {
         "uniques": [
             [
-                "GHEEDSFORTUNE"
+                "GHEEDSFORTUNE",
+                "BLACKCLEFT",
+                "BONEBREAK",
+                "COLDRUPTURE",
+                "CRACKOFTHEHEAVENS",
+                "FLAMERIFT",
+                "ROTTINGFISSURE"
             ]
         ]
     },

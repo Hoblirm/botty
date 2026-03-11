@@ -108,9 +108,9 @@ def parse_item(quality, item, _call_count=1):
         ntip_alias_stat = find_bnip_pattern_match(lines)
     else:
         if quality == ItemQuality.Set.value and len(base_item['sets']) == 1:
-            found_item = find_set_item_by_name(base_item['sets'][0].replace('_', ' ').upper(), True)
+            found_item = find_set_item_by_name(base_item['sets'][0].replace('_', ' ').upper())
         elif quality == ItemQuality.Unique.value and len(base_item['uniques']) == 1:
-            found_item = find_unique_item_by_name(base_item['uniques'][0].replace('_', ' ').upper(), True)
+            found_item = find_unique_item_by_name(base_item['uniques'][0].replace('_', ' ').upper())
     # print("base_item", base_item)
 
     # bnip_item = Nip(

@@ -89,10 +89,10 @@ class PickIt:
         if item.Distance > Config().ui_pos["item_dist"] or force_tp:
             char.pre_move()
             char.move((item.CenterMonitor['x'], item.CenterMonitor['y']), force_move=force_tp)
-            wait(0.09, 0.12)
             # * Move mouse to the middle of the screen and click on the item you teleported to
             pos_m = convert_abs_to_monitor((0,-45))
             mouse.move(*pos_m)
+            time.sleep(0.1)
             mouse.click(button="left")
         else:
             char.pick_up_item((item.CenterMonitor['x'], item.CenterMonitor['y']), item_name=item.Name, prev_cast_start=0.1)

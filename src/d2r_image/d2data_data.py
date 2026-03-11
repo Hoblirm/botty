@@ -3693,6 +3693,7 @@ ITEM_ARMOR = {
             }
         },
         "dimensions": [2, 2],
+        "sets": ["HORAZONSLEGACY"],
         "NTIPAliasClass": 2
     },
     "mithrilcoil":
@@ -5450,6 +5451,7 @@ ITEM_ARMOR = {
         },
         "dimensions": [2, 1],
         "sets": ["TRANGOULSGIRTH"],
+        "uniques": ["GHEEDSWAGER"],
         "NTIPAliasClass": 2
     },
     "trollnest":
@@ -6315,7 +6317,7 @@ ITEM_MISC = {
         "NTIPAliasClassID": 605,
         "NTIPAliasType": 84,
         "dimensions": [1, 3],
-        "uniques": ["GHEEDSFORTUNE"]
+        "uniques": ["GHEEDSFORTUNE","BLACKCLEFT","BONEBREAK","COLDRUPTURE","CRACKOFTHEHEAVENS","FLAMERIFT","ROTTINGFISSURE"]
     },
     "greaterhealingpotion":
     {
@@ -8151,6 +8153,20 @@ ITEM_SET_ITEMS = {
             {
                 "min": -20,
                 "max": -20
+            }
+        }
+    },
+    "horazonslegacy":
+    {
+        "DisplayName": "Horazon's Legacy",
+        "NTIPAliasClassID": 458,
+        "NTIPAliasType": 15,
+        "NTIPAliasStatProps":
+        {
+            "96":
+            {
+                "min": 30,
+                "max": 30
             }
         }
     },
@@ -12688,6 +12704,15 @@ ITEM_UNIQUE_ITEMS = {
             }
         }
     },
+    "blackcleft":
+    {
+        "DisplayName": "Black Cleft",
+        "NTIPAliasClassID": 605,
+        "NTIPAliasType": 84,
+        "NTIPAliasStatProps":
+        {
+        }
+    },
     "blackhandkey":
     {
         "DisplayName": "Blackhand Key",
@@ -13419,6 +13444,15 @@ ITEM_UNIQUE_ITEMS = {
             },
             "72": 40,
             "73": 40
+        }
+    },
+    "bonebreak":
+    {
+        "DisplayName": "Bone Break",
+        "NTIPAliasClassID": 605,
+        "NTIPAliasType": 84,
+        "NTIPAliasStatProps":
+        {
         }
     },
     "boneflame":
@@ -14268,6 +14302,15 @@ ITEM_UNIQUE_ITEMS = {
             }
         }
     },
+    "coldrupture":
+    {
+        "DisplayName": "Cold Rupture",
+        "NTIPAliasClassID": 605,
+        "NTIPAliasType": 84,
+        "NTIPAliasStatProps":
+        {
+        }
+    },
     "coldsteeleye":
     {
         "DisplayName": "Coldsteel Eye",
@@ -14377,6 +14420,15 @@ ITEM_UNIQUE_ITEMS = {
                 "level": 5,
                 "skill": "Corpse Explosion"
             }
+        }
+    },
+    "crackoftheheavens":
+    {
+        "DisplayName": "Crack of the Heavens",
+        "NTIPAliasClassID": 605,
+        "NTIPAliasType": 84,
+        "NTIPAliasStatProps":
+        {
         }
     },
     "craintevomir":
@@ -16001,6 +16053,15 @@ ITEM_UNIQUE_ITEMS = {
             }
         }
     },
+    "flamerift":
+    {
+        "DisplayName": "Flame Rift",
+        "NTIPAliasClassID": 605,
+        "NTIPAliasType": 84,
+        "NTIPAliasStatProps":
+        {
+        }
+    },
     "fleshrender":
     {
         "DisplayName": "Fleshrender",
@@ -16277,6 +16338,25 @@ ITEM_UNIQUE_ITEMS = {
             {
                 "min": 10,
                 "max": 15
+            }
+        }
+    },
+    "gheedswager":
+    {
+        "DisplayName": "Gheed's Wager",
+        "NTIPAliasClassID": 463,
+        "NTIPAliasType": 19,
+        "NTIPAliasStatProps":
+        {
+            "16,0":
+            {
+                "min": 90,
+                "max": 150
+            },
+            "105":
+            {
+                "min": 10,
+                "max": 20
             }
         }
     },
@@ -21668,6 +21748,15 @@ ITEM_UNIQUE_ITEMS = {
                 "min": 50,
                 "max": 50
             }
+        }
+    },
+    "rottingfissure":
+    {
+        "DisplayName": "Rotting Fissure",
+        "NTIPAliasClassID": 605,
+        "NTIPAliasType": 84,
+        "NTIPAliasStatProps":
+        {
         }
     },
     "runemaster":

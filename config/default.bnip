@@ -339,6 +339,8 @@
 // <<<<<<<<< [ Magic Amulets ] >>>>>>>>>
 //[Name] == Amulet && [Quality] == Magic # [Itemchargedskill] == 54		// Tele Amulet
 //[Type] == Amulet && [Quality] == Magic # [Itemaddskilltab] >= 3 && ([Fcr] >= 10 || [Itemmagicbonus] >= 35)        // +3 Skill Fcr/Mf Amulet
+[Name] == Amulet && [Quality] == Magic # [Itemaddskilltab] >= 3 //+3 Amulet
+[Name] == Amulet && [Quality] == Magic # [Fireresist]+[Coldresist]+[Lightresist]+[Poisonresist] >= 84 //Chromatic amulet
 
 //-------------------------------------------
 //================= Circlets ================
@@ -470,6 +472,7 @@
 [Type] == Amulet && [Quality] == Rare # [Itemaddskilltab] >= 2 && [Fcr] == 10 && [Strength] >= 6 && [Dexterity] >= 6 && ([Maxhp] >= 25 || [Maxmana] >= 60 || [Fireresist]+[Lightresist]+[Coldresist]+[Poisonresist] >= 20 || [Itemdamagetomana] >= 12)
 
 // <<<<<<<<< [ Rare Rings ] >>>>>>>>>
+[Type] == Ring && [Quality] == Magic # [Maxmana] >= 91 || [Fireresist]+[Lightresist]+[Coldresist]+[Poisonresist] >= 48 //Scintillating and Bahamut Magic Rings
 [Type] == Ring && [Quality] == Rare # [Fcr] >= 10 && ([Strength] >= 15 || [Maxmana] >= 50 || [Maxhp] >= 20 || [Fireresist]+[Lightresist]+[Coldresist]+[Poisonresist] >= 25)     // Caster Ring
 [Type] == Ring && [Quality] == Rare # [Tohit] >= 100 && [Lifeleech]+[Manaleech] >= 9      // Melee Dual Leech Ring
 [Type] == Ring && [Quality] == Rare # [Tohit] >= 100 && [Strength] >= 15 && [Dexterity] >= 10 && ([Maxhp] >= 30 || [Fireresist]+[Lightresist]+[Coldresist]+[Poisonresist] >= 30)      // Melee Dual Stat Ring
@@ -681,35 +684,38 @@
 //[Name] == Sacredarmor && [Quality] == Superior && [Flag] != Ethereal # [Enhanceddefense] >= 10 && [Sockets] >= 4          // Socketed Sup
 
 // <<<<<<<<< [ Ethereal Socketed/Non-Socketed Armor ] >>>>>>>>>
-//[Name] == Archonplate && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
-//[Name] == Duskshroud && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
+[Name] == Archonplate && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
+[Name] == Duskshroud && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
 //[Name] == Mageplate && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] == 3)           // Socketed Eth
-//[Name] == Greathauberk && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
-//[Name] == Wirefleece && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
-//[Name] == Scarabhusk && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
-//[Name] == Wyrmhide && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
+[Name] == Greathauberk && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
+[Name] == Wirefleece && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
+[Name] == Scarabhusk && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
+[Name] == Wyrmhide && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
 //[Name] == Lightplate && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
-//[Name] == Shadowplate && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] == 4)           // Socketed Eth
-//[Name] == Sacredarmor && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] == 4)           // Socketed Eth
+[Name] == Shadowplate && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
+[Name] == Sacredarmor && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3)           // Socketed Eth
 
 // <<<<<<<<< [ Ethereal Superior Socketed/Non-Socketed Armor ] >>>>>>>>>
-//[Name] == Archonplate && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
-//[Name] == Duskshroud && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
-//[Name] == Mageplate && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] == 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
-//[Name] == Greathauberk && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
-//[Name] == Wirefleece && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
-//[Name] == Scarabhusk && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
-//[Name] == Wyrmhide && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
+[Name] == Archonplate && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
+[Name] == Duskshroud && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
+[Name] == Mageplate && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] == 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
+[Name] == Greathauberk && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
+[Name] == Wirefleece && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
+[Name] == Scarabhusk && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
+[Name] == Wyrmhide && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10          // Socketed Eth Sup
 //[Name] == Lightplate && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] == 3) && [Enhanceddefense] >= 10           // Socketed Eth Sup
-//[Name] == Shadowplate && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4) && [Enhanceddefense] >= 10           // Socketed Eth Sup
-//[Name] == Sacredarmor && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4) && [Enhanceddefense] >= 10           // Socketed Eth Sup
+[Name] == Shadowplate && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10           // Socketed Eth Sup
+[Name] == Sacredarmor && [Quality] == Superior && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 3) && [Enhanceddefense] >= 10           // Socketed Eth Sup
 
 //-----------------------------------------------
 //================= Helmet Bases ================
 //-----------------------------------------------
-[Name] == Mask && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3 //3os mask
+[Name] == Crown && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3 //3os helm twink
+[Name] == Mask && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3 //3os helm twink
+[Name] == Deathmask && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3 //3os helm
+
 //([Name] == Corona || [Name] == Demonhead || [Name] == Bonevisage || [Name] == Diadem) && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 0
-//([Name] == Corona || [Name] == Demonhead || [Name] == Bonevisage || [Name] == Diadem) && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3       // 3os Socketed
+([Name] == Corona || [Name] == Demonhead || [Name] == Bonevisage || [Name] == Diadem) && [Quality] == Normal # [Sockets] == 3       // Cure base
 ([Name] == Corona || [Name] == Demonhead || [Name] == Bonevisage || [Name] == Diadem) && [Quality] == Superior && [Flag] != Ethereal # [Enhanceddefense] >= 10 && [Sockets] == 0         // Delirium Or Dream Perfect
 ([Name] == Corona || [Name] == Demonhead || [Name] == Bonevisage || [Name] == Diadem) && [Quality] == Superior && [Flag] != Ethereal # [Enhanceddefense] >= 10 && [Sockets] == 3         // 3os Socketed Delirium Or Dream Perfect
 
@@ -794,13 +800,13 @@
 
 // <<<<<<<<< [ Non-Ethereal 1h Socketed Weapons ] >>>>>>>>>
 //[Name] == Berserkeraxe && [Quality] == Normal && [Flag] != Ethereal # [Sockets] >= 5          // Socketed
-[Name] == Crystalsword && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4          // Spirit base
-[Name] == Broadsword && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4          // Spirit base
-[Name] == Crystalsword && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 5     //CTA base
-[Name] == Doubleaxe && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 5          // CTA base
-[Name] == Flail && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4          // Hoto base
-[Name] == Militarypick && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3  // Crescent Moon base
-[Name] == Militarypick && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 5  // Doom base   
+[Name] == Crystalsword && [Quality] == Normal # [Sockets] == 4          // Spirit base mid
+[Name] == Broadsword && [Quality] == Normal # [Sockets] == 4          // Spirit base mid
+[Name] == Crystalsword && [Quality] == Normal # [Sockets] == 5     //CTA base
+[Name] == Doubleaxe && [Quality] == Normal # [Sockets] == 5          // CTA base
+[Name] == Flail && [Quality] == Normal # [Sockets] == 4          // Hoto base
+//[Name] == Militarypick && [Quality] == Normal # [Sockets] == 3  // Crescent Moon base
+//[Name] == Militarypick && [Quality] == Normal # [Sockets] == 5  // Doom base   
 ([Name] == Kris || [Name] == Cinquedeas || [Name] == Fangedknife) && [Quality] == Normal # [Skillabyss] >= 1 && ([Sockets] == 0 || [Sockets] == 3) //Void base       
 //[Name] == Phaseblade && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 5          // Socketed Greif base
 //[Name] == Phaseblade && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 3          // Socketed Lawbringer base
@@ -851,14 +857,14 @@
 //[Name] == Mancatcher && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 0         // Plain
 
 // <<<<<<<<< [ Non-Ethereal 2h Non-Superior Socketed Weapons ] >>>>>>>>>
-[Name] == Warscythe && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4  //Exceptional Insight bases
-[Name] == Bill && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4         
-[Name] == BattleScythe && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4
-[Name] == Partizan && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4
-[Name] == Becdecorbin && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4
-[Name] == Partizan && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4
-[Name] == Grimscythe && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4
-[Name] == Crypticaxe && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4    //Elite Insight bases
+[Name] == Warscythe && [Quality] == Normal # [Sockets] == 4  //Exceptional Insight bases mid
+[Name] == Bill && [Quality] == Normal # [Sockets] == 4         
+[Name] == BattleScythe && [Quality] == Normal # [Sockets] == 4
+[Name] == Partizan && [Quality] == Normal # [Sockets] == 4
+[Name] == Becdecorbin && [Quality] == Normal # [Sockets] == 4
+[Name] == Partizan && [Quality] == Normal # [Sockets] == 4
+[Name] == Grimscythe && [Quality] == Normal # [Sockets] == 4
+[Name] == Crypticaxe && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4    //Elite Insight bases mid
 [Name] == Greatpoleaxe && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4          
 [Name] == Giantthresher && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4          
 [Name] == Thresher && [Quality] == Normal && [Flag] != Ethereal # [Sockets] == 4         
@@ -894,7 +900,7 @@
 [Name] == Warpike && ([Quality] == Normal || [Quality] == Superior) && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4 )  //Echo Strike base
 [Name] == Thundermaul && ([Quality] == Normal || [Quality] == Superior) && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] == 4 || [Sockets] == 6 ) //Echo Strike base
 //[Name] == Scythe && [Quality] == Normal && [Flag] == Ethereal # [Sockets] == 4
-[Name] == Colossusvoulge && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4)          // Socketed Eth
+[Name] == Colossusvoulge && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4)          // Eth Insight Base
 [Name] == Thresher && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4)          // Socketed Eth
 [Name] == Giantthresher && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4)          // Socketed Eth
 [Name] == Crypticaxe && [Quality] == Normal && [Flag] == Ethereal # ([Sockets] == 0 || [Sockets] >= 4)          // Socketed Eth
@@ -1050,8 +1056,8 @@
 //--------------------------------------------------
 
 //[Name] == Buckler && [Quality] == Set     // Hsarus' Iron Fist
-//[Name] == Belt && [Quality] == Set # [Coldresist] == 20 && [Maxhp] == 20   // Hsarus' Iron Stay
-[Name] == Chainboots && [Quality] == Set     // Hsarus' Iron Heel
+[Name] == Belt && [Quality] == Set # [Coldresist] == 20 && [Maxhp] == 20   // Hsarus' Iron Stay twink
+[Name] == Chainboots && [Quality] == Set     // Hsarus' Iron Heel twink
 
 //-------------------------------------------------
 //================= Infernal Tools ================
@@ -1218,9 +1224,9 @@
 //================= Naj's Ancient Vestege ================
 //--------------------------------------------------------
 
-//[Name] == Circlet && [Quality] == Set     // Naj's Circlet
-//[Name] == Hellforgeplate && [Quality] == Set     // Naj's Light Plate
-//[Name] == Elderstaff && [Quality] == Set     // Naj's Puzzler
+[Name] == Circlet && [Quality] == Set     // Naj's Circlet
+[Name] == Hellforgeplate && [Quality] == Set     // Naj's Light Plate
+[Name] == Elderstaff && [Quality] == Set     // Naj's Puzzler
 
 //------------------------------------------------
 //================= Orphan's Call ================
@@ -1238,13 +1244,13 @@
 //[Name] == Cap && [Quality] == Set # [Itemmagicbonus] == 35   	// Sander's Paragon
 //[Name] == Bonewand && [Quality] == Set     //Sander's Superstition
 //[Name] == Heavygloves && [Quality] == Set # [Maxhp] == 40    // Sander's Taboo
-[Name] == Heavyboots && [Quality] == Set # [Dexterity] == 10 && [Strength] == 5   // Sander's Riprap
+[Name] == Heavyboots && [Quality] == Set # [Dexterity] == 10 && [Strength] == 5   // Sander's Riprap twink
 
 //---------------------------------------------------------
 //================= Sazabi's Grand Tribute ================
 //---------------------------------------------------------
 
-[Name] == Basinet && [Quality] == Set     // Sazabi's Mental Sheath
+[Name] == Basinet && [Quality] == Set     // Sazabi's Mental Sheath mid
 //[Name] == Crypticsword && [Quality] == Set     // Sazabi's Cobalt Redeemer
 //[Name] == Balrogskin && [Quality] == Set     // Sazabi's Ghost Liberator
 
@@ -1270,6 +1276,11 @@
 //[Name] == Cantortrophy && [Quality] == Set        // Trang-Oul's Wing
 //[Name] == Trollbelt && [Quality] == Set       // Trang-Oul's Girth
 [Name] == Heavybracers && [Quality] == Set        // Trang-Oul's Claws
+
+//----------------------------------------------------
+//================= Horazon's Splendor ================
+//----------------------------------------------------
+[Name] == Mirroredboots && [Quality] == Set        // Horazon's legacy
 
 //==========================================================================//
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<< Unique Items >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>//
@@ -1614,7 +1625,7 @@
 [Name] == Quarterstaff && [Quality] == Unique && [Flag] == Ethereal # [Enhanceddamage] == 300       // Eth Ribcracker Perfect
 //[Name] == Elderstaff && [Quality] == Unique # [Itemaddskilltab] >= 2      // Ondal's Wisdom (Eth/Non-Eth)
 [Name] == Elderstaff && [Quality] == Unique # [Itemaddskilltab] == 4 && [Magicdamagereduction] == 8 && [Energy] == 50 && [Plusdefense] == 550      // Ondal's Wisdom (Eth/Non-Eth) Perfect
-//[Idname] == Mangsongslesson     // Mang Song's Lesson
+[Name] == Archonstaff && [Quality] == Unique // Mang Song's Lesson
 
 //----------------------------------------------------------
 //================= Unique Throwing Weapons ================
