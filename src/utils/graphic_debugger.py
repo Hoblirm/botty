@@ -14,6 +14,9 @@ import template_finder
 import time
 from pather import Pather
 from char.sorceress import NovaSorc
+from screen import convert_screen_to_monitor
+import keyboard
+from utils.custom_mouse import mouse
 from PIL import ImageTk, Image
 import re
 
@@ -287,12 +290,41 @@ class GraphicDebuggerController:
                 combined_img = cv2.resize(combined_img, None, fx=self.image_resize_ratio.get(), fy=self.image_resize_ratio.get())
             # The processing was done in this thread, now pass it to the ui to display it on the window
             self.add_image(combined_img)
+    
+    def transmute(self):
+        flawless_diamond_loc = convert_screen_to_monitor((83,225))
+        gem_spacing_x = 47
+        cube_inv_loc = convert_screen_to_monitor((262, 437))
+        cube_spacing_y = -37
+        transmute_button_loc = convert_screen_to_monitor((225, 500))
+        for gem_slot in range(7):
+            keyboard.send('ctrl', do_release=False)
+            keyboard.send('shift', do_release=False)
+            mouse.move(flawless_diamond_loc[0]+(gem_spacing_x*gem_slot),flawless_diamond_loc[1])
+            time.sleep(0.1)
+            mouse.click("right")
+            keyboard.send('ctrl', do_release=True)
+            keyboard.send('shift', do_release=True)
+            mouse.move(transmute_button_loc[0],transmute_button_loc[1])
+            time.sleep(0.1)
+            mouse.click("left")
+            time.sleep(0.5)
+            for cube_slot in range(2):
+                keyboard.send('ctrl', do_release=False)
+                keyboard.send('shift', do_release=False)
+                mouse.move(cube_inv_loc[0],cube_inv_loc[1]+(cube_spacing_y*cube_slot))
+                time.sleep(0.1)
+                mouse.click("left")
+                keyboard.send('ctrl', do_release=True)
+                keyboard.send('shift', do_release=True)
 
     def run_old_debugger(self):
+        #while 1:
+        #    self.transmute()
+
         # Create Character
         #char = NovaSorc(Config().nova_sorc,Pather())
         #char.discover_capabilities()
-
         search_templates = ["A5_TOWN_0", "A5_TOWN_1", "A5_TOWN_2", "A5_TOWN_3"]
         while 1:
             img = grab()
