@@ -23,23 +23,19 @@ class Sorceress(IChar):
             self._action_frame = 5
         elif Config().char["casting_frames"] == 7:
             self._action_frame = 4
+        self._action_duration = self._action_frame * 0.04
 
-    def pick_up_item(self, pos: tuple[float, float], item_name: str = None, prev_cast_start: float = 0):
-        if self._skill_hotkeys["telekinesis"] and any(x in item_name for x in ['potion', 'misc_gold', 'tp_scroll']):
+    def pick_up_item(self, pos: tuple[float, float], item_name: str = None, distance: int = 0, tele: bool = True):
+        if self._skill_hotkeys["telekinesis"] and any(x in item_name for x in ['Potion', 'GOLD', 'Scroll of', 'Chest']):
             keyboard.send(self._skill_hotkeys["telekinesis"])
-            wait(0.1, 0.2)
             mouse.move(pos[0], pos[1])
-            wait(0.1, 0.2)
+            wait(0.1, 0.1)
             mouse.click(button="right")
-            # need about 0.4s delay before next capture for the item not to persist on screen
-            cast_start = time.time()
-            interval = (cast_start - prev_cast_start)
-            cast_duration_wait = (self._cast_duration - interval)
-            delay = 0.35 if cast_duration_wait <0 else (0.35+cast_duration_wait)
-            wait(delay,delay+0.1)
-            return cast_start
+            wait(self._cast_duration,self._cast_duration)  
+            self._stationary = True #We used telekinesis so we should be guaranteed stationary now
+            return True
         else:
-            return super().pick_up_item(pos, item_name, prev_cast_start)
+            return super().pick_up_item(pos, item_name, distance, tele)
 
     def select_by_template(
         self,

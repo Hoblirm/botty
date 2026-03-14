@@ -28,8 +28,7 @@ UniqueAndSetData = {
     "armet": {
         "uniques": [
             [
-                "STEELSHADE",
-                "DARKFEAR"
+                "STEELSHADE"
             ]
         ]
     },

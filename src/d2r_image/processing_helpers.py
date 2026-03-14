@@ -594,7 +594,9 @@ def build_d2_items(items_by_quality: dict) -> GroundItemList | None:
                     BoundingBoxMonitor=dict(zip(["x", "y", "w", "h"], bounding_box_monitor)),
                     Center=dict(zip(["x", "y"], center)),
                     CenterMonitor=dict(zip(["x", "y"], center_monitor)),
-                    Distance=round(math.dist((item['x'], item['y']), (Config().ui_pos["screen_width"] / 2, Config().ui_pos["screen_height"] / 2))),
+                    #The in game distance is the same for width and height. It takes the same time to move to the side of the screen as the top although less pixels.
+                    #Therefore, when calculating distance we weigh the y location 1.7x to give same weight as the x location.
+                    Distance=round(math.dist((item['x']+item['w']/2, (item['y']+item['h']+30)*1.777778), (Config().ui_pos["screen_width"] / 2, Config().ui_pos["screen_width"] / 2))),
                     Name=item['name'] if 'name' in item else item['text'],
                     Color=item['color'],
                     Quality=item['quality'].value,

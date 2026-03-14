@@ -23,6 +23,7 @@ class IChar:
     def __init__(self, skill_hotkeys: dict):
         self._skill_hotkeys = skill_hotkeys
         self._last_tp = time.time()
+        self._stationary = False #Are we guaranteed stationary while picking up items
         # Add a bit to be on the save side
         self._cast_duration = Config().char["casting_frames"] * 0.04 + 0.01
         self._attack_duration = Config().char["attack_frames"] * 0.04 + 0.01
@@ -88,12 +89,35 @@ class IChar:
     def on_capabilities_discovered(self, capabilities: CharacterCapabilities):
         pass
 
-    def pick_up_item(self, pos: tuple[float, float], item_name: str = None, prev_cast_start: float = 0):
-        mouse.move(pos[0], pos[1])
-        time.sleep(0.1)
-        mouse.click(button="left")
-        wait(0.25, 0.3)
-        return prev_cast_start
+    def pick_up_item(self, pos: tuple[float, float], item_name: str = None, distance: int = 0, tele: bool = True):
+        if tele and self.capabilities.can_teleport_natively and (distance >= Config().ui_pos["item_dist"]) and item_name != "Chest":
+            self.pre_move()
+            self.move(pos, force_tp=True)
+            self._stationary = True #We teleported so we should be guaranteed stationary now
+            #We teleported on top of the item, but there are no guarantees exactly where the item is located.
+            #Return false to indicate that we've not yet picked up the item.
+            return False
+        else:
+            mouse.move(pos[0], pos[1])
+            time.sleep(0.1)
+            mouse.click(button="left")
+
+            #When character moves, it typically doesn't move less than 30
+            if distance < 30:
+                distance = 30
+
+            #By default we ignore pickup distance and do a full delay in case we misclick
+            pickup_distance = 0
+
+            #If we are stationary, we can account for pickup distance to potentially allow instant pickups
+            if self._stationary:
+                pickup_distance = 110 #we can instant pickup items 110 units away
+                self._stationary = False #Moving so we don't guarantee stationary state (delay is accurate not exorbitant)
+
+            if distance > pickup_distance:
+                run_time = 0.003125 * (distance-pickup_distance) #estimated run speed of (2sec/640pixels) = 0.003125
+                wait(run_time, run_time) #wait until we move to item and pick it up          
+            return True
 
     def select_by_template(
         self,

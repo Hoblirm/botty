@@ -85,17 +85,19 @@ class PickIt:
         return False
 
     @staticmethod
-    def _yoink_item(item: GroundItem, char: IChar, force_tp=False) -> PickedUpResult:
-        if item.Distance > Config().ui_pos["item_dist"] or force_tp:
-            char.pre_move()
-            char.move((item.CenterMonitor['x'], item.CenterMonitor['y']), force_move=force_tp)
-            # * Move mouse to the middle of the screen and click on the item you teleported to
-            pos_m = convert_abs_to_monitor((0,-45))
-            mouse.move(*pos_m)
-            time.sleep(0.1)
-            mouse.click(button="left")
-        else:
-            char.pick_up_item((item.CenterMonitor['x'], item.CenterMonitor['y']), item_name=item.Name, prev_cast_start=0.1)
+    def _yoink_item(item: GroundItem, char: IChar) -> PickedUpResult:
+        if not char.pick_up_item((item.CenterMonitor['x'], item.CenterMonitor['y']), item_name=item.Name, distance=item.Distance):
+            wait(0.16, 0.16) #wait 4 frames for items to refresh
+            items, img = PickIt._locate_items()
+            tele_success = False
+            for i in items:
+                if item.Name == i.Name:
+                    tele_success = True
+                    Logger.info(f"Teled to pickup item {i.Name} and now at distance {i.Distance}")
+                    char.pick_up_item((i.CenterMonitor['x'], i.CenterMonitor['y']), item_name=i.Name, distance=i.Distance, tele=False)
+                    break
+            if not tele_success:
+                Logger.warning(f"Failed to scan item {i.Name} after tele.")
         return PickedUpResult.PickedUp
 
     def _pick_up_item(self, char: IChar, item: GroundItem) -> PickedUpResult:
@@ -117,7 +119,7 @@ class PickIt:
                 # * +1 because we failed at picking it up once already, we just can't detect the first failure (unless it is due to full inventory)
                 if char.capabilities.can_teleport_natively or char.capabilities.can_teleport_with_charges:
                     Logger.warning(f"Failed to pick up '{item.Name}' {self._fail_pickup_count + 1} times in a row, trying to teleport")
-                    return self._yoink_item(item, char, force_tp=True)
+                    return self._yoink_item(item, char)
                 pickup_failed = True
 
         if pickup_failed:
@@ -136,7 +138,7 @@ class PickIt:
         """
         self._reset_state()
         keyboard.send(Config().char["show_items"])
-        wait(0.15, 0.25)
+        wait(0.16, 0.16) #wait 4 frames for items to refresh
         pickit_phase_start = time.time()
 
         items, img = self._locate_items()
@@ -147,7 +149,7 @@ class PickIt:
         while time.time() - pickit_phase_start < self.timeout:
             # If you previously up an item, get dropped item data again and reset the loop
             if self._picked_up_item:
-                wait(0.38, 0.46)
+                wait(0.16, 0.16) #wait 4 frames for items to refresh
                 items, img = self._locate_items()
                 counter += 1
                 self._log_data(items, img, counter, _uuid)
@@ -165,9 +167,9 @@ class PickIt:
             # Check if we already decided whether this item type should be picked
             if item.ID in self._cached_pickit_items:
                 if self._cached_pickit_items[item.ID] and not (self._ignore_consumable(item) or self._ignore_gold(item)):
-                    pick_up_res = self._pick_up_item(char, item)
                     Logger.debug(f"Pick up expression: {raw_expression}")
-                    Logger.info(f"Attempt to pick up {item.Name}")
+                    Logger.info(f"Attempt to pick up {item.Name} at distance {item.Distance}")
+                    pick_up_res = self._pick_up_item(char, item)
             else:
                 item_dict = item.as_dict()
                 # if the item shouldn't be ignored, check if it should be picked up
@@ -175,9 +177,9 @@ class PickIt:
                     pickup, raw_expression = should_pickup(item_dict)
                     self._cached_pickit_items[item.ID] = pickup
                 if pickup:
-                    pick_up_res = self._pick_up_item(char, item)
                     Logger.debug(f"Pick up expression: {raw_expression}")
-                    Logger.info(f"Attempt to pick up {item.Name}")
+                    Logger.info(f"Attempt to pick up {item.Name} at distance {item.Distance}")
+                    pick_up_res = self._pick_up_item(char, item)
             match pick_up_res:
                 case PickedUpResult.InventoryFull:
                     Logger.warning(f"Inventory is full, could not pick {item.Name}. Stop pickit") #TODO Create logic to handle inventory full

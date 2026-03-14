@@ -281,7 +281,7 @@ ITEM_ARMOR = {
             }
         },
         "dimensions": [2, 2],
-        "uniques": ["STEELSHADE", "DARKFEAR"],
+        "uniques": ["STEELSHADE"],
         "NTIPAliasClass": 2
     },
     "assaulthelmet":

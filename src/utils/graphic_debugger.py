@@ -11,6 +11,9 @@ from screen import grab
 from config import Config
 import tkinter as tk
 import template_finder
+import time
+from pather import Pather
+from char.sorceress import NovaSorc
 from PIL import ImageTk, Image
 import re
 
@@ -286,6 +289,10 @@ class GraphicDebuggerController:
             self.add_image(combined_img)
 
     def run_old_debugger(self):
+        # Create Character
+        #char = NovaSorc(Config().nova_sorc,Pather())
+        #char.discover_capabilities()
+
         search_templates = ["A5_TOWN_0", "A5_TOWN_1", "A5_TOWN_2", "A5_TOWN_3"]
         while 1:
             img = grab()
@@ -305,6 +312,9 @@ class GraphicDebuggerController:
                 if pickup:
                     #Use green circle for items that will be picked up
                     cv2.circle(combined_img, (item.Center["x"],item.Center["y"]), 7, (0, 255, 0), 4)
+                    #print(f"Attempting to pick up {item.Name} at distance {item.Distance}")
+                    #PickIt._yoink_item(item,char)
+                    #print("Attempt complete!")
                 else:
                     #Use red circle for items that won't be picked up
                     cv2.circle(combined_img, (item.Center["x"],item.Center["y"]), 7, (0, 0, 255), 4)

@@ -47,7 +47,7 @@ class Chest:
                         consumables.increment_need("key", 1)
                     Logger.debug(f"Opening {template_match.name} ({template_match.score*100:.1f}% confidence)")
                     # TODO: Act as picking up a potion to support telekinesis. This workaround needs a proper solution.
-                    self._char.pick_up_item(template_match.center_monitor, 'potion')
+                    self._char.pick_up_item(template_match.center_monitor, 'Chest')
                     wait(0.33, 0.36)
                     if template_finder.search("LOCKED", grab(), threshold=0.85).valid:
                         templates.remove(template_match.name)
