@@ -94,7 +94,7 @@ class PickIt:
                 if item.Name == i.Name:
                     tele_success = True
                     Logger.info(f"Teled to pickup item {i.Name} and now at distance {i.Distance}")
-                    char.pick_up_item((i.CenterMonitor['x'], i.CenterMonitor['y']), item_name=i.Name, distance=i.Distance, tele=False)
+                    char.pick_up_item((i.CenterMonitor['x'], i.CenterMonitor['y']), item_name=i.Name, distance=i.Distance, force_run=True)
                     break
             if not tele_success:
                 Logger.warning(f"Failed to scan item {i.Name} after tele.")
@@ -139,6 +139,7 @@ class PickIt:
         self._reset_state()
         keyboard.send(Config().char["show_items"])
         wait(0.16, 0.16) #wait 4 frames for items to refresh
+        char._stationary = True #Character should start out stationary when pickup starts
         pickit_phase_start = time.time()
 
         items, img = self._locate_items()

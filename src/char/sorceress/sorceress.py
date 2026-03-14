@@ -25,7 +25,7 @@ class Sorceress(IChar):
             self._action_frame = 4
         self._action_duration = self._action_frame * 0.04
 
-    def pick_up_item(self, pos: tuple[float, float], item_name: str = None, distance: int = 0, tele: bool = True):
+    def pick_up_item(self, pos: tuple[float, float], item_name: str = None, distance: int = 0, force_run: bool = False):
         if self._skill_hotkeys["telekinesis"] and any(x in item_name for x in ['Potion', 'GOLD', 'Scroll of', 'Chest']):
             keyboard.send(self._skill_hotkeys["telekinesis"])
             mouse.move(pos[0], pos[1])
@@ -35,7 +35,7 @@ class Sorceress(IChar):
             self._stationary = True #We used telekinesis so we should be guaranteed stationary now
             return True
         else:
-            return super().pick_up_item(pos, item_name, distance, tele)
+            return super().pick_up_item(pos, item_name, distance, force_run)
 
     def select_by_template(
         self,
