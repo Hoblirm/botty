@@ -312,6 +312,12 @@ class Bot:
         # Look at belt to figure out how many pots need to be picked up
         belt.update_pot_needs()
 
+        # If we are doing trav_runs and are juvs are full we will remove extra runs
+        if ("run_trav" == next(iter(self._do_runs))) and (consumables.get_needs("rejuv") <= 1):
+            while (len(self._do_runs) > 1): 
+                skipped_run = self._do_runs.popitem()[0]
+                Logger.info(f"We are running trav and have full rejuvs so skipping {skipped_run}")
+
         # Inspect inventory
         items = None
         need_inspect = self._picked_up_items or self._previous_run_failed
