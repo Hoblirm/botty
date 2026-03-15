@@ -26,7 +26,7 @@ class Sorceress(IChar):
         self._action_duration = self._action_frame * 0.04
 
     def pick_up_item(self, pos: tuple[float, float], item_name: str = None, distance: int = 0, force_run: bool = False):
-        if self._skill_hotkeys["telekinesis"] and any(x in item_name for x in ['Potion', 'GOLD', 'Scroll of', 'Chest']):
+        if (distance < 600) and self._skill_hotkeys["telekinesis"] and any(x in item_name for x in ['Potion', 'GOLD', 'Scroll of', 'Chest']):
             keyboard.send(self._skill_hotkeys["telekinesis"])
             mouse.move(pos[0], pos[1])
             wait(0.1, 0.1)
