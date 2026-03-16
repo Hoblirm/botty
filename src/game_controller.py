@@ -55,8 +55,10 @@ class GameController:
                     self.game_stats.log_death(self.death_manager._last_death_screenshot)
                 elif did_chicken:
                     self.game_stats.log_chicken(self.health_manager._last_chicken_screenshot)
+                self.bot._stash_mutex.acquire() #Grab mutex to ensure stashing is not occuring 
                 self.bot.stop()
                 kill_thread(self.bot_thread)
+                self.bot._stash_mutex.release()
                 # Try to recover from whatever situation we are and go back to hero selection
                 if max_consecutive_fails_reached:
                     msg = f"Consecutive fails {self.game_stats.get_consecutive_runs_failed()} >= Max {Config().general['max_consecutive_fails']}. Quitting botty."

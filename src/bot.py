@@ -42,6 +42,7 @@ from run import Pindle, ShenkEld, Trav, Nihlathak, Arcane, Diablo, Vizier
 from town import TownManager, A1, A2, A3, A4, A5, town_manager
 
 from messages import Messenger
+from threading import Lock
 
 class Bot:
 
@@ -50,6 +51,7 @@ class Bot:
         self._messenger = Messenger()
         self._pather = Pather()
         self._pickit = PickIt()
+        self._stash_mutex = Lock()
 
         # Create Character
         match Config().char["type"]:
@@ -379,12 +381,16 @@ class Bot:
 
         # Stash stuff
         if keep_items or stash_gold:
+            
             Logger.info("Stashing items")
             self._curr_loc, result_items = self._town_manager.stash(self._curr_loc, items=items)
             sell_items = any([item.sell for item in result_items]) if result_items else None
+            #Acquire mutex to prevent controller from killing thread during transmutes
+            self._stash_mutex.acquire() 
             Logger.info("Running transmutes")
             self._transmute.run_transmutes(force=False)
             common.close()
+            self._stash_mutex.release()
             if not self._curr_loc:
                 return self.trigger_or_stop("end_game", failed=True)
             self._picked_up_items = False

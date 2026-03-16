@@ -8,7 +8,7 @@ from utils.misc import wait
 from ui_manager import wait_until_hidden, wait_until_visible, detect_screen_object, select_screen_object_match, ScreenObjects, list_visible_objects, is_visible
 from inventory import common
 from screen import convert_screen_to_monitor
-from threading import Thread, Lock
+from threading import Lock
 
 exit_mutex = Lock()
 
