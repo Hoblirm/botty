@@ -96,7 +96,7 @@ class Transmute:
 
     def open_cube(self):
         common.select_stash_page(0)
-        if (match := detect_screen_object(ScreenObjects.CubeInventory)).valid:
+        if (match := detect_screen_object(ScreenObjects.CubeStash)).valid:
             mouse.move(*match.center_monitor)
             self._wait()
             mouse.click("right")
@@ -206,6 +206,7 @@ class Transmute:
         if not force and not self.should_transmute():
             Logger.info(f"Skipping transmutes. Force: {force}, Game#: {self._game_stats._game_counter}")
             return None
+        
         transmute_gems=Config().configs["transmute"]["parser"]["transmute"]
         gemsToTransmute=[]
         gemsToPutBack=[]
@@ -224,7 +225,8 @@ class Transmute:
             if gem == "flawless":
                 gemsToTransmute+=FLAWLESS_GEMS
                 gemsToPutBack+=PERFECT_GEMS
-        self._run_gem_transmutes(gemsToTransmute,gemsToPutBack,gemLoggerName)
+        self._run_gem_transmutes(gemsToTransmute)
+        # self._run_gem_transmutes_lod(gemsToTransmute,gemsToPutBack,gemLoggerName)
 
     def check_cube_empty(self,gemsToTransmute) -> bool:
         self.open_cube()
@@ -232,10 +234,118 @@ class Transmute:
         self.close_cube()
         return area.count_empty() == 12
 
+    def move_cube_from_stash_to_inventory(self) -> bool:
+        common.select_stash_page(0)
+        if (match := wait_until_visible(ScreenObjects.CubeStash,2.0)).valid:
+            keyboard.send('ctrl', do_release=False)
+            mouse.move(*match.center_monitor)
+            wait(0.1,0.1)
+            mouse.click("left")
+            keyboard.send('ctrl', do_release=True)
+            if (match := wait_until_visible(ScreenObjects.CubeInventory,2.0)).valid:
+                return True
+            else:
+                Logger.error(f"Failed to move cube into inventory: {match.score}")
+        else:
+            Logger.error(f"Can't find cube in stash: {match.score}")
+            return False
+        
+    def move_cube_from_inventory_to_stash(self) -> bool:
+        common.select_stash_page(0)
+        if (match := wait_until_visible(ScreenObjects.CubeInventory,2.0)).valid:
+            keyboard.send('ctrl', do_release=False)
+            mouse.move(*match.center_monitor)
+            wait(0.1,0.1)
+            mouse.click("left")
+            keyboard.send('ctrl', do_release=True)
+            wait(0.16, 0.16)
+            if (match := wait_until_visible(ScreenObjects.CubeStash,2.0)).valid:
+                return True
+            else:
+                Logger.error(f"Failed to move cube from inventory back to stash: {match.score}")
+        else:
+            Logger.error(f"Can't find cube in inventory: {match.score}")
+            return False
+
     def inspect_cube(self,gemsToTransmute)-> InventoryCollection:
         return self.inspect_area(4, 3, roi=Config().ui_roi["cube_area_roi"], known_items=gemsToTransmute)
+    
+    def _run_gem_transmutes(self, gemsToTransmute) -> None:
+        Logger.info(f"Starting gem transmute")
 
-    def _run_gem_transmutes(self, gemsToTransmute,gemsToPutBack, gemLoggerName) -> None:
+        is_cube_empty = self.check_cube_empty(gemsToTransmute) 
+        if not is_cube_empty:
+            Logger.warning("Some items detected in the cube. Skipping transmute")
+            return
+        
+        if not self.move_cube_from_stash_to_inventory():
+            Logger.warning("Failed to move cube to inventory. Skipping transmute")
+            return
+        
+        common.select_tab(2)
+        flawless_diamond_loc = convert_screen_to_monitor((83,225))
+        gem_spacing_x = 47
+        cube_inv_loc = convert_screen_to_monitor((262, 437))
+        cube_spacing_y = -37
+        transmute_button_loc = convert_screen_to_monitor((225, 500))
+        gem_names = ["Diamonds", "Emeralds", "Rubies" , "Topazes", "Amethysts", "Sapphires", "Skulls"]
+        for gem_index in range(7):
+            Logger.info(f"Starting transmute of {gem_names[gem_index]}")
+            flawless_gems_remaining = True
+            transmute_count = 0
+            while flawless_gems_remaining:
+                #Attempt to use right click to move three flawless from stash to cube
+                keyboard.send('ctrl', do_release=False)
+                keyboard.send('shift', do_release=False)
+                mouse.move(flawless_diamond_loc[0]+(gem_spacing_x*gem_index),flawless_diamond_loc[1])
+                wait(0.1,0.1)
+                mouse.click("right")
+                keyboard.send('ctrl', do_release=True)
+                keyboard.send('shift', do_release=True)
+                wait(0.08)
+
+                #Quickly move mouse to transmute button to clear hover text
+                mouse.move(transmute_button_loc[0],transmute_button_loc[1])
+
+                #Wait and see if third transmute is empty (out of flawless gems)
+                wait(0.16,0.16)
+                if detect_screen_object(ScreenObjects.EmptyTransmuteSlot).valid:
+                    #If the third transmute slot is empty, we must be out of flawless gems.
+                    flawless_gems_remaining = False
+                    #There could still be 2 flawless gems in cube. Move 2nd gem back to stash
+                    keyboard.send('ctrl', do_release=False)
+                    keyboard.send('shift', do_release=False)
+                    mouse.move(cube_inv_loc[0],cube_inv_loc[1]+cube_spacing_y)
+                    wait(0.1,0.1)
+                    mouse.click("left")
+                    keyboard.send('ctrl', do_release=True)
+                    keyboard.send('shift', do_release=True)
+                    wait(0.08)
+                else:
+                    #Third slot is not empty, so we have 3 flawless gems. Press transmute (mouse already there)
+                    mouse.click("left")
+                    wait(0.5,0.5)
+                    transmute_count = transmute_count + 1
+                    if transmute_count > 33:
+                        flawless_gems_remaining = False
+                #If transmute successful we return the pgem to stash. Otherwise this returns the last remaining flawless.    
+                keyboard.send('ctrl', do_release=False)
+                keyboard.send('shift', do_release=False)
+                mouse.move(cube_inv_loc[0],cube_inv_loc[1])
+                wait(0.1,0.1)
+                mouse.click("left")
+                keyboard.send('ctrl', do_release=True)
+                keyboard.send('shift', do_release=True)
+                wait(0.08)
+            if transmute_count > 33:
+                Logger.error("Transmute of flawless gems exceeded 33 limit. Stopping and disabling transmute")
+                Config().configs["transmute"]["parser"]["transmute_every_x_game"]=0
+                break
+
+        self.move_cube_from_inventory_to_stash()
+        Logger.info(f"Finished gem transmute")
+
+    def _run_gem_transmutes_lod(self, gemsToTransmute,gemsToPutBack, gemLoggerName) -> None:
         Logger.info(f"Starting {gemLoggerName}gem transmute")
         self._last_game = self._game_stats._game_counter
         s = self.inspect_stash(gemsToTransmute)

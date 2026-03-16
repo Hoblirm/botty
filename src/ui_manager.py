@@ -84,6 +84,12 @@ class ScreenObjects:
     )
     CubeInventory=ScreenObject(
         ref=["HORADRIC_CUBE"],
+        roi="right_inventory",
+        threshold=0.8,
+        use_grayscale=True
+    )
+    CubeStash=ScreenObject(
+        ref=["HORADRIC_CUBE"],
         roi="left_inventory",
         threshold=0.8,
         use_grayscale=True
@@ -237,6 +243,11 @@ class ScreenObjects:
     EmptyStashSlot=ScreenObject(
         ref="STASH_EMPTY_SLOT",
         roi="left_inventory",
+        threshold=0.8,
+    )
+    EmptyTransmuteSlot=ScreenObject(
+        ref="STASH_EMPTY_SLOT",
+        roi="transmute_third_slot",
         threshold=0.8,
     )
     NotEnoughGold=ScreenObject(
