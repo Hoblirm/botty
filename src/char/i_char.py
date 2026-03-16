@@ -310,10 +310,14 @@ class IChar:
         while time.time() - start < 4:
             keyboard.send(Config().char["weapon_switch"])
             wait(0.3, 0.35)
-            self._select_skill(skill = "battle_command", mouse_click_type="right", delay=(0.1, 0.2))
+            keyboard.send(Config().char["battle_command"])
+            wait(0.1,0.2)
             if skills.is_right_skill_selected(["BC", "BO"]):
                 switch_sucess = True
                 break
+            else:
+                Logger.warning("Failed to find Battle Command, swapping weapons again.")
+                skill_before = cut_roi(grab(), Config().ui_roi["skill_right"])
 
         if not switch_sucess:
             Logger.warning("You dont have Battle Command bound, or you do not have CTA. ending CTA buff")
