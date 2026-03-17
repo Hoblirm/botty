@@ -246,10 +246,7 @@ class Poison_Necro(IChar):
         keyboard.send(Config().char["stand_still"], do_press=False)
 
 
-    def pre_buff(self):
-        #only CTA if pre trav
-        if Config().char["cta_available"]:
-            self._pre_buff_cta()
+    def cast_buffs(self, casting_delay: float):
         if self._shenk_dead==1:
             Logger.info("trav buff?")
             #self._heart_of_wolverine()

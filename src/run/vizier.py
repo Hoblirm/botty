@@ -300,7 +300,9 @@ class Vizier:
     def battle(self, do_pre_buff: bool) -> bool | tuple[Location, bool]:
         self._picked_up_items = False
         self.used_tps = 0
-        if do_pre_buff: self._char.pre_buff()
+        if do_pre_buff: 
+            if not self._char.pre_buff():
+                return False
 
         #Skip to pentagram ignoring trash at enterance until clearing enterance can be made more reliable
         if not self._river_of_flames(): return False
@@ -314,7 +316,9 @@ class Vizier:
         # After clearing trash around pentagram, attack and recalibrate at pentagram node and finally rebuff.
         if Config().char["kill_cs_trash"]: self._char.kill_cs_trash("pent_before_a")
         if not self._pather.traverse_nodes([602], self._char): return False
-        if Config().char["kill_cs_trash"] and do_pre_buff: self._char.pre_buff()
+        if Config().char["kill_cs_trash"] and do_pre_buff: 
+            if not self._char.pre_buff():
+                return False
 
         #Perform layout check and clear Vizier seal
         if not self._layoutcheck("A", "Vizier", "dia_a_layout", "layoutcheck_a", [610620], 0.81 , None, ["DIA_A2Y_LAYOUTCHECK0", "DIA_A2Y_LAYOUTCHECK1", "DIA_A2Y_LAYOUTCHECK2", "DIA_A2Y_LAYOUTCHECK4", "DIA_A2Y_LAYOUTCHECK5", "DIA_A2Y_LAYOUTCHECK6"], ["DIA_A1L_LAYOUTCHECK0", "DIA_A1L_LAYOUTCHECK4", "DIA_A1L_LAYOUTCHECK4LEFT", "DIA_A1L_LAYOUTCHECK1", "DIA_A1L_LAYOUTCHECK2", "DIA_A1L_LAYOUTCHECK3","DIA_A1L_LAYOUTCHECK4RIGHT","DIA_A1L_LAYOUTCHECK5"]): return False

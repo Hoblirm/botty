@@ -17,11 +17,6 @@ class Amazon(IChar):
         super().__init__(skill_hotkeys)
         self._pather = pather
 
-    def pre_buff(self):
-        if Config().char["cta_available"]:
-            self._pre_buff_cta()
-
-
     def _cast_valkyrie(self, cast_pos_abs: tuple[float, float], spray: float = 10):
         if self._skill_hotkeys["valkyrie"]:
             keyboard.send(self._skill_hotkeys["valkyrie"])

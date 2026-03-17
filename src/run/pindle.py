@@ -44,7 +44,8 @@ class Pindle:
         if not template_finder.search_and_wait(["PINDLE_0", "PINDLE_1"], threshold=0.65, timeout=20).valid:
             return False
         if do_pre_buff:
-            self._char.pre_buff()
+            if not self._char.pre_buff():
+                return False
         # move to pindle
         if self._char.capabilities.can_teleport_natively:
             self._pather.traverse_nodes_fixed("pindle_safe_dist", self._char)

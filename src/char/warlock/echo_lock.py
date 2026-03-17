@@ -19,16 +19,16 @@ class EchoLock(Warlock):
         Logger.info("Setting up EchoLock")
         super().__init__(*args, **kwargs)
 
-    def pre_buff(self):
-        super().pre_buff()
+    def cast_buffs(self, casting_delay: float):
+        super().cast_buffs(casting_delay)
         if self._skill_hotkeys["hex_bane"]:
             keyboard.send(self._skill_hotkeys["hex_bane"])
             mouse.click(button="right")
-            wait(self._cast_duration)
+            wait(casting_delay)
         if self._skill_hotkeys["eldritch_blast"]:
             keyboard.send(self._skill_hotkeys["eldritch_blast"])
             mouse.click(button="right")
-            wait(self._cast_duration)
+            wait(casting_delay)
 
     def _cast_echo_blast(self):
         n_move = (0, -10)

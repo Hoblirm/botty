@@ -26,6 +26,7 @@ class IChar:
         self._stationary = False #Are we guaranteed stationary while picking up items
         # Add a bit to be on the save side
         self._cast_duration = Config().char["casting_frames"] * 0.04 + 0.01
+        self._cta_cast_duration = Config().char["cta_casting_frames"] * 0.04 + 0.01
         self._attack_duration = Config().char["attack_frames"] * 0.04 + 0.01
         self.damage_scaling = float(Config().char.get("damage_scaling", 1.0))
         self.capabilities = None
@@ -320,28 +321,33 @@ class IChar:
                 skill_before = cut_roi(grab(), Config().ui_roi["skill_right"])
 
         if not switch_sucess:
-            Logger.warning("You dont have Battle Command bound, or you do not have CTA. ending CTA buff")
-            Config().char["cta_available"] = 0
+            Logger.error("You dont have Battle Command bound, or you do not have CTA. Ending CTA buff")
+            return False
         else:
             # We switched succesfully, let's pre buff
             mouse.click(button="right")
-            wait(self._cast_duration + 0.16, self._cast_duration + 0.18)
+            wait(self._cta_cast_duration, self._cta_cast_duration)
             self._select_skill(skill = "battle_orders", mouse_click_type="right", delay=(0.1, 0.2))
             mouse.click(button="right")
-            wait(self._cast_duration + 0.16, self._cast_duration + 0.18)
+            wait(self._cta_cast_duration, self._cta_cast_duration)
+            if Config().char["buff_with_cta"]:
+                self.cast_buffs(self._cta_cast_duration)
 
         # Make sure the switch back to the original weapon is good
         start = time.time()
+        switch_sucess = False
         while time.time() - start < 4:
             keyboard.send(Config().char["weapon_switch"])
             wait(0.3, 0.35)
             skill_after = cut_roi(grab(), Config().ui_roi["skill_right"])
             _, max_val, _, _ = cv2.minMaxLoc(cv2.matchTemplate(skill_after, skill_before, cv2.TM_CCOEFF_NORMED))
             if max_val > 0.9:
+                switch_sucess = True
                 break
             else:
                 Logger.warning("Failed to switch weapon, try again")
                 wait(0.5)
+        return switch_sucess
 
 
     def vec_to_monitor(self, target):
@@ -383,6 +389,15 @@ class IChar:
 
 
     def pre_buff(self):
+        if Config().char["cta_available"]:
+            if not self._pre_buff_cta():
+                return False
+        #If we are not buffing with CTA, we buff now that we swapped cta out
+        if not Config().char["buff_with_cta"]:
+            self.cast_buffs(self._cast_duration)
+        return True
+
+    def cast_buffs(self, casting_delay: float):
         pass
 
     def kill_pindle(self) -> bool:

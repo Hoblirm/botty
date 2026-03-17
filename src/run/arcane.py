@@ -81,7 +81,8 @@ class Arcane:
         for i, data in enumerate(path_arr):
             set_pause_state(False)
             if do_pre_buff:
-                self._char.pre_buff()
+                if not self._char.pre_buff():
+                    return False
             # calibrating at start and moving towards the end of the arm
             self._pather.traverse_nodes([data.calib_node_start], self._char, force_tp=True)
             if not self._pather.traverse_nodes_fixed(data.static_path_forward, self._char):

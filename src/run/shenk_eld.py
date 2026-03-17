@@ -41,7 +41,8 @@ class ShenkEld:
         if not template_finder.search_and_wait(["ELDRITCH_0", "ELDRITCH_0_V2", "ELDRITCH_0_V3", "ELDRITCH_START", "ELDRITCH_START_V2"], threshold=0.65, timeout=20).valid:
             return False
         if do_pre_buff:
-            self._char.pre_buff()
+            if not self._char.pre_buff():
+                return False
         if self._char.capabilities.can_teleport_natively:
             self._pather.traverse_nodes_fixed("eldritch_safe_dist", self._char)
         else:

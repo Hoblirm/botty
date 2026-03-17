@@ -30,28 +30,22 @@ class Warlock(IChar):
         elif Config().char["casting_frames"] == 9:
             self._action_frame = 5
 
-    def pre_buff(self):
-        n_move = (0, -10)
-        pos_n = convert_abs_to_monitor(n_move)
-        mouse.move(*pos_n)
-        if Config().char["cta_available"]:
-            self._pre_buff_cta()
-                                
+    def cast_buffs(self, casting_delay: float):               
         if self._skill_hotkeys["psychic_ward"]:
             keyboard.send(self._skill_hotkeys["psychic_ward"])
             wait(0.04)
             mouse.click(button="right")
-            wait(self._cast_duration)
+            wait(casting_delay)
         if self._skill_hotkeys["summon_demon"]:
             keyboard.send(self._skill_hotkeys["summon_demon"])
             wait(0.04)
             mouse.click(button="right")
-            wait(self._cast_duration)
+            wait(casting_delay)
         if self._skill_hotkeys["summon_demon2"]:
             keyboard.send(self._skill_hotkeys["summon_demon2"])
             wait(0.04)
             mouse.click(button="right")
-            wait(self._cast_duration)
+            wait(casting_delay)
 
     def _cast_deathmark(self, cast_pos_abs: tuple[float, float]):
         if self._skill_hotkeys["deathmark"]:

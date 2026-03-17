@@ -47,7 +47,8 @@ class Nihlathak:
         if not template_match.valid:
             return False
         if do_pre_buff:
-            self._char.pre_buff()
+            if not self._char.pre_buff():
+                return False
 
         # Depending on what template is found we do static pathing to the stairs on level1.
         # Its xpects that the static routes defined in game.ini are named: "ni1_a", "ni1_b", "ni1_c"

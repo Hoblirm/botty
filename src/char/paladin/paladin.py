@@ -29,13 +29,11 @@ class Paladin(IChar):
         elif Config().char["casting_frames"] == 9:
             self._action_frame = 6
 
-    def pre_buff(self):
-        if Config().char["cta_available"]:
-            self._pre_buff_cta()
+    def cast_buffs(self, casting_delay: float):
         keyboard.send(self._skill_hotkeys["holy_shield"])
         wait(0.04, 0.1)
         mouse.click(button="right")
-        wait(self._cast_duration, self._cast_duration + 0.06)
+        wait(casting_delay, casting_delay + 0.06)
 
     def pre_move(self, wait_tp: bool = False):
         # select teleport if available

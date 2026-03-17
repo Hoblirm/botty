@@ -69,24 +69,22 @@ class Sorceress(IChar):
         # In case telekinesis fails, try again with the base implementation
         return super().select_by_template(template_type, success_func, timeout, threshold)
 
-    def pre_buff(self):
-        if Config().char["cta_available"]:
-            self._pre_buff_cta()
+    def cast_buffs(self, casting_delay: float):
         if self._skill_hotkeys["energy_shield"]:
             keyboard.send(self._skill_hotkeys["energy_shield"])
             wait(0.1, 0.13)
             mouse.click(button="right")
-            wait(self._cast_duration)
+            wait(casting_delay)
         if self._skill_hotkeys["thunder_storm"]:
             keyboard.send(self._skill_hotkeys["thunder_storm"])
             wait(0.1, 0.13)
             mouse.click(button="right")
-            wait(self._cast_duration)
+            wait(casting_delay)
         if self._skill_hotkeys["frozen_armor"]:
             keyboard.send(self._skill_hotkeys["frozen_armor"])
             wait(0.1, 0.13)
             mouse.click(button="right")
-            wait(self._cast_duration)
+            wait(casting_delay)
 
     def _cast_static(self, duration: float = 1.4):
         if self._skill_hotkeys["static_field"]:

@@ -74,27 +74,27 @@ class Barbarian(IChar):
                 mouse.click(button="right")
                 wait(self._cast_duration + 0.02,self._cast_duration + 0.02)
 
-    def pre_buff(self):
+    def cast_buffs(self, casting_delay: float):
         if self._skill_hotkeys["howl"]:
             keyboard.send(self._skill_hotkeys["howl"])
             wait(0.05,0.05)
             mouse.click(button="right")
-            wait(self._cast_duration + 0.02, self._cast_duration + 0.02)
+            wait(casting_delay + 0.02, casting_delay + 0.02)
         if Config().char["battle_command"]:
             keyboard.send(Config().char["battle_command"])
             wait(0.05,0.05)
             mouse.click(button="right")
-            wait(self._cast_duration + 0.02, self._cast_duration + 0.02)
+            wait(casting_delay + 0.02, casting_delay + 0.02)
         if Config().char["battle_orders"]:
             keyboard.send(Config().char["battle_orders"])
             wait(0.05,0.05)
             mouse.click(button="right")
-            wait(self._cast_duration + 0.02, self._cast_duration + 0.02)
+            wait(casting_delay + 0.02, casting_delay + 0.02)
         if self._skill_hotkeys["shout"]:
             keyboard.send(self._skill_hotkeys["shout"])
             wait(0.05,0.05)
             mouse.click(button="right")
-            wait(self._cast_duration + 0.02, self._cast_duration + 0.02)
+            wait(casting_delay + 0.02, casting_delay + 0.02)
 
     def pre_move(self, wait_tp: bool = False):
         # select teleport if available

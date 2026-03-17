@@ -42,19 +42,17 @@ class Basic_Ranged(IChar):
             mouse.move(*cast_pos_monitor)
             mouse.click(button="right")
 
-    def pre_buff(self):
-        if Config().char["cta_available"]:
-            self._pre_buff_cta()
+    def cast_buffs(self, casting_delay: float):
         if self._skill_hotkeys["buff_1"]:
             keyboard.send(self._skill_hotkeys["buff_1"])
             wait(0.5, 0.15)
             mouse.click(button="right")
-            wait(0.5, 0.15)
+            wait(casting_delay, casting_delay)
         if self._skill_hotkeys["buff_2"]:
             keyboard.send(self._skill_hotkeys["buff_2"])
             wait(0.5, 0.15)
             mouse.click(button="right")
-            wait(0.5, 0.15)
+            wait(casting_delay, casting_delay)
 
 
 #bosses

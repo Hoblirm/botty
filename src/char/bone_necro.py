@@ -44,12 +44,17 @@ class Bone_Necro(IChar):
         mouse.release(button="right")
         keyboard.send(Config().char["stand_still"], do_press=False)
 
-    def pre_buff(self):
-        self.bone_armor()
-        #only CTA if pre trav
-        if Config().char["cta_available"]:
-            self._pre_buff_cta()
-        Logger.info("prebuff/cta")
+    def cast_buffs(self, casting_delay: float):
+        if self._skill_hotkeys["bone_armor"]:
+            keyboard.send(self._skill_hotkeys["bone_armor"])
+            wait(0.04, 0.1)
+            mouse.click(button="right")
+            wait(casting_delay)
+        if self._skill_hotkeys["clay_golem"]:
+            keyboard.send(self._skill_hotkeys["clay_golem"])
+            wait(0.04, 0.1)
+            mouse.click(button="right")
+            wait(casting_delay)
 
     def _clay_golem(self):
         Logger.debug('Casting clay golem')
@@ -57,18 +62,6 @@ class Bone_Necro(IChar):
         wait(0.05, 0.2)
         mouse.click(button="right")
         wait(self._cast_duration)
-
-    def bone_armor(self):
-        if self._skill_hotkeys["bone_armor"]:
-            keyboard.send(self._skill_hotkeys["bone_armor"])
-            wait(0.04, 0.1)
-            mouse.click(button="right")
-            wait(self._cast_duration)
-        if self._skill_hotkeys["clay_golem"]:
-            keyboard.send(self._skill_hotkeys["clay_golem"])
-            wait(0.04, 0.1)
-            mouse.click(button="right")
-            wait(self._cast_duration)
 
     def _bone_armor(self):
         if self._skill_hotkeys["bone_armor"]:

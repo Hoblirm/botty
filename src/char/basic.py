@@ -42,19 +42,17 @@ class Basic(IChar):
         wait(0.01, 0.05)
         keyboard.send(Config().char["stand_still"], do_press=False)
 
-    def pre_buff(self):
-        if Config().char["cta_available"]:
-            self._pre_buff_cta()
+    def cast_buffs(self, casting_delay: float):
         if self._skill_hotkeys["buff_1"]:
             keyboard.send(self._skill_hotkeys["buff_1"])
             wait(0.5, 0.15)
             mouse.click(button="right")
-            wait(0.5, 0.15)
+            wait(casting_delay, casting_delay)
         if self._skill_hotkeys["buff_2"]:
             keyboard.send(self._skill_hotkeys["buff_2"])
             wait(0.5, 0.15)
             mouse.click(button="right")
-            wait(0.5, 0.15)
+            wait(casting_delay, casting_delay)
 
     def pre_move(self):
         # select teleport if available

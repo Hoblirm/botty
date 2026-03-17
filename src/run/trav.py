@@ -41,7 +41,8 @@ class Trav:
         if not template_finder.search_and_wait(["TRAV_0", "TRAV_1", "TRAV_20"], threshold=0.65, timeout=20).valid:
             return False
         if do_pre_buff:
-            self._char.pre_buff()
+            if not self._char.pre_buff():
+                return False
         if self._char.capabilities.can_teleport_natively:
             self._pather.traverse_nodes_fixed("trav_safe_dist", self._char)
             self._pather.traverse_nodes([226], self._char, timeout=2.2, do_pre_move=False, force_tp=True, use_tp_charge=True)

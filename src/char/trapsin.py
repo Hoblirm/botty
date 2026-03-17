@@ -19,14 +19,12 @@ class Trapsin(IChar):
         super().__init__(skill_hotkeys)
         self._pather = pather
 
-    def pre_buff(self):
-        if Config().char["cta_available"]:
-            self._pre_buff_cta()
+    def cast_buffs(self, casting_delay: float):
         if self._skill_hotkeys["fade"]:
             keyboard.send(self._skill_hotkeys["fade"])
             wait(0.1, 0.13)
             mouse.click(button="right")
-            wait(self._cast_duration)
+            wait(casting_delay)
 
     def pre_move(self, wait_tp: bool = False):
         super().pre_move(wait_tp=wait_tp)
