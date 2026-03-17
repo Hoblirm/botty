@@ -272,7 +272,8 @@ class Transmute:
     
     def _run_gem_transmutes(self, gemsToTransmute) -> None:
         Logger.info(f"Starting gem transmute")
-
+        self._last_game = self._game_stats._game_counter
+        
         is_cube_empty = self.check_cube_empty(gemsToTransmute) 
         if not is_cube_empty:
             Logger.warning("Some items detected in the cube. Skipping transmute")
