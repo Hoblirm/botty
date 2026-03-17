@@ -332,6 +332,7 @@ class IChar:
             wait(self._cta_cast_duration, self._cta_cast_duration)
             if Config().char["buff_with_cta"]:
                 self.cast_buffs(self._cta_cast_duration)
+            wait(0.08,0.08) #Give extra time after last cast to allow weapon switch to be available
 
         # Make sure the switch back to the original weapon is good
         start = time.time()
