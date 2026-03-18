@@ -355,7 +355,7 @@ class Bot:
                 items = personal.inspect_items(game_stats=self._game_stats)
         keep_items = any([item.keep for item in items]) if items else None
         sell_items = any([item.sell for item in items]) if items else None
-        stash_gold = personal.get_inventory_gold_full()
+        stash_gold = personal.get_inventory_gold_full() and Config().char["stash_gold"]
 
         # Check if should need some healing
         img = grab()
