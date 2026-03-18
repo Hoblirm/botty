@@ -1,6 +1,7 @@
 import threading
 import time
 import cv2
+import keyboard
 
 from utils.auto_settings import check_settings
 from bot import Bot
@@ -59,6 +60,12 @@ class GameController:
                 self.bot.stop()
                 kill_thread(self.bot_thread)
                 self.bot._stash_mutex.release()
+                # clean up key presses that might be pressed in the bot_thread after killing
+                keyboard.release(Config().char["stand_still"])
+                keyboard.release(Config().char["show_items"])
+                keyboard.release("shift") #stashing/inventory management
+                keyboard.release("ctrl") #stashing/inventory management
+                
                 # Try to recover from whatever situation we are and go back to hero selection
                 if max_consecutive_fails_reached:
                     msg = f"Consecutive fails {self.game_stats.get_consecutive_runs_failed()} >= Max {Config().general['max_consecutive_fails']}. Quitting botty."
