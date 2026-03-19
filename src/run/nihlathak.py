@@ -10,6 +10,7 @@ from screen import convert_abs_to_monitor
 import random
 
 from ui import loading, waypoint
+from collections import OrderedDict
 
 class Nihlathak:
 
@@ -21,7 +22,7 @@ class Nihlathak:
         town_manager: TownManager,
         char: IChar,
         pickit: PickIt,
-        runs: list[str]
+        runs: OrderedDict
     ):
         self._pather = pather
         self._town_manager = town_manager

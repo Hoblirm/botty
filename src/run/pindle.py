@@ -6,6 +6,7 @@ import template_finder
 from town.town_manager import TownManager
 from utils.misc import wait
 from ui import loading
+from collections import OrderedDict
 
 class Pindle:
 
@@ -17,7 +18,7 @@ class Pindle:
         town_manager: TownManager,
         char: IChar,
         pickit: PickIt,
-        runs: list[str]
+        runs: OrderedDict
     ):
         self._pather = pather
         self._town_manager = town_manager

@@ -13,6 +13,7 @@ from screen import convert_abs_to_monitor, grab
 from ui_manager import detect_screen_object, ScreenObjects
 from ui import skills, loading, waypoint
 from inventory import belt, personal
+from collections import OrderedDict
 
 class Diablo:
 
@@ -24,7 +25,7 @@ class Diablo:
         town_manager: TownManager,
         char: IChar,
         pickit: PickIt,
-        runs: list[str]
+        runs: OrderedDict
     ):
         self._pather = pather
         self._town_manager = town_manager

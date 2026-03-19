@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from chest import Chest
 from ui import waypoint
 from health_manager import set_pause_state
+from collections import OrderedDict
 
 class Arcane:
 
@@ -21,7 +22,7 @@ class Arcane:
         town_manager: TownManager,
         char: IChar,
         pickit: PickIt,
-        runs: list[str]
+        runs: OrderedDict
     ):
         self._pather = pather
         self._town_manager = town_manager
