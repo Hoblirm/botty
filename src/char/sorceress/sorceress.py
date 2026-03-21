@@ -97,5 +97,7 @@ class Sorceress(IChar):
 
             start = time.time()
             while time.time() - start < duration:
-                mouse.click(button="right")
-                wait(self._cast_duration)
+                mouse.press(button="right")
+                wait(0.06, 0.06)
+                mouse.release(button="right")
+                wait(self._cast_duration-0.06)
