@@ -393,8 +393,8 @@ class IChar:
         if Config().char["cta_available"]:
             if not self._pre_buff_cta():
                 return False
-        #If we are not buffing with CTA, we buff now that we swapped cta out
-        if not Config().char["buff_with_cta"]:
+        #If we do not have a CTA, or we are not buffing with CTA; we buff now that we swapped cta out
+        if not Config().char["cta_available"] or not Config().char["buff_with_cta"]:
             self.cast_buffs(self._cast_duration)
         return True
 
