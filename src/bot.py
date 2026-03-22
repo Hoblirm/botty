@@ -346,6 +346,11 @@ class Bot:
                 items = personal.inspect_items(img, game_stats=self._game_stats, close_window=False)
         common.close()
         Logger.debug(f"Needs: {consumables.get_needs()}")
+
+        #Cast town buffs (ie burst of speed etc)
+        if not self._pre_buffed:
+            self._char.cast_town_buffs(self._curr_loc)
+
         if items:
             # if there are still items that need identifying, go to cain to identify them
             if any([item.need_id for item in items]):

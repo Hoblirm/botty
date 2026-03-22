@@ -401,6 +401,9 @@ class IChar:
     def cast_buffs(self, casting_delay: float):
         pass
 
+    def cast_town_buffs(self, curr_loc):
+        pass
+
     def kill_pindle(self) -> bool:
         raise ValueError("Pindle is not implemented!")
 

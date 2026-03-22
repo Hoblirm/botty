@@ -9,7 +9,7 @@ from logger import Logger
 from config import Config
 from utils.misc import wait
 from screen import convert_abs_to_screen, convert_abs_to_monitor
-from pather import Pather
+from pather import Pather, Location
 #import cv2 #for Diablo
 from item.pickit import PickIt #for Diablo
 
@@ -36,16 +36,35 @@ class Warlock(IChar):
             wait(0.04)
             mouse.click(button="right")
             wait(casting_delay)
+        
+    def cast_town_buffs(self, curr_loc: Location):
+        #Determine where to move mouse for summoning/consume based on location.
+        cast_pos_monitor = None
+        if curr_loc == Location.A3_TOWN_START:
+            cast_pos_monitor = convert_abs_to_monitor((260,120))
+        elif curr_loc == Location.A5_TOWN_START:
+            cast_pos_monitor = convert_abs_to_monitor((-340,-60))
+        else:
+            Logger.warning(f"Unimplemented town location {curr_loc} and skipping town buffs")
+            return
+        wait(0.08)
+        mouse.move(*cast_pos_monitor)
+
         if self._skill_hotkeys["summon_demon"]:
             keyboard.send(self._skill_hotkeys["summon_demon"])
             wait(0.04)
             mouse.click(button="right")
-            wait(casting_delay)
-        if self._skill_hotkeys["summon_demon2"]:
-            keyboard.send(self._skill_hotkeys["summon_demon2"])
+            wait(self._cast_duration)
+        if self._skill_hotkeys["consume"]:
+            keyboard.send(self._skill_hotkeys["consume"])
             wait(0.04)
             mouse.click(button="right")
-            wait(casting_delay)
+            wait(self._cast_duration)
+        if self._skill_hotkeys["summon_demon_2"]:
+            keyboard.send(self._skill_hotkeys["summon_demon_2"])
+            wait(0.04)
+            mouse.click(button="right")
+            wait(self._cast_duration)
 
     def _cast_deathmark(self, cast_pos_abs: tuple[float, float]):
         if self._skill_hotkeys["deathmark"]:
