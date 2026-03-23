@@ -47,8 +47,8 @@ class Warlock(IChar):
         else:
             Logger.warning(f"Unimplemented town location {curr_loc} and skipping town buffs")
             return
-        wait(0.08)
         mouse.move(*cast_pos_monitor)
+        wait(0.08)
 
         if self._skill_hotkeys["summon_demon"]:
             keyboard.send(self._skill_hotkeys["summon_demon"])
@@ -57,7 +57,7 @@ class Warlock(IChar):
             wait(self._cast_duration)
         if self._skill_hotkeys["consume"]:
             keyboard.send(self._skill_hotkeys["consume"])
-            wait(0.04)
+            wait(0.08) #extra wait to ensure summon is active
             mouse.click(button="right")
             wait(self._cast_duration)
         if self._skill_hotkeys["summon_demon_2"]:

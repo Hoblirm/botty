@@ -79,12 +79,11 @@ class FireLock(Warlock):
         self._cast_flame_wave(cast_pos_abs)
         if not skip_ring_of_fire:
             self._cast_ring_of_fire()
-            self._cast_ring_of_fire()
         self._cast_flame_wave(cast_pos_abs)
 
     def _cast_deathmark_combo(self, cast_pos_abs: tuple[float, float], skip_ring_of_fire=False):
         self._cast_deathmark(cast_pos_abs)
-        self._cast_chaos_combo(cast_pos_abs, skip_ring_of_fire)
+        self._cast_chaos_combo(cast_pos_abs,skip_ring_of_fire)
 
     def kill_pindle(self) -> bool:
         pindle_pos_abs = convert_screen_to_abs(Config().path["pindle_end"][0])
@@ -103,15 +102,30 @@ class FireLock(Warlock):
         return True
     
     def kill_council(self) -> bool:
-        start = time.time()
-        while (time.time() - start) < Config().char["atk_len_trav"]:
-            self._cast_chaos_combo((-325, -180))
-            self._cast_chaos_combo((30, -30))
+        self._cast_ring_of_fire()
+        self._cast_deathmark_combo((-325, -180))
+        self._cast_deathmark_combo((30, -30))
         self._move_to((300, -275))
-        start = time.time()
-        while (time.time() - start) < Config().char["atk_len_trav"]:
-            self._cast_chaos_combo((0, -10))
-            self._cast_chaos_combo((-200, -90))
+        self._cast_ring_of_fire()
+        self._cast_chaos_combo((0, -10))
+        self._cast_deathmark_combo((-200, -90))
         self._move_to((-500, 230))
         return True
-        
+    
+    # def kill_council(self) -> bool:
+    #     def clear_inside():
+    #         self._move_to((235, -310))
+    #         self._cast_ring_of_fire()
+    #         self._cast_chaos_combo((-50.0, -22.5))
+
+    #     def clear_outside():
+    #         self._move_to((-235, 282))#282 appears to be lowest move location due to game bar
+    #         self._cast_ring_of_fire()
+    #         self._cast_chaos_combo((-40.625, -22.5))
+
+    #     self._cast_ring_of_fire()
+    #     clear_inside()
+    #     clear_outside()
+    #     clear_inside()
+    #     clear_outside()
+    #     return True
