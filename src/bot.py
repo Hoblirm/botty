@@ -390,6 +390,7 @@ class Bot:
         if keep_items or stash_gold:
             
             Logger.info("Stashing items")
+            prev_loc = self._curr_loc
             self._curr_loc, result_items = self._town_manager.stash(self._curr_loc, items=items)
             sell_items = any([item.sell for item in result_items]) if result_items else None
             #Acquire mutex to prevent controller from killing thread during transmutes
@@ -399,7 +400,9 @@ class Bot:
             common.close()
             self._stash_mutex.release()
             if not self._curr_loc:
-                pass
+                #Couldn't find stash likely due to merc covering it.  Instead of ending game, we
+                #are probably better off trying to continue on until other failures occur.
+                self._curr_loc = prev_loc
                 #return self.trigger_or_stop("end_game", failed=True)
             else:
                 self._picked_up_items = False #stash success, reset items
