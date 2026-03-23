@@ -6,7 +6,9 @@ from pather import Pather, Location
 import template_finder
 from utils.misc import wait
 from ui_manager import ScreenObjects, is_visible
-
+from utils.custom_mouse import mouse
+from screen import convert_abs_to_monitor
+from logger import Logger
 
 class A3(IAct):
     def __init__(self, pather: Pather, char: IChar):
@@ -41,8 +43,16 @@ class A3(IAct):
             found = is_visible(ScreenObjects.GoldBtnInventory, img)
             found |= is_visible(ScreenObjects.GoldBtnStash, img)
             return found
-        if not self._char.select_by_template("A3_STASH", stash_is_open_func, telekinesis=True):
-            return False
+        if not self._char.select_by_template(["A3_STASH_LEFT","A3_STASH_RIGHT"], stash_is_open_func, timeout=4.0, telekinesis=True):
+            Logger.warning("Failed to find A3 stash. Could be blocked by merc, moving down.")
+            mon_pos = convert_abs_to_monitor((0,100))
+            mouse.move(*mon_pos)
+            wait(0.08)
+            mouse.click("left")
+            wait(1) #Wait to move to new position
+            if not self._char.select_by_template(["A3_STASH_LEFT","A3_STASH_RIGHT"], stash_is_open_func, timeout=4.0, telekinesis=True):
+                Logger.warning("Failed to find A3 stash after move.")
+                return False
         return Location.A3_STASH_WP
 
     def open_wp(self, curr_loc: Location) -> bool:
