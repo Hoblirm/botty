@@ -400,12 +400,8 @@ class Bot:
             common.close()
             self._stash_mutex.release()
             if not self._curr_loc:
-                #Couldn't find stash likely due to merc covering it.  Instead of ending game, we
-                #are probably better off trying to continue on until other failures occur.
-                self._curr_loc = prev_loc
-                #return self.trigger_or_stop("end_game", failed=True)
-            else:
-                self._picked_up_items = False #stash success, reset items
+                return self.trigger_or_stop("end_game", failed=True)
+            self._picked_up_items = False 
 
         # Check if we are out of tps or need repairing
         need_repair = is_visible(ScreenObjects.NeedRepair)
