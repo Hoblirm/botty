@@ -101,6 +101,25 @@ class FireLock(Warlock):
             self._pather.traverse_nodes((Location.A5_PINDLE_SAFE_DIST, Location.A5_PINDLE_END), self, timeout=1.0, do_pre_move=False)
         return True
     
+    def kill_eldritch(self) -> bool:
+        if self.capabilities.can_teleport_natively:
+            self._pather.traverse_nodes_fixed([(675, 30)], self)
+            start = time.time()
+            self._cast_ring_of_fire()
+            self._cast_deathmark_combo((0,-10))
+            while (time.time() - start) < Config().char["atk_len_eldritch"]:
+                self._cast_chaos_combo((0, -10))
+        else:
+            eldritch_pos_abs = convert_screen_to_abs(Config().path["eldritch_end"][0])
+            cast_pos_abs = [eldritch_pos_abs[0] * 0.80, eldritch_pos_abs[1] * 0.80]
+            start = time.time()
+            self._cast_deathmark_combo(cast_pos_abs)
+            while (time.time() - start) < Config().char["atk_len_eldritch"]:
+                self._cast_chaos_combo(cast_pos_abs)
+            x_m, y_m = convert_abs_to_monitor([eldritch_pos_abs[0], eldritch_pos_abs[1]])
+            self.move((x_m, y_m), force_move=True)
+        return True
+    
     def kill_council(self) -> bool:
         self._cast_ring_of_fire()
         self._cast_deathmark_combo((-325, -180))

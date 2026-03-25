@@ -10,14 +10,11 @@ from config import Config
 from utils.misc import wait
 from screen import convert_abs_to_screen, convert_abs_to_monitor
 from pather import Pather, Location
-#import cv2 #for Diablo
-from item.pickit import PickIt #for Diablo
 
 class Warlock(IChar):
-    def __init__(self, skill_hotkeys: dict, pather: Pather, pickit: PickIt):
+    def __init__(self, skill_hotkeys: dict, pather: Pather):
         super().__init__(skill_hotkeys)
         self._pather = pather
-        self._pickit = pickit
         self._picked_up_items = False
         self._last_click_cast = 0
         self._action_frame = 9
@@ -36,14 +33,21 @@ class Warlock(IChar):
             wait(0.04)
             mouse.click(button="right")
             wait(casting_delay)
+        if self._skill_hotkeys["summon_demon_2"]:
+            keyboard.send(self._skill_hotkeys["summon_demon_2"])
+            wait(0.04)
+            mouse.click(button="right")
+            wait(self._cast_duration)
         
     def cast_town_buffs(self, curr_loc: Location):
         #Determine where to move mouse for summoning/consume based on location.
         cast_pos_monitor = None
         if curr_loc == Location.A3_TOWN_START:
-            cast_pos_monitor = convert_abs_to_monitor((260,120))
+            cast_pos_monitor = convert_abs_to_monitor((500,170))
+        elif curr_loc == Location.A4_TOWN_START:
+            cast_pos_monitor = convert_abs_to_monitor((500,170))
         elif curr_loc == Location.A5_TOWN_START:
-            cast_pos_monitor = convert_abs_to_monitor((-340,-60))
+            cast_pos_monitor = convert_abs_to_monitor((-450,-60))
         else:
             Logger.warning(f"Unimplemented town location {curr_loc} and skipping town buffs")
             return
@@ -60,12 +64,7 @@ class Warlock(IChar):
             wait(0.08) #extra wait to ensure summon is active
             mouse.click(button="right")
             wait(self._cast_duration)
-        if self._skill_hotkeys["summon_demon_2"]:
-            keyboard.send(self._skill_hotkeys["summon_demon_2"])
-            wait(0.04)
-            mouse.click(button="right")
-            wait(self._cast_duration)
-
+        
     def _cast_deathmark(self, cast_pos_abs: tuple[float, float]):
         if self._skill_hotkeys["deathmark"]:
             keyboard.send(self._skill_hotkeys["deathmark"])

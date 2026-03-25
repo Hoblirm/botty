@@ -68,13 +68,13 @@ class Bot:
             case "hammerdin" | "paladin":
                 self._char: IChar = Hammerdin(Config().hammerdin, self._pather, self._pickit) #pickit added for diablo
             case "fohdin":
-                self._char: IChar = FoHdin(Config().fohdin, self._pather, self._pickit) #pickit added for diablo
+                self._char: IChar = FoHdin(Config().fohdin, self._pather) 
             case "abyss_lock" | "warlock":
-                self._char: IChar = AbyssLock(Config().abyss_lock, self._pather, self._pickit)
+                self._char: IChar = AbyssLock(Config().abyss_lock, self._pather)
             case "fire_lock":
-                self._char: IChar = FireLock(Config().fire_lock, self._pather, self._pickit)
+                self._char: IChar = FireLock(Config().fire_lock, self._pather)
             case "echo_lock":
-                self._char: IChar = EchoLock(Config().echo_lock, self._pather, self._pickit)
+                self._char: IChar = EchoLock(Config().echo_lock, self._pather)
             case "amazon" | "javazon":
                 self._char: IChar = Javazon(Config().javazon, self._pather)
             case "trapsin":
